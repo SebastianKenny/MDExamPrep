@@ -66,7 +66,7 @@ const EXAMS = [
     title: "🧬 Molecular Biology",
     description: "All things Alex Gao.",
     file: "GENE202_Quiz.html",
-    questionCount: 0,
+    questionCount: 150,
   },
  {
     section: "Foundations of Medicine",
@@ -74,7 +74,7 @@ const EXAMS = [
     title: "🦀 Cancer Biology",
     description: "Staging, Grading, Chemotherapy, Immunotherapy, Radiotherapy, and more.",
     file: "CancerBio_Quiz.html",
-    questionCount: 0,
+    questionCount: 116,
   },
   {
     section: "Foundations of Medicine",
