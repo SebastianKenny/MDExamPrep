@@ -22,7 +22,7 @@
 const EXAMS = [
   {
     section: "Renal & Endocrine",
-    icon: "🩺",
+    icon: "🫘",
     title: "INDE 222 — Renal & Endocrine",
     description: "Second-order thinking questions across 18 topics, from sodium handling to pituitary feedback.",
     file: "Renal_Endo_Quiz.html",
@@ -39,19 +39,20 @@ const EXAMS = [
   {
     section: "Pulmonary & MSK",
     icon: "🫁",
-    title: "Pulmonary & MSK",
-    description: "Integrated question bank spanning musculoskeletal topics (fractures, joints, back pain) and pulmonary topics (PE, lung cancer, transplant).",
-    file: "PulmMSK_Quiz.html",
-    questionCount: 230,
-  },
-  {
-    section: "Pulmonary & MSK",
-    icon: "🫁",
     title: "Early Lung Physiology",
     description: "Foundational pulmonary physiology — mechanics, ventilation, diffusion, airflow obstruction, and histology.",
     file: "EarlyLungPhysiology_Quiz.html",
     questionCount: 60,
   },
+  {
+    section: "Pulmonary & MSK",
+    icon: "🫁",
+    title: "Pulmonary & MSK",
+    description: "Integrated question bank spanning musculoskeletal topics (fractures, joints, back pain) and pulmonary topics (PE, lung cancer, transplant).",
+    file: "PulmMSK_Quiz.html",
+    questionCount: 230,
+  },
+
   {
     section: "Microbiology & Pharmacology",
     icon: "🦠",
