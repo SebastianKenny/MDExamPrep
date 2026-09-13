@@ -39,13 +39,13 @@ const EXAMS = [
   {
     section: "Pulmonary & MSK",
     icon: "🫁",
-    title: "Early Lung Physiology",
+    title: "Exam 1 - Lung Physiology",
     description: "Foundational pulmonary physiology — mechanics, ventilation, diffusion, airflow obstruction, and histology.",
     file: "EarlyLungPhysiology_Quiz.html",
     questionCount: 60,
   },
   {
-    section: "Pulmonary & MSK",
+    section: "Exam 2 - Pulmonary & MSK",
     icon: "🫁",
     title: "Pulmonary & MSK",
     description: "Integrated question bank spanning musculoskeletal topics (fractures, joints, back pain) and pulmonary topics (PE, lung cancer, transplant).",
