@@ -45,9 +45,9 @@ const EXAMS = [
     questionCount: 60,
   },
   {
-    section: "Exam 2 - Pulmonary & MSK",
+    section: "Pulmonary & MSK",
     icon: "🫁",
-    title: "Pulmonary & MSK",
+    title: "Exam 2 - Pulmonary & MSK",
     description: "Integrated question bank spanning musculoskeletal topics (fractures, joints, back pain) and pulmonary topics (PE, lung cancer, transplant).",
     file: "PulmMSK_Quiz.html",
     questionCount: 230,
