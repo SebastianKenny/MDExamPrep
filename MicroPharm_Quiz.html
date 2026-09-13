@@ -884,7 +884,18 @@ function showResults() {
 
   // Save this attempt to the signed-in user's history (no-op if not signed in)
   if (window.saveExamAttempt) {
-    window.saveExamAttempt(EXAM_NAME, activeBankKey, correct, total, activeQuizMode);
+    const wrongDetails = activeBank
+      .map((q, i) => ({ q, i }))
+      .filter(({ q, i }) => answers[i] !== null && answers[i] !== q.ans)
+      .map(({ q, i }) => ({
+        q: q.q,
+        opts: q.opts,
+        yourAnswer: answers[i],
+        correctAnswer: q.ans,
+        exp: q.exp,
+        lecture: q.lecture || null,
+      }));
+    window.saveExamAttempt(EXAM_NAME, activeBankKey, correct, total, activeQuizMode, wrongDetails);
   }
 
   document.getElementById('final-score-num').textContent = correct;

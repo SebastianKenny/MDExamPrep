@@ -148,9 +148,12 @@
   });
 
   // ── Save a completed exam attempt (call from a quiz's showResults) ──
-  window.saveExamAttempt = async function (examName, bankKey, correct, total, mode) {
+  window.saveExamAttempt = async function (examName, bankKey, correct, total, mode, wrong) {
     const user = auth.currentUser;
     if (!user) return; // not signed in — silently skip, quiz still works normally
+    // Cap stored wrong-question detail so a very low score on a huge quiz can't
+    // exceed Firestore's 1MB document size limit.
+    const cappedWrong = Array.isArray(wrong) ? wrong.slice(0, 150) : [];
     try {
       await db.collection('attempts').add({
         uid: user.uid,
@@ -160,6 +163,7 @@
         total: total,
         pct: total > 0 ? Math.round((correct / total) * 100) : 0,
         mode: mode || 'tutored',
+        wrong: cappedWrong,
         timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       });
     } catch (e) {
