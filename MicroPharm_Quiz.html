@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Microbiology & Pharmacology — Review</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e1117;
+    --surface: #161b27;
+    --card: #1c2333;
+    --border: #2a3347;
+    --accent: #3ecf8e;
+    --accent2: #5b8dee;
+    --accent3: #e07b3e;
+    --warn: #f6a623;
+    --danger: #e05252;
+    --text: #e8edf5;
+    --muted: #6b7a99;
+    --radius: 12px;
+  }
+  body.light {
+    --bg: #f0f4fb;
+    --surface: #ffffff;
+    --card: #ffffff;
+    --border: #d0d9ed;
+    --accent: #1a9e67;
+    --accent2: #3060cc;
+    --accent3: #c05a1a;
+    --warn: #c47a00;
+    --danger: #c43030;
+    --text: #0f1a2e;
+    --muted: #5a6a8a;
+  }
+  body.light .header { background: linear-gradient(135deg, #1a3a7a 0%, #2d1a5e 100%); }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; transition: background 0.2s, color 0.2s; }
+
+  .header {
+    background: linear-gradient(135deg, #0d1f3c 0%, #1a0e2e 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .header-left h1 { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--accent); letter-spacing: -0.5px; }
+  .header-left p { font-size: 0.78rem; color: var(--muted); font-family: 'DM Mono', monospace; margin-top: 2px; }
+  .score-badge { background: var(--card); border: 1px solid var(--border); border-radius: 50px; padding: 10px 20px; font-family: 'DM Mono', monospace; font-size: 0.85rem; color: var(--accent); }
+
+  .progress-bar-wrap { height: 3px; background: var(--border); width: 100%; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent2), var(--accent)); transition: width 0.4s ease; }
+
+  .main { max-width: 820px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  #screen-start { text-align: center; padding: 60px 24px; }
+  #screen-start h2 { font-family: 'DM Serif Display', serif; font-size: 2.4rem; line-height: 1.2; margin-bottom: 12px; }
+  #screen-start h2 em { color: var(--accent); font-style: italic; }
+  #screen-start > p { color: var(--muted); max-width: 560px; margin: 0 auto 40px; line-height: 1.7; font-size: 0.95rem; }
+
+  .section-label { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 1.5px; color: var(--muted); text-transform: uppercase; margin-bottom: 12px; text-align: left; }
+  .section-divider { border: none; border-top: 1px solid var(--border); margin: 28px 0 20px; }
+
+  /* ── MODE SELECTOR (tutored / non-tutored) ── */
+  .mode-select-wrap { max-width: 560px; margin: 0 auto 36px; text-align: left; }
+  .mode-select-label { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 1.5px; color: var(--muted); text-transform: uppercase; margin-bottom: 10px; text-align: center; }
+  .mode-toggle { display: flex; gap: 12px; }
+  .mode-btn { flex: 1; background: var(--card); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 16px 18px; cursor: pointer; text-align: left; transition: all 0.15s; }
+  .mode-btn:hover { border-color: var(--accent2); }
+  .mode-btn h4 { font-family: 'DM Sans', sans-serif; font-size: 0.92rem; font-weight: 600; color: var(--text); margin-bottom: 4px; display: flex; align-items: center; gap: 7px; }
+  .mode-btn p { font-size: 0.76rem; color: var(--muted); line-height: 1.45; }
+  .mode-btn.mode-active { border-color: var(--accent2); background: rgba(91,141,238,0.08); }
+  .mode-btn.mode-active h4 { color: var(--accent2); }
+  .mode-radio-dot { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid var(--muted); display: inline-block; flex-shrink: 0; }
+  .mode-btn.mode-active .mode-radio-dot { border-color: var(--accent2); background: var(--accent2); }
+
+  .mode-badge { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.5px; padding: 4px 11px; border-radius: 50px; border: 1px solid; white-space: nowrap; }
+  .mode-badge.tutored { color: var(--accent); border-color: rgba(62,207,142,0.35); background: rgba(62,207,142,0.08); }
+  .mode-badge.nontutored { color: var(--accent2); border-color: rgba(91,141,238,0.35); background: rgba(91,141,238,0.08); }
+
+  .option-btn.selected-neutral { border-color: var(--accent2); background: rgba(91,141,238,0.08); }
+  .option-btn.selected-neutral .option-letter { color: var(--accent2); }
+
+  .set-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 16px; text-align: left; }
+  .set-card { background: var(--card); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 20px 22px; cursor: pointer; transition: all 0.15s; }
+  .set-card:hover { border-color: var(--accent2); background: rgba(91,141,238,0.07); }
+  .set-card h3 { font-family: 'DM Serif Display', serif; font-size: 1.05rem; margin-bottom: 5px; color: var(--accent2); }
+  .set-card p { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+  .set-card .q-count { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--accent); margin-top: 10px; }
+  .set-card.all-card h3 { color: var(--accent); }
+  .set-card.all-card { border-color: rgba(62,207,142,0.3); }
+  .set-card.cardio-card h3 { color: #e07b3e; }
+  .set-card.cardio-card { border-color: rgba(224,123,62,0.25); }
+  .set-card.cardio-card:hover { border-color: var(--accent3); background: rgba(224,123,62,0.06); }
+  .set-card.all-cardio-card { border-color: rgba(224,123,62,0.4); }
+  .set-card.all-cardio-card h3 { color: var(--accent3); }
+  .set-card.all-cardio-card:hover { border-color: var(--accent3); background: rgba(224,123,62,0.08); }
+
+  #screen-quiz { display: none; }
+  #q-tracker {
+    position: fixed; left: 0; top: 0; bottom: 0; width: 60px;
+    background: var(--surface); border-right: 1px solid var(--border);
+    overflow-y: auto; padding: 14px 8px; z-index: 500; display: none;
+  }
+  #q-tracker.show { display: block; }
+  #q-tracker .tracker-dot {
+    position: relative; width: 40px; height: 34px; margin: 0 auto 6px;
+    border-radius: 8px; border: 1.5px solid var(--border); background: var(--card);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted);
+    cursor: pointer; transition: border-color 0.15s, background 0.15s;
+  }
+  #q-tracker .tracker-dot:hover { border-color: var(--accent2); }
+  #q-tracker .tracker-dot.answered { background: rgba(91,141,238,0.15); border-color: var(--accent2); color: var(--accent2); }
+  #q-tracker .tracker-dot.correct { background: rgba(62,207,142,0.18); border-color: var(--accent); color: var(--accent); }
+  #q-tracker .tracker-dot.wrong { background: rgba(224,82,82,0.18); border-color: var(--danger); color: var(--danger); }
+  #q-tracker .tracker-dot.current { outline: 2px solid var(--text); outline-offset: 1px; }
+  #q-tracker .tracker-dot .flag-mark { position: absolute; top: -6px; right: -6px; font-size: 0.65rem; line-height: 1; }
+  body.tracker-active .header, body.tracker-active .main { margin-left: 60px; }
+  @media (max-width: 900px) {
+    /* On narrow screens, the sidebar becomes a horizontal scrollable bar
+       pinned to the bottom of the viewport instead of disappearing. */
+    #q-tracker.show {
+      display: flex; flex-direction: row; align-items: center;
+      left: 0; right: 0; top: auto; bottom: 0; width: auto; height: 58px;
+      padding: 8px 10px; overflow-x: auto; overflow-y: hidden;
+      border-right: none; border-top: 1px solid var(--border);
+    }
+    #q-tracker .tracker-dot { margin: 0 6px 0 0; flex: 0 0 auto; }
+    body.tracker-active .header, body.tracker-active .main { margin-left: 0; }
+    body.tracker-active .main { padding-bottom: 90px; }
+  }
+  .question-counter { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--muted); margin-bottom: 10px; }
+  .question-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; margin-bottom: 24px; }
+  .lecture-tag { display: inline-block; background: rgba(94,141,238,0.12); color: var(--accent2); font-family: 'DM Mono', monospace; font-size: 0.7rem; padding: 3px 10px; border-radius: 4px; margin-bottom: 16px; letter-spacing: 0.5px; }
+  .question-text { font-size: 1.08rem; line-height: 1.65; font-weight: 400; color: var(--text); }
+
+  .options-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .option-btn { width: 100%; text-align: left; background: var(--surface); border: 1.5px solid var(--border); border-radius: 10px; padding: 14px 18px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; color: var(--text); transition: all 0.15s ease; display: flex; align-items: flex-start; gap: 12px; }
+  .option-btn:hover:not(:disabled) { border-color: var(--accent2); background: rgba(91,141,238,0.06); }
+  .option-letter { font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--muted); min-width: 18px; margin-top: 1px; }
+  .option-btn.correct { border-color: var(--accent); background: rgba(62,207,142,0.1); }
+  .option-btn.correct .option-letter { color: var(--accent); }
+  .option-btn.wrong { border-color: var(--danger); background: rgba(224,82,82,0.1); }
+  .option-btn.wrong .option-letter { color: var(--danger); }
+  .option-btn:disabled { cursor: default; }
+  .option-btn.struck { opacity: 0.38; text-decoration: line-through; text-decoration-color: var(--danger); border-color: rgba(224,82,82,0.25); }
+  .option-btn.struck .option-letter { color: var(--danger); }
+  .strike-btn { background: none; border: none; cursor: pointer; padding: 2px 6px; color: var(--muted); font-size: 1rem; line-height: 1; border-radius: 4px; transition: color 0.15s, background 0.15s; flex-shrink: 0; margin-left: auto; }
+  .strike-btn:hover { color: var(--danger); background: rgba(224,82,82,0.1); }
+  .strike-btn.active { color: var(--danger); }
+  .option-row { display: flex; align-items: center; gap: 0; }
+
+  .explanation { display: none; margin-top: 16px; background: rgba(62,207,142,0.05); border: 1px solid rgba(62,207,142,0.2); border-radius: 8px; padding: 14px 18px; font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+  .explanation.show { display: block; }
+  .explanation strong { color: var(--accent); }
+
+  .nav-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 20px; }
+  .btn { padding: 12px 28px; border-radius: 8px; border: none; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.15s; }
+  .btn-primary { background: var(--accent); color: #0a1f15; }
+  .btn-primary:hover { background: #2fb87a; }
+  .btn-outline { background: transparent; color: var(--muted); border: 1.5px solid var(--border); }
+  .btn-outline:hover { border-color: var(--muted); color: var(--text); }
+
+  #screen-results { display: none; text-align: center; padding: 60px 0; }
+  .score-circle { width: 160px; height: 160px; border-radius: 50%; border: 3px solid var(--accent); display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 32px; }
+  .score-circle .big-num { font-family: 'DM Serif Display', serif; font-size: 3.2rem; color: var(--accent); line-height: 1; }
+  .score-circle .denom { font-size: 0.85rem; color: var(--muted); margin-top: 4px; }
+  .result-stats { display: flex; justify-content: center; gap: 40px; margin: 28px 0; }
+  .stat-item { text-align: center; }
+  .stat-item .val { font-family: 'DM Mono', monospace; font-size: 1.5rem; }
+  .stat-item .val.green { color: var(--accent); }
+  .stat-item .val.red { color: var(--danger); }
+  .stat-item .lbl { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+  #result-heading { font-family: 'DM Serif Display', serif; font-size: 2rem; margin-bottom: 10px; }
+  #result-msg { color: var(--muted); font-size: 0.95rem; margin-bottom: 36px; }
+  .result-btns { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+
+  /* ── HEADER CONTROLS ── */
+  .back-link { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.78rem; color: rgba(255,255,255,0.65); text-decoration: none; margin-bottom: 10px; }
+  .back-link:hover { color: #fff; }
+  .header-right { display: flex; align-items: center; gap: 10px; }
+  .theme-btn { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); border-radius: 50px; padding: 8px 16px; cursor: pointer; font-size: 0.8rem; color: rgba(255,255,255,0.75); font-family: 'DM Sans', sans-serif; font-weight: 500; transition: all 0.15s; white-space: nowrap; }
+  .theme-btn:hover { background: rgba(255,255,255,0.15); color: #fff; }
+
+  /* ── FLAG BUTTON ── */
+  .quiz-toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .flag-btn { background: none; border: 1.5px solid var(--border); border-radius: 8px; padding: 7px 16px; cursor: pointer; font-size: 0.82rem; color: var(--muted); font-family: 'DM Sans', sans-serif; font-weight: 500; transition: all 0.15s; display: flex; align-items: center; gap: 6px; }
+  .flag-btn:hover { border-color: var(--warn); color: var(--warn); }
+  .flag-btn.is-flagged { border-color: var(--warn); color: var(--warn); background: rgba(246,166,35,0.1); }
+  .stat-item .val.orange { color: var(--warn); }
+  .btn-flag-filter { border-color: rgba(246,166,35,0.4); color: var(--warn); }
+  .btn-flag-filter.btn-filter-active { background: rgba(246,166,35,0.1); border-color: var(--warn); }
+
+  /* ── HIGHLIGHTER ── */
+  .highlight-toolbar { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+  .hl-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-right: 2px; }
+  .hl-btn { border: 1.5px solid transparent; border-radius: 6px; padding: 5px 13px; cursor: pointer; font-size: 0.78rem; font-family: 'DM Sans', sans-serif; font-weight: 500; transition: all 0.15s; opacity: 0.7; }
+  .hl-btn:hover { opacity: 1; transform: scale(1.05); }
+  .hl-btn.hl-active { opacity: 1; border-color: currentColor; box-shadow: 0 0 0 2px currentColor; }
+  .hl-btn[data-color="yellow"] { background: rgba(255,236,0,0.25); color: #c8a800; }
+  .hl-btn[data-color="green"]  { background: rgba(62,207,142,0.25); color: var(--accent); }
+  .hl-btn[data-color="pink"]   { background: rgba(255,100,180,0.22); color: #e0409a; }
+  .hl-btn[data-color="blue"]   { background: rgba(91,141,238,0.25); color: var(--accent2); }
+  .hl-btn[data-color="none"]   { background: var(--surface); color: var(--muted); border-color: var(--border); opacity: 1; }
+  mark.hl-yellow { background: rgba(255,236,0,0.35); color: inherit; border-radius: 2px; padding: 0 1px; }
+  mark.hl-green  { background: rgba(62,207,142,0.30); color: inherit; border-radius: 2px; padding: 0 1px; }
+  mark.hl-pink   { background: rgba(255,100,180,0.28); color: inherit; border-radius: 2px; padding: 0 1px; }
+  mark.hl-blue   { background: rgba(91,141,238,0.30); color: inherit; border-radius: 2px; padding: 0 1px; }
+
+  #screen-review { display: none; }
+  .review-item { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 28px; margin-bottom: 16px; }
+  .review-item.review-correct { border-left: 3px solid var(--accent); }
+  .review-item.review-wrong { border-left: 3px solid var(--danger); }
+  .review-item.review-skipped { border-left: 3px solid var(--muted); }
+  .review-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; gap: 12px; flex-wrap: wrap; }
+  .review-tag { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .review-num { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted); }
+  .review-status { font-family: 'DM Mono', monospace; font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; font-weight: 500; }
+  .review-status.correct { background: rgba(62,207,142,0.15); color: var(--accent); }
+  .review-status.wrong { background: rgba(224,82,82,0.15); color: var(--danger); }
+  .review-status.skipped { background: rgba(107,122,153,0.15); color: var(--muted); }
+  .review-q { font-size: 1rem; line-height: 1.6; color: var(--text); margin-bottom: 14px; font-weight: 400; }
+  .review-opts { list-style: none; display: flex; flex-direction: column; gap: 7px; margin-bottom: 14px; }
+  .review-opt { padding: 10px 14px; border-radius: 8px; border: 1.5px solid var(--border); font-size: 0.88rem; color: var(--muted); display: flex; gap: 10px; align-items: flex-start; }
+  .review-opt.opt-correct { border-color: var(--accent); background: rgba(62,207,142,0.08); color: var(--text); }
+  .review-opt.opt-correct .review-opt-letter { color: var(--accent); }
+  .review-opt.opt-wrong { border-color: var(--danger); background: rgba(224,82,82,0.08); color: var(--text); }
+  .review-opt.opt-wrong .review-opt-letter { color: var(--danger); }
+  .review-opt-letter { font-family: 'DM Mono', monospace; font-size: 0.75rem; min-width: 16px; margin-top: 1px; color: var(--muted); }
+  .review-exp { background: rgba(62,207,142,0.05); border: 1px solid rgba(62,207,142,0.2); border-radius: 8px; padding: 12px 16px; font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+  .review-exp strong { color: var(--accent); }
+  .btn-filter-active { border-color: var(--accent2); color: var(--accent2); background: rgba(91,141,238,0.08); }
+  .review-filters { display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
+  .review-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; flex-wrap: wrap; gap: 12px; }
+  .review-top h2 { font-family: 'DM Serif Display', serif; font-size: 1.6rem; }
+  #review-subtitle { font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+
+  /* ─── RESUME MODAL ─── */
+  #resume-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:999; align-items:center; justify-content:center; }
+  #resume-modal.visible { display:flex; }
+  .resume-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:36px 32px; max-width:420px; width:90%; box-shadow:0 8px 40px rgba(0,0,0,0.35); }
+  .resume-box h3 { font-family:'DM Serif Display',serif; font-size:1.45rem; margin-bottom:8px; }
+  .resume-box p { font-size:0.9rem; color:var(--muted); line-height:1.6; margin-bottom:6px; }
+  .resume-meta { font-family:'DM Mono',monospace; font-size:0.78rem; color:var(--accent2); margin-bottom:24px; }
+  .resume-actions { display:flex; gap:12px; flex-wrap:wrap; }
+  .resume-actions button { flex:1; min-width:120px; padding:12px 16px; border-radius:10px; border:1.5px solid var(--border); font-size:0.9rem; font-weight:600; cursor:pointer; transition:all .15s; }
+  #btn-resume { background:var(--accent); color:#000; border-color:var(--accent); }
+  #btn-resume:hover { filter:brightness(1.1); }
+  #btn-fresh { background:transparent; color:var(--text); }
+  #btn-fresh:hover { border-color:var(--danger); color:var(--danger); }
+</style>
+</head>
+<body>
+<div id="q-tracker"></div>
+
+<!-- RESUME MODAL -->
+<div id="resume-modal">
+  <div class="resume-box">
+    <h3>Resume session?</h3>
+    <p>You have an unfinished quiz session saved in this browser.</p>
+    <div class="resume-meta" id="resume-meta"></div>
+    <div class="resume-actions">
+      <button id="btn-resume" onclick="resumeSession()">▶ Resume</button>
+      <button id="btn-fresh" onclick="discardSession()">Start Fresh</button>
+    </div>
+  </div>
+</div>
+
+<div class="header">
+  <div class="header-left">
+    <a href="index.html" class="back-link">← All Exams</a>
+    <h1>MICROBIOLOGY &amp; PHARMACOLOGY</h1>
+    <p id="header-subtitle">ANTIMICROBIAL &amp; ANTIPARASITIC REVIEW · 204 QUESTIONS</p>
+  </div>
+  <div class="header-right">
+    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">☀️ Light Mode</button>
+    <div class="score-badge" id="live-score">Score: — / —</div>
+  </div>
+</div>
+<div class="progress-bar-wrap"><div class="progress-bar-fill" id="progress-fill" style="width:0%"></div></div>
+
+<div class="main">
+
+  <!-- START SCREEN -->
+  <div id="screen-start">
+    <h2>Bugs and drugs,<br><em>matched up correctly.</em></h2>
+    <p>Antimicrobial pharmacology and microbiology question bank — covering antibiotics, antifungals, anti-TB/antiparasitic therapy, biologics, and core microbiology. Questions and answer choices are shuffled every time you start or retake a quiz. You can change your answer at any time, even after submitting one.</p>
+
+    <div class="mode-select-wrap">
+      <div class="mode-select-label">Before you begin — choose a mode</div>
+      <div class="mode-toggle">
+        <div class="mode-btn mode-active" id="mode-btn-tutored" onclick="setQuizMode('tutored')">
+          <h4><span class="mode-radio-dot"></span> 🎓 Tutored</h4>
+          <p>See whether each answer is correct and read the explanation immediately after you answer.</p>
+        </div>
+        <div class="mode-btn" id="mode-btn-nontutored" onclick="setQuizMode('nontutored')">
+          <h4><span class="mode-radio-dot"></span> 📝 Non-Tutored</h4>
+          <p>Answer every question with no feedback. Your score and full review are revealed only at the end.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="set-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-bottom:8px;">
+      <div class="set-card all-cardio-card" onclick="startQuiz('all')">
+        <h3>Everything</h3>
+        <p>Randomized mix of all 204 questions across every topic</p>
+        <div class="q-count">204 QUESTIONS</div>
+      </div>
+    </div>
+
+    <hr class="section-divider">
+    <div class="section-label">📝 By topic</div>
+    <div class="set-grid">
+      <div class="set-card cardio-card" onclick="startQuiz('pharm')">
+        <h3>Antibiotic & Antiviral Pharmacology</h3>
+        <p>Antibiotic and antiviral drug mechanisms, resistance, and clinical use</p>
+        <div class="q-count">50 QUESTIONS</div>
+      </div>
+      <div class="set-card cardio-card" onclick="startQuiz('antifungal')">
+        <h3>Antifungal Pharmacology</h3>
+        <p>Amphotericin, azoles, echinocandins, flucytosine, and antifungal mechanisms</p>
+        <div class="q-count">20 QUESTIONS</div>
+      </div>
+      <div class="set-card cardio-card" onclick="startQuiz('antitb_antiparasitic')">
+        <h3>Anti-TB & Antiparasitic Therapy</h3>
+        <p>RIPE therapy, malaria, leishmaniasis, helminths, and other antiparasitic agents</p>
+        <div class="q-count">38 QUESTIONS</div>
+      </div>
+      <div class="set-card cardio-card" onclick="startQuiz('biologics')">
+        <h3>Biologics</h3>
+        <p>Biosimilars, pharmacokinetics/dynamics, immunology, and clinical use of biologic agents</p>
+        <div class="q-count">15 QUESTIONS</div>
+      </div>
+      <div class="set-card cardio-card" onclick="startQuiz('micro')">
+        <h3>Microbiology</h3>
+        <p>Mycobacteria, leprosy, NTM, TB diagnosis/treatment, parasitology, skin & sepsis pathogens</p>
+        <div class="q-count">81 QUESTIONS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIZ SCREEN -->
+  <div id="screen-quiz">
+    <div class="quiz-toolbar">
+      <div class="question-counter" id="q-counter"></div>
+      <div style="display:flex; align-items:center; gap:10px;">
+        <span class="mode-badge" id="mode-badge"></span>
+        <button class="flag-btn" id="flag-btn" onclick="toggleFlag()">🚩 Flag Question</button>
+      </div>
+    </div>
+    <div class="highlight-toolbar" id="highlight-toolbar">
+      <span class="hl-label">Highlight</span>
+      <button class="hl-btn" data-color="yellow" onclick="setHighlightColor('yellow')">Yellow</button>
+      <button class="hl-btn" data-color="green"  onclick="setHighlightColor('green')">Green</button>
+      <button class="hl-btn" data-color="pink"   onclick="setHighlightColor('pink')">Pink</button>
+      <button class="hl-btn" data-color="blue"   onclick="setHighlightColor('blue')">Blue</button>
+      <button class="hl-btn" data-color="none"   onclick="setHighlightColor('none')">Erase</button>
+    </div>
+    <div class="question-card">
+      <span class="lecture-tag" id="q-lecture"></span>
+      <p class="question-text" id="q-text"></p>
+      <img id="q-image" style="display:none; max-width:100%; border-radius:8px; margin-top:16px; border:1px solid var(--border);" alt="Question figure">
+      <p id="q-image-note" style="display:none; font-size:0.78rem; color:var(--muted); margin-top:8px; font-family:'DM Mono',monospace;">🖼️ Original figure reproduced from the source PDF — answer choices are listed below.</p>
+    </div>
+    <ul class="options-list" id="options-list"></ul>
+    <div class="explanation" id="explanation"></div>
+    <div class="nav-row">
+      <button class="btn btn-outline" id="btn-prev" onclick="prevQ()" style="display:none">← Prev</button>
+      <button class="btn btn-outline" onclick="backToMenu()">⬅ Menu</button>
+      <button class="btn btn-primary" id="btn-next" onclick="nextQ()">Next →</button>
+    </div>
+  </div>
+
+  <!-- RESULTS SCREEN -->
+  <div id="screen-results">
+    <div class="score-circle">
+      <span class="big-num" id="final-score-num">0</span>
+      <span class="denom" id="score-denom">/ 0</span>
+    </div>
+    <h2 id="result-heading"></h2>
+    <p id="result-msg"></p>
+    <div class="result-stats">
+      <div class="stat-item"><div class="val green" id="r-correct">0</div><div class="lbl">Correct</div></div>
+      <div class="stat-item"><div class="val red" id="r-wrong">0</div><div class="lbl">Wrong</div></div>
+      <div class="stat-item"><div class="val" id="r-pct">0%</div><div class="lbl">Score</div></div>
+      <div class="stat-item"><div class="val orange" id="r-flagged">0</div><div class="lbl">Flagged</div></div>
+    </div>
+    <div class="result-btns">
+      <button class="btn btn-outline" onclick="backToMenu()">⬅ Menu</button>
+      <button class="btn btn-outline" onclick="showReview('all')">Review All</button>
+      <button class="btn btn-outline btn-flag-filter" id="btn-review-flagged" onclick="showReview('flagged')" style="display:none">🚩 Flagged Only</button>
+      <button class="btn btn-primary" onclick="retake()">Retake</button>
+    </div>
+  </div>
+
+  <!-- REVIEW SCREEN -->
+  <div id="screen-review">
+    <div class="review-top">
+      <div>
+        <h2>Answer Review</h2>
+        <p id="review-subtitle"></p>
+      </div>
+      <button class="btn btn-outline" onclick="backToResults()">← Results</button>
+    </div>
+    <div class="review-filters">
+      <button class="btn btn-outline btn-filter-active" id="rf-all" onclick="filterReview('all')">All</button>
+      <button class="btn btn-outline" id="rf-wrong" onclick="filterReview('wrong')">Wrong Only</button>
+      <button class="btn btn-outline" id="rf-correct" onclick="filterReview('correct')">Correct Only</button>
+      <button class="btn btn-outline btn-flag-filter" id="rf-flagged" onclick="filterReview('flagged')">🚩 Flagged</button>
+    </div>
+    <div id="review-list"></div>
+  </div>
+
+</div>
+
+<script>
+// ─── THEME ───────────────────────────────────────────────────────────────────
+function toggleTheme() {
+  const isLight = document.body.classList.toggle('light');
+  document.getElementById('theme-btn').textContent = isLight ? '🌙 Dark Mode' : '☀️ Light Mode';
+}
+
+// ─── UTILITY ────────────────────────────────────────────────────────────────
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+// Randomize answer choices while tracking correct answer index
+function randomizeOpts(q) {
+  const indices = q.opts.map((_, i) => i);
+  shuffle(indices);
+  const newOpts = indices.map(i => q.opts[i]);
+  const newAns = indices.indexOf(q.ans);
+  return { ...q, opts: newOpts, ans: newAns };
+}
+
+// ─── QUESTION BANKS ─────────────────────────────────────────────────────────
+const BANK_PHARM = [{"q": "Acyclovir's mechanism of action requires activation by which enzyme?", "opts": ["Viral integrase", "Viral (HSV/VZV) thymidine kinase", "DNA-dependent RNA polymerase", "Human thymidine kinase"], "ans": 1, "exp": "Acyclovir is activated by viral thymidine kinase → phosphorylated → incorporated into viral DNA → chain termination. This selectivity makes it safe with minimal host toxicity.", "lecture": "Pharm · Antivirals"}, {"q": "A patient on IV acyclovir develops decreased urine output and crystalluria. What is the most likely adverse effect?", "opts": ["Acute tubular necrosis", "Fanconi syndrome", "Crystalline nephropathy", "Interstitial nephritis"], "ans": 2, "exp": "IV acyclovir can precipitate in renal tubules causing crystalline nephropathy. Adequate hydration is important to prevent this complication.", "lecture": "Pharm · Antivirals"}, {"q": "Ganciclovir differs from acyclovir in that it is activated by which kinase?", "opts": ["Human thymidine kinase", "HSV thymidine kinase", "Viral integrase kinase", "CMV UL-97 kinase"], "ans": 3, "exp": "CMV UL-97 kinase activates ganciclovir, making it specific for CMV. Pancytopenia is a significant side effect because CMV invades blood and immune cells.", "lecture": "Pharm · Antivirals"}, {"q": "Which antivirals are used for acyclovir-resistant HSV or ganciclovir-resistant CMV?", "opts": ["Tenofovir and emtricitabine", "Foscarnet and cidofovir", "Valacyclovir and famciclovir", "Oseltamivir and zanamivir"], "ans": 1, "exp": "Foscarnet and cidofovir directly inhibit viral DNA/RNA polymerases without needing viral enzyme activation, thereby bypassing resistance mechanisms.", "lecture": "Pharm · Antivirals"}, {"q": "Foscarnet's major adverse effects include:", "opts": ["Crystalline nephropathy and ototoxicity", "Peripheral neuropathy and hepatotoxicity", "Red man syndrome and thrombocytopenia", "Acute tubular necrosis and hypocalcemia"], "ans": 3, "exp": "Foscarnet causes ATN (nephrotoxicity) and hypocalcemia, which can cause tremors and seizures. These severe side effects limit its use to resistant viral infections.", "lecture": "Pharm · Antivirals"}, {"q": "What is the mechanism of action of NRTIs?", "opts": ["Activated by viral kinase → nucleoside analogue → DNA strand termination during reverse transcription", "Integrate into the viral genome and prevent proviral transcription", "Allosteric inhibition of reverse transcriptase without phosphorylation", "Block reverse transcriptase at the active site after being activated by host kinases"], "ans": 0, "exp": "NRTIs lack a 3' hydroxyl group, causing chain termination when incorporated during reverse transcription. They are first activated by host cellular kinases (not viral).", "lecture": "Pharm · Antivirals"}, {"q": "A patient on tenofovir develops elevated creatinine and proteinuria. Which drug-specific side effect does this represent?", "opts": ["Lactic acidosis", "Hyperpigmentation", "Nephrotoxicity", "Pancytopenia"], "ans": 2, "exp": "Tenofovir → nephrotoxicity; emtricitabine → hyperpigmentation; zidovudine → pancytopenia; all NRTIs → mitochondrial toxicity/lactic acidosis.", "lecture": "Pharm · Antivirals"}, {"q": "NNRTIs differ from NRTIs in that they:", "opts": ["Are prodrugs activated by viral thymidine kinase", "Require activation by host kinases before binding", "Block reverse transcriptase outside the active site, no activation needed", "Incorporate into viral DNA causing chain termination"], "ans": 2, "exp": "NNRTIs are allosteric inhibitors that don't need intracellular activation, unlike NRTIs. They bind a hydrophobic pocket near but outside the active site.", "lecture": "Pharm · Antivirals"}, {"q": "A patient starting efavirenz reports vivid and disturbing dreams. This is a known side effect of which drug class?", "opts": ["NRTIs", "NNRTIs", "Protease inhibitors", "Integrase inhibitors"], "ans": 1, "exp": "Efavirenz → 'effervescent dreams.' First-generation NNRTIs also carry hepatotoxicity and teratogenicity risks.", "lecture": "Pharm · Antivirals"}, {"q": "Integrase inhibitors are considered the gold standard HIV treatment because:", "opts": ["They act against all phases of the HIV life cycle", "They have a long half-life needing once-weekly dosing", "They have no human analogue, are well tolerated, and co-formulate easily with NRTIs", "They can be taken orally without food"], "ans": 2, "exp": "Their main side effect is rhabdomyolysis/CK elevation — avoid combining with statins. No human integrase exists, so off-target effects are minimal.", "lecture": "Pharm · Antivirals"}, {"q": "A patient on raltegravir develops severe muscle pain and elevated CK. You should avoid co-administering with:", "opts": ["Fluoroquinolones", "ACE inhibitors", "Azole antifungals", "Statins"], "ans": 3, "exp": "Integrase inhibitors cause rhabdomyolysis/CK elevation. Combining with statins (also myotoxic) is contraindicated.", "lecture": "Pharm · Antivirals"}, {"q": "Protease inhibitors prevent HIV maturation by:", "opts": ["Preventing cleavage of viral proteins necessary to form mature viral particles", "Blocking viral integrase from inserting viral DNA into host chromosome", "Blocking CD4 receptor binding on host T cells", "Inhibiting reverse transcriptase before viral RNA is converted to DNA"], "ans": 0, "exp": "Without cleavage of viral polyprotein precursors, only nonfunctional virions are produced. Remember: '-navir (never) allow HIV to mature.'", "lecture": "Pharm · Antivirals"}, {"q": "Ritonavir is often included in HIV/COVID-19 regimens primarily because it:", "opts": ["Blocks viral integrase with high specificity", "Is a potent CYP3A4 inhibitor that slows other drugs' metabolism", "Has excellent CNS penetration", "Has potent activity against CMV"], "ans": 1, "exp": "Used in Paxlovid and HIV regimens to boost drug levels by slowing the metabolism of co-administered antivirals via CYP3A4 inhibition.", "lecture": "Pharm · Antivirals"}, {"q": "PrEP (pre-exposure prophylaxis) for HIV typically consists of:", "opts": ["2 NRTIs alone", "2 NRTIs + 1 integrase inhibitor", "1 NRTI + 1 protease inhibitor", "1 NNRTI + 1 integrase inhibitor"], "ans": 0, "exp": "e.g., Truvada = emtricitabine/tenofovir (2 NRTIs). PEP (post-exposure) = 2 NRTIs + integrase inhibitor for 28 days.", "lecture": "Pharm · Antivirals"}, {"q": "Oseltamivir (Tamiflu) must be used within 48 hours of symptom onset because:", "opts": ["It prevents viral release, so must be used before infection is widespread", "It is metabolized faster once fever develops", "After 48 hours, the drug cannot penetrate respiratory epithelial cells", "It only works against influenza A, not influenza B after day 2"], "ans": 0, "exp": "Neuraminidase inhibitors limit viral spread rather than killing existing virus — early use before widespread infection is critical.", "lecture": "Pharm · Antivirals"}, {"q": "Amantadine is no longer commonly used as an influenza antiviral because:", "opts": ["It only covers influenza B", "It requires IV administration", "Influenza is broadly resistant to it", "It causes severe cardiotoxicity"], "ans": 2, "exp": "Amantadine still has clinical use for Parkinson's disease and pain due to off-target NMDA/dopamine receptor effects, but is no longer useful as an antiviral.", "lecture": "Pharm · Antivirals"}, {"q": "In Paxlovid, the role of nirmatrelvir is to:", "opts": ["Act as an NRTI against SARS-CoV-2 RNA polymerase", "Block SARS-CoV-2 protease required for viral replication", "Inhibit CYP3A4 to boost drug levels", "Bind viral spike protein to prevent cell entry"], "ans": 1, "exp": "Ritonavir is included as a CYP3A4 inhibitor to slow nirmatrelvir metabolism and boost its levels. Nirmatrelvir is the actual antiviral component.", "lecture": "Pharm · Antivirals"}, {"q": "Molnupiravir is preferred over Paxlovid in some patients because:", "opts": ["It is more effective at reducing COVID-19 hospitalization", "It can be used in pregnancy", "It has fewer drug-drug interactions", "It costs significantly less"], "ans": 2, "exp": "Molnupiravir is less effective but avoids the many drug-drug interactions caused by ritonavir in Paxlovid — important in patients on multiple medications.", "lecture": "Pharm · Antivirals"}, {"q": "What is the shared mechanism of action of all beta-lactam antibiotics?", "opts": ["Block ergosterol synthesis in bacterial membranes", "Bind penicillin-binding proteins (PBPs) to disrupt cell wall cross-linking", "Inhibit DNA gyrase to prevent DNA replication", "Bind 30S ribosomal subunit to inhibit protein synthesis"], "ans": 1, "exp": "All beta-lactams are bactericidal and time-dependent (T>MIC). They inhibit transpeptidase (PBP) enzymes required for peptidoglycan cross-linking.", "lecture": "Pharm · Antibiotics"}, {"q": "MRSA develops resistance to beta-lactams primarily by:", "opts": ["Upregulating efflux pumps to expel beta-lactams", "Converting D-Ala-D-Ala to D-Ala-D-Lac", "Mutating the penicillin-binding protein (PBP2a)", "Producing extended-spectrum beta-lactamases (ESBLs)"], "ans": 2, "exp": "Gram-negatives use beta-lactamase enzymes instead. VRE converts D-Ala-D-Ala to D-Ala-D-Lac to resist vancomycin. mecA gene encodes PBP2a.", "lecture": "Pharm · Antibiotics"}, {"q": "A patient with MSSA skin infection needs antibiotic therapy. Which penicillin is most appropriate?", "opts": ["Piperacillin", "Penicillin G", "Amoxicillin", "Nafcillin"], "ans": 3, "exp": "'Naf for simple staph.' Nafcillin and dicloxacillin are anti-staphylococcal penicillins resistant to penicillinase — drugs of choice for MSSA.", "lecture": "Pharm · Antibiotics"}, {"q": "A child presents with otitis media. Which antibiotic is most appropriate first-line?", "opts": ["Ceftriaxone", "Amoxicillin", "Clindamycin", "Azithromycin"], "ans": 1, "exp": "Aminopenicillins are drug of choice for ENT infections — covers H. influenzae, Moraxella, and Strep pneumo.", "lecture": "Pharm · Antibiotics"}, {"q": "Piperacillin/tazobactam (Zosyn) is used as empiric therapy for sepsis because:", "opts": ["It is the only beta-lactam active against VRE", "It has excellent CNS penetration for meningitis", "It covers MRSA and all Gram-negatives including ESBLs", "It covers Gram-positives (not MRSA), Gram-negatives including Pseudomonas, and anaerobes"], "ans": 3, "exp": "Common empiric regimen = Vanc+Zosyn. Vancomycin covers MRSA; Zosyn covers the rest. Pip/tazo does NOT cover MRSA or ESBLs.", "lecture": "Pharm · Antibiotics"}, {"q": "A patient needs surgical prophylaxis. Which cephalosporin generation is most appropriate?", "opts": ["1st generation (cefazolin)", "2nd generation (cefuroxime)", "4th generation (cefepime)", "3rd generation (ceftriaxone)"], "ans": 0, "exp": "1st gen cephalosporins are used for skin/surgical prophylaxis due to MSSA coverage. Cefazolin is the workhorse for surgical prophylaxis.", "lecture": "Pharm · Antibiotics"}, {"q": "Which cephalosporin is used for meningitis, CAP, gonorrhea, and Lyme disease?", "opts": ["Ceftazidime", "Cefepime", "Ceftriaxone", "Cefazolin"], "ans": 2, "exp": "Ceftriaxone (3rd gen) is highly versatile and can cross the blood-brain barrier. 'CeftriAXone throws 3 AXes at many bugs.'", "lecture": "Pharm · Antibiotics"}, {"q": "A patient with Pseudomonas infection needs a cephalosporin. Which should be chosen?", "opts": ["Ceftriaxone", "Cefazolin", "Ceftazidime", "Ceftaroline"], "ans": 2, "exp": "'CeftAZ for pseudomonAZ.' Ceftazidime-avibactam also covers ESBLs.", "lecture": "Pharm · Antibiotics"}, {"q": "Cephalosporins are LAME — what organisms do generations 1–4 typically fail to cover?", "opts": ["Listeria, Atypicals, MRSA, Enterococcus", "Legionella, Atypicals, Mycobacteria, Enterococcus", "Listeria, Anaerobes, MRSA, Enterococcus", "Legionella, Atypicals, MRSA, Ertapenem-resistant organisms"], "ans": 0, "exp": "Exception: ceftaroline (5th gen) covers MRSA. Cephalosporins have no activity against Listeria, atypical organisms, MRSA, or Enterococcus.", "lecture": "Pharm · Antibiotics"}, {"q": "Which 5th generation cephalosporin uniquely covers MRSA?", "opts": ["Cefepime", "Ceftazidime", "Ceftolozane", "Ceftaroline"], "ans": 3, "exp": "'CeftaRoline for MRSA.' Ceftolozane covers ESBLs and Pseudomonas but not staph. Ceftaroline binds PBP2a.", "lecture": "Pharm · Antibiotics"}, {"q": "Which carbapenem does NOT cover Pseudomonas or Enterococcus?", "opts": ["Meropenem", "Imipenem", "Ertapenem", "Doripenem"], "ans": 2, "exp": "'Errrtapenem' — the awkward carbapenem. All others cover Pseudomonas and Enterococcus. Carbapenems are the drug of choice for ESBLs.", "lecture": "Pharm · Antibiotics"}, {"q": "Imipenem is co-administered with cilastatin because:", "opts": ["Imipenem is broken down by renal tubular enzymes; cilastatin inhibits this breakdown", "Cilastatin reduces the risk of imipenem-induced seizures", "Cilastatin enhances renal tubular secretion of imipenem", "Cilastatin prevents beta-lactamase destruction of imipenem"], "ans": 0, "exp": "'Add ciLASTatin to make it LAST longer.' Dehydropeptidase I in renal tubular brush border would otherwise inactivate imipenem.", "lecture": "Pharm · Antibiotics"}, {"q": "Aztreonam (monobactam) is specifically indicated for patients with:", "opts": ["MRSA infection not responding to vancomycin", "Penicillin or cephalosporin allergy requiring Gram-negative coverage", "Anaerobic infections in immunocompromised patients", "Allergy to vancomycin requiring Gram-positive coverage"], "ans": 1, "exp": "No cross-allergenicity with penicillins. Covers Pseudomonas but NOT ESBLs or Gram-positives. 'MonoBATMAN — only useful in odd situations.'", "lecture": "Pharm · Antibiotics"}, {"q": "Vancomycin's mechanism of action involves:", "opts": ["Disrupting the bacterial inner membrane by forming pores", "Inhibiting beta-lactamase to protect co-administered penicillins", "Binding D-Ala-D-Ala residues to prevent peptidoglycan wall cross-linking", "Binding the 50S ribosomal subunit to block translocation"], "ans": 2, "exp": "It is impervious to beta-lactamases because it has no beta-lactam ring. It is the drug of choice for MRSA.", "lecture": "Pharm · Antibiotics"}, {"q": "A patient receiving IV vancomycin develops flushing and erythema over the face during infusion. Best management?", "opts": ["Obtain blood cultures and order CT of the face", "Administer IV epinephrine for presumed anaphylaxis", "Immediately discontinue vancomycin and switch to daptomycin", "Slow the infusion rate and/or give H1/H2 blockers"], "ans": 3, "exp": "This is Red-man syndrome — a benign non-IgE mediated reaction. Not a reason to permanently discontinue vancomycin. Slow rate and pre-medicate.", "lecture": "Pharm · Antibiotics"}, {"q": "VRE develops resistance to vancomycin by:", "opts": ["Mutating the cell wall to exclude glycopeptides", "Converting D-Ala-D-Ala to D-Ala-D-Lac", "Altering cell wall permeability via efflux pumps", "Producing vancomycin-inactivating enzymes (VanX)"], "ans": 1, "exp": "This reduces vancomycin binding affinity 1000-fold. The resistance operon can transfer to S. aureus, creating VISA/VRSA.", "lecture": "Pharm · Antibiotics"}, {"q": "Daptomycin should NOT be used to treat pneumonia because:", "opts": ["It is inactivated by lung surfactant", "It does not cover Gram-positive organisms in pulmonary infections", "It has poor tissue penetration in the lung parenchyma", "It causes bronchospasm when inhaled"], "ans": 0, "exp": "Use linezolid instead for Gram-positive pulmonary infections requiring vancomycin-resistant coverage.", "lecture": "Pharm · Antibiotics"}, {"q": "Which adverse effect is most associated with daptomycin?", "opts": ["Peripheral neuropathy and paresthesias", "QT prolongation and arrhythmia", "Rhabdomyolysis/myopathy and elevated CK", "Serotonin syndrome with concurrent SSRIs"], "ans": 2, "exp": "Avoid combining with statins. This myotoxic effect is shared with integrase inhibitors.", "lecture": "Pharm · Antibiotics"}, {"q": "Linezolid differs from daptomycin in that it:", "opts": ["Is renally cleared and accumulates in lung tissue", "Is bactericidal and more effective in bacteremia", "Is bacteriostatic and can treat pulmonary infections", "Cannot be used for MRSA infections"], "ans": 2, "exp": "Linezolid is bacteriostatic, time-dependent, orally bioavailable, and works in the lungs. Daptomycin is bactericidal and lung-inactivated.", "lecture": "Pharm · Antibiotics"}, {"q": "A patient on linezolid is also prescribed an SSRI. What serious drug interaction should you watch for?", "opts": ["Serotonin syndrome", "QT prolongation and torsades de pointes", "Hypertensive crisis", "Severe hepatotoxicity"], "ans": 0, "exp": "Linezolid is a weak MAO inhibitor. Combined with SSRIs → serotonin syndrome risk. Also causes thrombocytopenia with prolonged use.", "lecture": "Pharm · Antibiotics"}, {"q": "A 10-year-old child is prescribed doxycycline. What is the most important concern?", "opts": ["Renal dosing is required in all pediatric patients", "Higher risk of Stevens-Johnson syndrome in children", "Contraindicated due to tooth discoloration and growth suppression", "Increased risk of C. diff colitis in children"], "ans": 2, "exp": "Tetracyclines bind divalent cations (Ca2+ in bone/teeth). Absolutely contraindicated in children, adolescents, and pregnant/nursing patients.", "lecture": "Pharm · Antibiotics"}, {"q": "Doxycycline treats a wide range of infections including zoonoses. Which of the following is NOT a typical indication for doxycycline?", "opts": ["Malaria prophylaxis", "Streptococcal pharyngitis", "Chlamydia urethritis", "Rocky Mountain Spotted Fever (tick-borne)"], "ans": 1, "exp": "Doxycycline treats tick-borne diseases, zoonoses, malaria prophylaxis, chlamydia, atypical pneumonia, and acne. It is NOT used for strep throat — penicillin is preferred.", "lecture": "Pharm · Antibiotics"}, {"q": "Azithromycin is the drug of choice for community-acquired pneumonia because it covers:", "opts": ["Anaerobes and Gram-positive organisms", "Atypicals (Mycoplasma, Chlamydia, Legionella) and S. pneumoniae", "Gram-negative rods including Pseudomonas", "MRSA and MSSA with excellent lung penetration"], "ans": 1, "exp": "'My Cool Lungs' = Mycoplasma, Chlamydia, Legionella → treated with macrolides, fluoroquinolones, and tetracyclines.", "lecture": "Pharm · Antibiotics"}, {"q": "Erythromycin is distinct among macrolides because it is used for:", "opts": ["Promoting gut motility (ileus)", "Its superior atypical pneumonia coverage", "Treating MRSA in penicillin-allergic patients", "Its broad anaerobic spectrum"], "ans": 0, "exp": "All macrolides inhibit the 50S ribosomal subunit. A notable class side effect is QT prolongation.", "lecture": "Pharm · Antibiotics"}, {"q": "Which mnemonic describes aminoglycoside toxicity?", "opts": ["The \"-MYCIN\" of aminoglycosides: Myopathy, Yellow urine, Crystalluria, Inhibit Nerves", "The \"-CIN\" of aminoglycosides: Crush Incus and Nephrons", "The \"-ICIN\" of aminoglycosides: Immunosuppression, Colitis, Irreversible Nephrotoxicity", "The \"-MYCin\" of aminoglycosides: Muscles, Yellow skin, Cramps, inhibit Neurons"], "ans": 1, "exp": "Ototoxicity (irreversible, rare, affects incus/cochlea) and nephrotoxicity/ATN (reversible, more common) are the key side effects of aminoglycosides.", "lecture": "Pharm · Antibiotics"}, {"q": "Aminoglycosides only work against aerobic bacteria because:", "opts": ["Anaerobic bacteria have efflux pumps that expel aminoglycosides", "Anaerobes lack the cell wall target for aminoglycoside binding", "They enter bacterial cells via the proton motive force generated by oxidative phosphorylation", "Aminoglycosides are inactivated by the acidic environment of anaerobic bacteria"], "ans": 2, "exp": "Anaerobic bacteria lack OXPHOS, so aminoglycosides cannot penetrate them. This is also why aminoglycosides don't work well in abscess cavities.", "lecture": "Pharm · Antibiotics"}, {"q": "Which fluoroquinolone is best for a UTI caused by E. coli?", "opts": ["Norfloxacin", "Levofloxacin", "Ciprofloxacin", "Moxifloxacin"], "ans": 2, "exp": "Cipro = best Gram-negative coverage = urinary/GI fluoroquinolone. Moxifloxacin = best Gram-positive/respiratory. Levofloxacin = in between.", "lecture": "Pharm · Antibiotics"}, {"q": "A patient on ciprofloxacin ruptures their Achilles tendon. This represents:", "opts": ["An expected side effect with a black box warning", "Quinolone-induced peripheral neuropathy causing weakness", "A rare idiosyncratic reaction unrelated to the drug class", "Drug-induced vasculitis of the tendon blood supply"], "ans": 0, "exp": "'FLUORoquinolones put you on the FLOOR.' Also contraindicated in children and pregnancy. Watch for QT prolongation too.", "lecture": "Pharm · Antibiotics"}, {"q": "TMP/SMX achieves bactericidal synergy through which combined mechanism?", "opts": ["Blocking both DNA gyrase and topoisomerase IV", "Blocking dihydropteroate synthase (SMX) and dihydrofolate reductase (TMP)", "Blocking both 30S and 50S ribosomal subunits", "Blocking both cell wall synthesis and membrane integrity"], "ans": 1, "exp": "'Sulfonamides inhibit Synthetase, tRimethoprim inhibits Reductase.' Sequential blockade of folate synthesis → DNA synthesis inhibition.", "lecture": "Pharm · Antibiotics"}, {"q": "Which adverse effects are expected with TMP/SMX given its folate-inhibiting mechanism?", "opts": ["Ototoxicity and nephrotoxicity", "Pancytopenia and teratogenicity (neural tube defects)", "Rhabdomyolysis and peripheral neuropathy", "QT prolongation and hepatitis"], "ans": 1, "exp": "Also: sulfa allergy, hemolysis in G6PD deficiency, photosensitivity, and SJS.", "lecture": "Pharm · Antibiotics"}, {"q": "A patient on metronidazole drinks alcohol and develops flushing, tachycardia, and nausea. This is:", "opts": ["Serotonin syndrome from metronidazole's MAO inhibitor activity", "Acute hepatic failure from combined alcohol/metronidazole hepatotoxicity", "Cinchonism from metronidazole's quinoline-like structure", "A disulfiram-like reaction"], "ans": 3, "exp": "'Don't drink on the metro.' Metronidazole targets anaerobes and protozoa (giardia, trichomoniasis, BV, C. diff, H. pylori) in the GI/GU tract.", "lecture": "Pharm · Antibiotics"}, {"q": "Using 'Buy AT $30, CELL at $50' — which antibiotics inhibit the 30S ribosomal subunit?", "opts": ["Linezolid and clindamycin", "Chloramphenicol and macrolides", "Macrolides and linezolid", "Aminoglycosides and tetracyclines"], "ans": 3, "exp": "30S = Aminoglycosides, Tetracyclines. 50S = Chloramphenicol, Erythromycin (macrolides), Linezolid, cLindamycin.", "lecture": "Pharm · Antibiotics"}];
+
+const BANK_ANTIFUNGAL = [{"q": "A patient with onychomycosis is prescribed terbinafine. What is its mechanism of action?", "opts": ["Inhibits 14α-sterol demethylase", "Binds ergosterol to form membrane pores", "Inhibits β-(1,3)-D-glucan synthesis", "Inhibits squalene epoxidase, causing toxic squalene buildup"], "ans": 3, "exp": "Terbinafine inhibits squalene epoxidase, causing squalene buildup that permeabilizes fungal membranes and is directly toxic — a fungicidal mechanism.", "lecture": "Antifungal · Mechanisms"}, {"q": "Why is terbinafine particularly effective for dermatophyte infections like tinea unguium?", "opts": ["It is fungistatic, slowing nail growth", "It inhibits fungal CYP3A4 selectively", "It has excellent CSF penetration", "It accumulates in skin, nail, and fat with a long half-life"], "ans": 3, "exp": "Terbinafine accumulates in skin, nail, and fat tissue and has a very long half-life, making it well-suited for slow-growing dermatophytes.", "lecture": "Antifungal · Mechanisms"}, {"q": "Which enzyme do azole antifungals inhibit?", "opts": ["β-(1,3)-D-glucan synthase", "Cytosine deaminase", "Squalene epoxidase", "14α-sterol demethylase (fungal CYP450)"], "ans": 3, "exp": "Azoles inhibit 14α-sterol demethylase, a fungal CYP450 enzyme, blocking ergosterol synthesis. This makes them fungistatic.", "lecture": "Antifungal · Azoles"}, {"q": "A patient with Cushing's disease is being treated with an azole antifungal. Which drug is most likely being used and why?", "opts": ["Ketoconazole — inhibits steroid synthesis", "Itraconazole — best for dimorphic fungi", "Voriconazole — best for molds", "Fluconazole — best CSF penetration"], "ans": 0, "exp": "Ketoconazole inhibits steroid hormone synthesis in addition to ergosterol synthesis, making it useful in managing Cushing's disease by suppressing cortisol.", "lecture": "Antifungal · Azoles"}, {"q": "Which azole antifungal has the BEST CSF penetration and is commonly used for Cryptococcus infections?", "opts": ["Ketoconazole", "Itraconazole", "Fluconazole", "Voriconazole"], "ans": 2, "exp": "Fluconazole has excellent CSF, sputum, and urine penetration among azoles and is used for Candida and Cryptococcus infections.", "lecture": "Antifungal · Azoles"}, {"q": "A patient on a proton pump inhibitor (PPI) is prescribed an oral antifungal. Which drug would be LEAST effective and why?", "opts": ["Terbinafine — metabolized by gastric acid", "Ketoconazole or itraconazole — require gastric acid for absorption", "Fluconazole — requires acidic pH for dissolution", "Voriconazole — inactivated by high pH"], "ans": 1, "exp": "Ketoconazole and itraconazole require acidic gastric pH for proper dissolution and absorption; PPIs raise gastric pH and reduce their bioavailability.", "lecture": "Antifungal · Azoles"}, {"q": "Which class of azoles is associated with QT prolongation?", "opts": ["Imidazoles only (clotrimazole, miconazole)", "Only IV formulations of azoles", "Triazoles (itraconazole, fluconazole, voriconazole)", "All azoles equally"], "ans": 2, "exp": "Triazoles cause QT prolongation — a useful mnemonic is that triazoles share this effect with tricyclic antidepressants.", "lecture": "Antifungal · Azoles"}, {"q": "A patient is on multiple medications and is prescribed voriconazole. What is your primary pharmacokinetic concern?", "opts": ["It induces CYP450 and reduces efficacy of other drugs", "It has a very short half-life requiring frequent dosing", "It is renally cleared and may accumulate in renal failure", "It inhibits CYP450 → significant drug-drug interactions"], "ans": 3, "exp": "Like all azoles, voriconazole inhibits human CYP450 enzymes, causing major drug-drug interactions. The IV formulation is also nephrotoxic in renal failure.", "lecture": "Antifungal · Azoles"}, {"q": "Which azole is preferred for Aspergillus infections and has good bone and CSF penetration?", "opts": ["Clotrimazole", "Fluconazole", "Voriconazole", "Ketoconazole"], "ans": 2, "exp": "Voriconazole is first-line for Aspergillus and has good bone, CSF, and ENT tissue penetration. It also causes distinctive color vision changes (visual hallucinations).", "lecture": "Antifungal · Azoles"}, {"q": "A woman presents with vaginal candidiasis. Which topical azole(s) are commonly used?", "opts": ["Voriconazole and itraconazole", "Clotrimazole and miconazole", "Ketoconazole and fluconazole", "Isavuconazole and posaconazole"], "ans": 1, "exp": "Clotrimazole and miconazole are imidazoles used topically for vaginal candidiasis and tinea infections.", "lecture": "Antifungal · Azoles"}, {"q": "Caspofungin is started in an ICU patient with invasive candidiasis. What is its mechanism?", "opts": ["Binds ergosterol to form pores", "Inhibits β-(1,3)-D-glucan synthase → cell wall disruption", "Converts to 5-FU to inhibit nucleic acid synthesis", "Inhibits squalene epoxidase"], "ans": 1, "exp": "Caspofungin (an echinocandin) inhibits β-(1,3)-D-glucan synthesis, disrupting the fungal cell wall, causing cell lysis and death.", "lecture": "Antifungal · Echinocandins"}, {"q": "Why do echinocandins have so few side effects compared to other antifungals?", "opts": ["They target fungal cell walls (no human equivalent) and spare CYP enzymes", "They bind ergosterol, absent in human cells", "They are topically applied and not absorbed", "They are excreted unchanged with no enzyme interactions"], "ans": 0, "exp": "Humans don't have cell walls, so echinocandins lack off-target effects, and they don't interact with CYP enzymes — making them very well-tolerated.", "lecture": "Antifungal · Echinocandins"}, {"q": "A patient needs antifungal treatment but has developed azole-resistant Candida. Which agent is most appropriate?", "opts": ["Terbinafine", "Nystatin IV", "Caspofungin", "Flucytosine monotherapy"], "ans": 2, "exp": "Caspofungin (echinocandin) is fungicidal against Candida and is the drug of choice when fluconazole resistance is suspected.", "lecture": "Antifungal · Echinocandins"}, {"q": "Amphotericin B works by which mechanism?", "opts": ["Inhibiting glucan synthesis", "Inhibiting ergosterol synthesis", "Generating reactive oxygen species", "Binding ergosterol → pore formation → cell lysis"], "ans": 3, "exp": "Amphotericin B (a polyene) binds ergosterol in the fungal cell membrane, forming pores that allow electrolyte leakage and cell death.", "lecture": "Antifungal · Amphotericin"}, {"q": "Which of the following best describes the toxicity profile of amphotericin B?", "opts": ["Nephrotoxicity, anemia, arrhythmia, and thrombophlebitis", "QT prolongation and bone marrow suppression", "Hepatotoxicity and peripheral neuropathy", "Disulfiram-like reaction and metallic taste"], "ans": 0, "exp": "'AmphoTERRIBLE' — its side effects include acute infusion reactions (cytokine storm, thrombophlebitis) and chronic nephrotoxicity leading to anemia and arrhythmias.", "lecture": "Antifungal · Amphotericin"}, {"q": "A patient with cryptococcal meningitis requires treatment. Which combination is first-line induction therapy?", "opts": ["Amphotericin B + flucytosine", "Voriconazole + caspofungin", "Itraconazole + terbinafine", "Fluconazole monotherapy"], "ans": 0, "exp": "Cryptococcal meningitis is treated with amphotericin B plus flucytosine for induction, followed by fluconazole for maintenance (step-down).", "lecture": "Antifungal · Amphotericin"}, {"q": "Nystatin is used for which of the following conditions?", "opts": ["Systemic histoplasmosis", "Surface candida infections (thrush, vaginal, skin)", "Invasive aspergillosis", "Cryptococcal meningitis"], "ans": 1, "exp": "Nystatin is too toxic for systemic use but is well-tolerated topically. It is used for oral candidiasis (swish and swallow), vaginal candidiasis, and diaper rash.", "lecture": "Antifungal · Nystatin"}, {"q": "Flucytosine's mechanism involves conversion to which active compound inside fungi?", "opts": ["5-fluorouracil (5-FU)", "Cytarabine", "Fluconazole", "Methotrexate"], "ans": 0, "exp": "Flucytosine is converted to 5-FU by fungal cytosine deaminase. 5-FU then inhibits fungal DNA and RNA synthesis.", "lecture": "Antifungal · Flucytosine"}, {"q": "Why does flucytosine cause bone marrow suppression and GI side effects?", "opts": ["It accumulates in the kidney and causes tubular damage", "5-FU produced in the gut also affects human cells", "It cross-reacts with human folate pathways", "It directly inhibits human CYP enzymes"], "ans": 1, "exp": "Flucytosine is also converted to 5-FU by gut bacteria, and this 5-FU affects human cells too — causing bone marrow suppression, GI toxicity, and hepatic dysfunction.", "lecture": "Antifungal · Flucytosine"}, {"q": "Severe life-threatening systemic fungal infections are best treated with which 'nuclear option'?", "opts": ["Voriconazole IV", "Amphotericin B", "Caspofungin monotherapy", "High-dose fluconazole"], "ans": 1, "exp": "Amphotericin B is the broad-spectrum 'nuclear option' for severe, life-threatening fungal infections, despite its significant toxicity profile ('AmphoTERRIBLE').", "lecture": "Antifungal · Amphotericin"}];
+
+const BANK_ANTITB_ANTIPARASITIC = [{"q": "A patient with active TB is started on RIPE therapy. Which drug causes red/orange discoloration of body fluids?", "opts": ["Pyrazinamide", "Ethambutol", "Rifampin", "Isoniazid"], "ans": 2, "exp": "Rifampin causes red/orange discoloration of urine, tears, sweat, and saliva — a harmless but important side effect to counsel patients about.", "lecture": "Anti-TB · RIPE"}, {"q": "A TB patient on isoniazid develops peripheral neuropathy. What is the recommended preventive supplement?", "opts": ["Vitamin B6 (pyridoxine)", "Folic acid", "Vitamin B12", "Vitamin D"], "ans": 0, "exp": "Isoniazid causes vitamin B6 deficiency by inhibiting its metabolism, leading to peripheral neuropathy. Pyridoxine (B6) is co-administered to prevent this.", "lecture": "Anti-TB · RIPE"}, {"q": "Which TB drug inhibits RNA polymerase?", "opts": ["Pyrazinamide", "Isoniazid", "Ethambutol", "Rifampin"], "ans": 3, "exp": "Rifampin inhibits DNA-dependent RNA polymerase in mycobacteria, blocking mRNA synthesis. Resistance arises from mutations in the RNA polymerase gene.", "lecture": "Anti-TB · RIPE"}, {"q": "A patient on RIPE therapy develops gout-like symptoms with elevated uric acid. Which drug is responsible?", "opts": ["Ethambutol", "Isoniazid", "Rifampin", "Pyrazinamide"], "ans": 3, "exp": "Pyrazinamide causes hyperuricemia (in addition to severe hepatotoxicity). The mnemonic: 'PYRAzinamide builds FASt crystal pyramids.'", "lecture": "Anti-TB · RIPE"}, {"q": "Which anti-TB drug requires mandatory ophthalmology follow-up and why?", "opts": ["Ethambutol — causes optic neuritis and color blindness", "Pyrazinamide — causes retinal hemorrhage", "Isoniazid — causes lens opacities", "Rifampin — causes retinal pigmentation"], "ans": 0, "exp": "Ethambutol inhibits arabinosyltransferase and can cause optic neuritis — presenting as red-green color blindness or decreased visual acuity. Patients need ophthalmology monitoring.", "lecture": "Anti-TB · RIPE"}, {"q": "Rifampin is described as a 'CYP450 inducer.' What is the clinical implication of this?", "opts": ["It inhibits isoniazid metabolism, raising INH toxicity", "It speeds up metabolism of other drugs, reducing their efficacy", "It is contraindicated with all other TB drugs", "It raises the toxicity of co-administered drugs"], "ans": 1, "exp": "Rifampin induces CYP450 enzymes, accelerating the metabolism of many co-administered drugs (e.g., oral contraceptives, antiretrovirals, warfarin) and reducing their efficacy.", "lecture": "Anti-TB · RIPE"}, {"q": "Why is multi-drug therapy used for TB rather than a single antibiotic?", "opts": ["To shorten the treatment course to less than 2 weeks", "Because single drugs are too toxic at the required doses", "To prevent emergence of resistant mutants — each drug kills bacteria resistant to the others", "TB bacteria have multiple outer membranes requiring multiple drugs to penetrate"], "ans": 2, "exp": "The large mycobacterial burden means spontaneous resistant mutants exist. Using multiple drugs simultaneously ensures bacteria resistant to one drug are killed by another.", "lecture": "Anti-TB · RIPE"}, {"q": "Chloroquine treats malaria by which mechanism?", "opts": ["Generating reactive oxygen species in RBCs", "Blocking the mitochondrial electron transport chain", "Inhibiting heme detoxification → toxic heme accumulation", "Inhibiting folate synthesis in the parasite"], "ans": 2, "exp": "Chloroquine and other quinolines inhibit polymerization of ferriprotoporphyrin IX (heme), causing toxic heme buildup in the parasite's acidic food vacuole.", "lecture": "Antiparasitic · Malaria"}, {"q": "A traveler is returning from a P. vivax-endemic area. Which drug is added to prevent malaria relapse from liver hypnozoites?", "opts": ["Mefloquine", "Chloroquine", "Artemether", "Primaquine"], "ans": 3, "exp": "Primaquine is the only drug that kills liver-stage hypnozoites of P. vivax and P. ovale, preventing relapses. It also eliminates gametocytes to prevent transmission.", "lecture": "Antiparasitic · Malaria"}, {"q": "A patient with G6PD deficiency develops malaria. Which antimalarial is CONTRAINDICATED?", "opts": ["Chloroquine", "Artesunate", "Primaquine", "Atovaquone/proguanil"], "ans": 2, "exp": "Primaquine is contraindicated in G6PD deficiency because its oxidative effects generate ROS that can trigger hemolytic anemia in G6PD-deficient patients.", "lecture": "Antiparasitic · Malaria"}, {"q": "A patient taking mefloquine for malaria prophylaxis reports vivid nightmares, insomnia, and anxiety. What is the explanation?", "opts": ["Known neuropsychiatric effects: vivid dreams, anxiety, psychosis", "Crosses the BBB and inhibits GABA receptors", "Hepatotoxicity causing encephalopathy", "Cinchonism from toxic quinine levels"], "ans": 0, "exp": "Mefloquine has well-known neuropsychiatric side effects including vivid dreams/nightmares, insomnia, depression, anxiety, and psychosis, along with QT prolongation.", "lecture": "Antiparasitic · Malaria"}, {"q": "Malarone (atovaquone/proguanil) is effective for both blood and hepatic stages of malaria. What is atovaquone's mechanism?", "opts": ["Inhibits the malarial mitochondrial electron transport chain", "Alkylates parasite DNA via free radical generation", "Inhibits heme polymerization", "Inhibits dihydrofolate reductase"], "ans": 0, "exp": "Atovaquone blocks the cytochrome bc1 complex in the malarial mitochondrial ETC, disrupting pyrimidine synthesis and killing the parasite.", "lecture": "Antiparasitic · Malaria"}, {"q": "Artemisinin is first-line for multi-drug resistant P. falciparum. Why must it always be used in combination?", "opts": ["A long half-life requiring another drug to prevent buildup", "A short half-life and brief effect, so a longer partner prevents resistance", "Activity limited to gametocytes, not blood schizonts", "Inability to penetrate infected RBCs alone"], "ans": 1, "exp": "Artemisinin acts rapidly but has a very short half-life. A longer-acting combination partner is needed to clear residual parasites and prevent the development of resistance.", "lecture": "Antiparasitic · Malaria"}, {"q": "What distinguishes 'cinchonism' as a side effect, and which drugs cause it?", "opts": ["Retinopathy from hydroxychloroquine buildup", "A disulfiram-like reaction from mefloquine", "Tinnitus, deafness, headache, nausea, and visual changes from quinine/quinidine", "Hepatotoxicity and marrow suppression from chloroquine"], "ans": 2, "exp": "Cinchonism is caused by quinine and quinidine and consists of tinnitus, deafness, headaches, nausea, vomiting, and visual disturbances.", "lecture": "Antiparasitic · Malaria"}, {"q": "Metronidazole is prescribed for a patient with Giardia. A friend offers him a beer to celebrate recovery. What adverse effect should he be warned about?", "opts": ["A disulfiram-like reaction: tachycardia, flushing, nausea, headache", "A cinchonism-like syndrome", "Hepatotoxicity from combined alcohol and drug metabolism", "Peripheral neuropathy from B6 depletion"], "ans": 0, "exp": "Metronidazole causes a disulfiram-like reaction with alcohol, producing acetaldehyde accumulation — resulting in flushing, tachycardia, palpitations, nausea, and headache.", "lecture": "Antiparasitic · Protozoa"}, {"q": "Ivermectin is used to treat nematode infections. Which unique mechanism makes it selective for parasites over humans?", "opts": ["Targets squalene epoxidase, absent in humans", "Only crosses invertebrate cell membranes", "Is metabolized to an inactive form by human liver enzymes", "Activates glutamate-gated chloride channels found in parasites, not mammalian neurons"], "ans": 3, "exp": "Ivermectin activates GluCl channels (specific to invertebrates) and enhances GABA transmission → hyperpolarization → paralysis. Humans lack peripheral GluCl channels, providing selectivity.", "lecture": "Antiparasitic · Helminths"}, {"q": "A child with neurocysticercosis is treated with albendazole. What is the mechanism?", "opts": ["Binds β-tubulin, blocking microtubule assembly and starving the parasite", "Generates free radicals that damage DNA", "Enhances GABA transmission, causing flaccid paralysis", "Increases Ca2+ permeability, causing spastic paralysis"], "ans": 0, "exp": "Albendazole (and mebendazole) bind β-tubulin, inhibiting microtubule polymerization. This disrupts intracellular transport, effectively starving the parasite.", "lecture": "Antiparasitic · Helminths"}, {"q": "Praziquantel treats which type of parasitic infections, and by what mechanism?", "opts": ["Protozoa — free radical DNA damage", "Trematodes/cestodes — raises Ca2+ permeability, causing spastic paralysis", "Dermatophytes — microtubule disruption", "Nematodes — enhances GABA, causing flaccid paralysis"], "ans": 1, "exp": "Praziquantel increases cell membrane permeability to calcium in trematodes and cestodes, causing spastic paralysis and cell death.", "lecture": "Antiparasitic · Helminths"}, {"q": "Permethrin is used to treat scabies. Why does it have limited toxicity to humans despite being an insecticide?", "opts": ["It is poorly absorbed through skin, limiting systemic exposure", "It is rapidly conjugated by glutathione in human blood", "It is converted to an inactive form by human cytochrome P450", "It targets GABA receptors absent in humans"], "ans": 0, "exp": "Permethrin is poorly absorbed through intact human skin, resulting in very low systemic exposure and limited toxicity, while being highly effective topically against arthropods.", "lecture": "Antiparasitic · Ectoparasites"}, {"q": "Malathion is an organophosphate used to treat lice. Why is it particularly potent in arthropods but less toxic in humans?", "opts": ["Malathion is actively pumped out of human cells by P-glycoprotein", "Malathion cannot cross the arthropod cuticle and acts only on the surface", "In arthropods, malathion is metabolized to malaoxon, which is >60x more potent as an AChE inhibitor", "Humans have higher levels of pseudocholinesterase to break it down"], "ans": 2, "exp": "In arthropods, malathion is converted to malaoxon, which is over 60 times more potent as an acetylcholinesterase inhibitor. This metabolic selectivity allows effective anti-lice doses with limited human toxicity.", "lecture": "Antiparasitic · Ectoparasites"}, {"q": "What is the difference between protozoa and helminths?", "opts": ["Protozoa are macroscopic; helminths are microscopic", "Protozoa are prokaryotes; helminths are eukaryotes", "Protozoa reproduce sexually only; helminths reproduce asexually only", "Protozoa are single-celled eukaryotes; helminths are multicellular eukaryotes"], "ans": 3, "exp": "Both are eukaryotic, but protozoa are unicellular (e.g., Plasmodium, Giardia) while helminths are multicellular worms (nematodes, cestodes, trematodes).", "lecture": "Antiparasitic · Classification"}, {"q": "What are the three groups of helminths?", "opts": ["Trematodes, protozoa, and filaria", "Cestodes, spirochetes, and nematodes", "Protozoa, metazoa, and nematoda", "Trematodes, cestodes, and nematodes"], "ans": 3, "exp": "Trematodes = flukes (e.g., Schistosoma). Cestodes = tapeworms (e.g., Taenia solium). Nematodes = roundworms (e.g., Ascaris, Strongyloides).", "lecture": "Antiparasitic · Classification"}, {"q": "What is a definitive host?", "opts": ["The host that transmits the parasite to humans", "The host in which the parasite causes the most disease", "The host within which sexual reproduction of the parasite occurs", "The host where the parasite spends the longest time"], "ans": 2, "exp": "In malaria, the mosquito is the definitive host, since sexual reproduction (sporogony) occurs within the mosquito gut. Humans are the intermediate host, where only asexual reproduction (schizogony) takes place. Knowing which host is definitive versus intermediate determines transmission cycles.", "lecture": "Antiparasitic · Classification"}, {"q": "What is a dead-end/accidental host?", "opts": ["A host that blocks transmission to the definitive host", "A host that is immune to the parasite", "A host allowing larval but not adult development", "A host where the parasite causes rapid death"], "ans": 0, "exp": "Humans are accidental/dead-end hosts for Toxocara (visceral larva migrans) and Baylisascaris — the parasite cannot complete its lifecycle and cannot spread further.", "lecture": "Antiparasitic · Classification"}, {"q": "What genus of protozoa causes malaria, and which species causes the most severe disease?", "opts": ["Plasmodium; P. falciparum causes the most severe disease", "Trypanosoma; T. brucei causes the most severe disease", "Leishmania; L. donovani causes the most severe disease", "Babesia; B. microti causes the most severe disease"], "ans": 0, "exp": "P. falciparum infects RBCs at all stages (higher parasitemia) and causes sequestration in small vessels of vital organs — leading to cerebral malaria, respiratory distress, and multiorgan failure.", "lecture": "Antiparasitic · Malaria"}, {"q": "Which mosquito transmits malaria, and what form of the parasite does it inject during a blood meal?", "opts": ["Aedes mosquito injects merozoites", "Culex mosquito injects trophozoites", "Anopheles mosquito injects sporozoites", "Anopheles mosquito injects gametocytes"], "ans": 2, "exp": "The Anopheles mosquito injects sporozoites during a blood meal. Sporozoites travel to the liver to begin the exoerythrocytic (asymptomatic) phase.", "lecture": "Antiparasitic · Malaria"}, {"q": "What is the liver stage of malaria called, and why is it clinically significant?", "opts": ["The exoerythrocytic stage; asymptomatic while sporozoites replicate in hepatocytes", "The gametocyte stage; allows mosquito transmission", "The erythrocytic stage; when symptoms first appear", "The hypnozoite stage; causes immediate high fever"], "ans": 0, "exp": "The exoerythrocytic (asymptomatic) stage occurs in hepatocytes before blood infection begins. It is clinically significant because the window of no symptoms delays diagnosis, and in P. vivax/P. ovale, dormant hypnozoites can persist here for months to years causing relapse.", "lecture": "Antiparasitic · Malaria"}, {"q": "What is sequestration in P. falciparum malaria, and how does it help the parasite?", "opts": ["Infected RBCs adhere via PfEMP1, blocking flow and evading splenic clearance", "Gametocytes sequester in bone marrow to evade destruction", "Merozoites sequester inside hepatocytes to avoid antibodies", "Infected RBCs sequester in the spleen and are destroyed"], "ans": 0, "exp": "P. falciparum-infected RBCs express PfEMP1 on their surface, which binds to ICAM-1, CD36, and other endothelial receptors. This cytoadherence causes microvascular obstruction in the brain (cerebral malaria), lungs, and placenta, and prevents infected RBCs from passing through the spleen where they would be destroyed.", "lecture": "Antiparasitic · Malaria"}, {"q": "Why do malaria symptoms occur with regular periodicity (every 48 or 72 hours)?", "opts": ["Drug treatment cycles cause periodic symptom release", "The parasite enters dormancy every 48 hours", "The immune system mounts cyclic responses", "Synchronized RBC rupture at the end of each cycle"], "ans": 3, "exp": "P. vivax and P. ovale cause 48-hour (tertian) cycles; P. malariae causes 72-hour (quartan) cycles. Rupture of RBCs releases merozoites and hemozoin causing fever.", "lecture": "Antiparasitic · Malaria"}, {"q": "Why does P. falciparum cause more severe disease than other Plasmodium species?", "opts": ["It resists all currently available antimalarials", "It infects RBCs at all stages, raising parasitemia and causing vessel sequestration", "It produces more potent neurotoxins", "It infects only reticulocytes, causing marrow failure"], "ans": 1, "exp": "Sequestration occurs via PfEMP1 protein — infected RBCs adhere to vessel walls in the brain, lungs, and other vital organs, causing multi-organ failure.", "lecture": "Antiparasitic · Malaria"}, {"q": "Which two Plasmodium species have a latent hypnozoite stage in the liver?", "opts": ["P. vivax and P. ovale", "P. vivax and P. falciparum", "P. knowlesi and P. ovale", "P. falciparum and P. malariae"], "ans": 0, "exp": "P. vivax and P. ovale form hypnozoites — dormant liver-stage parasites not killed by most antimalarials. Primaquine is required to eliminate these and prevent relapse.", "lecture": "Antiparasitic · Malaria"}, {"q": "What is the vector for Leishmaniasis, and what are the two main clinical forms?", "opts": ["Triatomine bug; cardiac and gastrointestinal", "Tsetse fly; cutaneous and neurological", "Mosquito; visceral and pulmonary", "Sandfly; cutaneous and visceral ('Kala-azar')"], "ans": 3, "exp": "Cutaneous = painless skin lesion (most common). Visceral 'Kala-azar' = fever, weight loss, hepatosplenomegaly, pancytopenia. Intracellular form inside macrophages = amastigotes.", "lecture": "Antiparasitic · Leishmaniasis"}, {"q": "What is the vector for Chagas disease and how does it transmit the infection?", "opts": ["Tsetse fly — injects trypomastigotes via saliva", "Anopheles mosquito — injects sporozoites to the liver", "Sandfly — injects trypomastigotes during a blood meal", "Kissing bug — defecates near the bite, letting parasites enter through skin"], "ans": 3, "exp": "Chronic Chagas disease causes cardiomyopathy, arrhythmias, heart failure, megaesophagus, and megacolon. Romaña sign = eyelid swelling from periocular infection.", "lecture": "Antiparasitic · Chagas"}, {"q": "How do humans get infected with Schistosoma, and which species causes bladder cancer?", "opts": ["Mosquito bite; S. mansoni causes bladder cancer", "Skin penetration by cercariae from freshwater; S. haematobium causes bladder cancer", "Ingestion of contaminated water; S. haematobium causes colon cancer", "Ingestion of undercooked pork; S. japonicum causes bladder cancer"], "ans": 1, "exp": "S. haematobium causes hematuria, dysuria, and chronic infection leading to squamous cell carcinoma of the bladder. Katayama fever occurs 2–8 weeks after exposure.", "lecture": "Antiparasitic · Schistosomiasis"}, {"q": "What is 'Katayama fever' and what causes it?", "opts": ["Relapsing fever from schistosomal hypnozoites", "Chronic immune vasculitis from worm antigens", "Acute immune response to egg deposition, causing fever and myalgia weeks after penetration", "Hemolytic anemia from worm toxins"], "ans": 2, "exp": "Katayama fever occurs during the acute phase of schistosomiasis, caused by an immune complex reaction to schistosomal eggs deposited in tissues. Treatment is praziquantel.", "lecture": "Antiparasitic · Schistosomiasis"}, {"q": "What are the two disease states T. solium causes in humans, and how does transmission differ?", "opts": ["Neurocysticercosis (from pork) and hepatic cysticercosis (from contaminated water)", "Intestinal taeniasis (from undercooked pork) and cysticercosis (from fecal-oral ingestion of eggs)", "Both forms result from eating undercooked pork containing cysts", "Intestinal taeniasis (from eating undercooked beef) and cysticercosis (from mosquito bite)"], "ans": 1, "exp": "Taeniasis = adult tapeworm from eating infected pork. Cysticercosis = larval cysts from ingesting eggs in contaminated food/water. Neurocysticercosis causes seizures when cysts degenerate.", "lecture": "Antiparasitic · Taenia"}, {"q": "What is 'autoinfection' in Strongyloides stercoralis, and why is it dangerous in immunocompromised patients?", "opts": ["Eggs that can directly infect household contacts", "Sexual reproduction within a single host", "Larvae re-infecting the host by burrowing back in without leaving the body", "Adult worms releasing eggs that hatch in the lumen"], "ans": 2, "exp": "In immunocompromised patients this accelerates into 'hyper-infection syndrome,' with massive larval dissemination carrying gut bacteria to organs, causing sepsis and meningitis.", "lecture": "Antiparasitic · Nematodes"}, {"q": "What causes lymphedema ('elephantiasis') in lymphatic filariasis, and which parasites are responsible?", "opts": ["Worm toxins increase vascular permeability in the extremities", "Microfilariae cause inflammatory destruction of lymph nodes", "Adult worms block venous drainage in dependent extremities (Wuchereria bancrofti, Brugia malayi)", "Adult worms of Wuchereria bancrofti or Brugia malayi block lymphatic channels"], "ans": 3, "exp": "Adult filarial worms in lymphatic vessels trigger chronic inflammation and obstruction → lymph accumulation → elephantiasis. Transmitted by mosquito bites.", "lecture": "Antiparasitic · Nematodes"}];
+
+const BANK_BIOLOGICS = [{"q": "A monoclonal antibody with increased FcRn binding affinity is engineered. What is the most likely pharmacokinetic effect?", "opts": ["Faster absorption via the lymphatic system", "Prolonged half-life", "Decreased volume of distribution", "Increased renal clearance"], "ans": 1, "exp": "FcRn (neonatal Fc receptor) recycles IgG from endosomes back to circulation. Increased FcRn binding → less lysosomal degradation → prolonged half-life. This is a strategy used to extend mAb dosing intervals.", "lecture": "Biologics · PK"}, {"q": "A patient on natalizumab for MS develops PML 6 months later. Which mechanism explains why natalizumab predisposes to this?", "opts": ["Natalizumab depletes CD20+ B cells, reducing humoral immunity", "Natalizumab inhibits α4-integrin, preventing leukocytes from entering the CNS", "Natalizumab blocks PD-1, causing unchecked T cell activation", "Natalizumab directly activates JC virus replication"], "ans": 1, "exp": "By blocking α4-integrin (VLA-4), natalizumab prevents lymphocytes from crossing the blood-brain barrier. This impairs CNS immune surveillance, allowing JC virus (a polyomavirus) to reactivate and cause PML.", "lecture": "Biologics · Clinical"}, {"q": "A patient with colorectal cancer is being considered for cetuximab. Which tumor genetic finding would predict ZERO response?", "opts": ["HER2 amplification", "High microsatellite instability (MSI-H)", "KRAS mutation", "Wild-type KRAS"], "ans": 2, "exp": "Cetuximab targets EGFR. KRAS is downstream of EGFR — if KRAS is constitutively active (mutated), blocking EGFR upstream has no effect. KRAS mutation = no response to anti-EGFR therapy.", "lecture": "Biologics · Clinical"}, {"q": "Idarucizumab (a Fab fragment) is used to reverse dabigatran. Why use a Fab fragment rather than a full mAb in this setting?", "opts": ["Fab fragments lack the Fc region, enabling faster renal clearance and rapid onset", "Fab fragments can cross the blood-brain barrier more effectively", "Fab fragments are more immunogenic, providing faster immune activation", "Fab fragments have a longer half-life due to FcRn recycling"], "ans": 0, "exp": "Fab fragments lack the Fc region → no FcRn recycling → rapid renal clearance. Shorter half-life is actually desired here for rapid reversal without over-anticoagulation. They also avoid complement activation.", "lecture": "Biologics · PK"}, {"q": "Which statement best describes how a noncompetitive antagonist differs from a competitive antagonist on a dose-response curve?", "opts": ["Noncompetitive antagonists increase EC50 with no change in Emax", "Competitive antagonists decrease Emax with no change in EC50", "Competitive antagonists decrease both EC50 and Emax", "Noncompetitive antagonists decrease Emax with no change in EC50"], "ans": 3, "exp": "Competitive antagonists shift the curve right (increase EC50) but Emax is preserved with enough agonist. Noncompetitive antagonists reduce the maximum possible response (decrease Emax) regardless of agonist dose.", "lecture": "Biologics · PD"}, {"q": "A patient on trastuzumab for HER2+ breast cancer develops reduced LVEF and dyspnea. Why does trastuzumab cause cardiac toxicity?", "opts": ["HER2 blockade upregulates TNF-α, causing inflammatory cardiomyopathy", "Trastuzumab causes direct tubular nephrotoxicity leading to fluid overload", "HER2 signaling plays a physiologic role in maintaining cardiac function", "Trastuzumab activates complement-mediated cytotoxicity in cardiac tissue"], "ans": 2, "exp": "HER2 (ErbB2) signaling in cardiomyocytes is required for normal cardiac maintenance and repair. Unlike anthracycline cardiotoxicity, trastuzumab cardiotoxicity is generally reversible upon discontinuation.", "lecture": "Biologics · Clinical"}, {"q": "A patient with PNH starting eculizumab requires Neisseria meningitidis vaccination beforehand. What is the mechanism?", "opts": ["Eculizumab depletes B cells, blocking antibody production", "Eculizumab activates the alternative complement pathway", "Eculizumab blocks C5, impairing defense against encapsulated bacteria", "Eculizumab causes neutropenia, raising infection risk broadly"], "ans": 2, "exp": "The MAC (C5b-9) is essential for killing encapsulated organisms like Neisseria meningitidis. Eculizumab blocks C5 cleavage → no MAC formation → dramatically increased meningococcal risk.", "lecture": "Biologics · Clinical"}, {"q": "TNF-α inhibitors like adalimumab carry a black box warning for TB reactivation. What is the pathophysiologic basis?", "opts": ["TNF-α inhibitors block B cell activation, reducing antibody-mediated immunity to TB", "TNF-α expressing macrophages are required to maintain TB granulomas; their inhibition allows reactivation", "TNF-α inhibitors suppress neutrophil activity, impairing initial mycobacterial killing", "TNF-α inhibitors increase IL-6 levels, which suppress T cell-mediated immunity"], "ans": 1, "exp": "TNF-α is critical for granuloma formation and maintenance. Blocking TNF-α disrupts granuloma integrity → bacilli escape containment → TB reactivation. Mandatory LTBI screening before starting TNF inhibitors.", "lecture": "Biologics · Clinical"}, {"q": "Pembrolizumab (anti-PD-1) is most likely to be effective in which of the following patients?", "opts": ["A solid tumor with mismatch repair deficiency and high MSI", "KRAS-mutated colorectal cancer", "CD20+ diffuse large B cell lymphoma", "HER2-amplified gastric cancer"], "ans": 0, "exp": "MSI-H/MMR-deficient tumors have high mutational burden → many neoantigens → robust T cell response when PD-1 is blocked. Pembrolizumab has a tumor-agnostic approval for MSI-H solid tumors.", "lecture": "Biologics · Clinical"}, {"q": "Which best distinguishes biologics from small molecule drugs in terms of pharmacokinetics?", "opts": ["Biologics have a high volume of distribution due to their large molecular size", "Biologics are primarily eliminated by the reticuloendothelial system via catabolism", "Biologics undergo extensive first-pass hepatic metabolism", "Biologics have high oral bioavailability due to their specificity"], "ans": 1, "exp": "Biologics are large proteins degraded into amino acids by the RES/proteolysis — not renally or hepatically cleared like small molecules. This also explains why they cannot be taken orally.", "lecture": "Biologics · PK"}, {"q": "A patient receiving rituximab for lymphoma develops PML. Why does rituximab carry lower overall infection risk but still predispose to PML specifically?", "opts": ["It spares innate immunity but B cell loss allows JC virus reactivation", "It activates NK cells, which suppress T cell immunity", "It causes complement depletion, exposing the CNS", "It depletes T regulatory cells, causing paradoxical activation"], "ans": 0, "exp": "Rituximab depletes CD20+ B cells (pro-B through memory) but spares innate immunity and T cells. However, B cell depletion impairs humoral surveillance → JC virus reactivation → PML.", "lecture": "Biologics · Clinical"}, {"q": "A drug is described as a partial agonist at a receptor. Which best characterizes its pharmacodynamic profile?", "opts": ["It decreases receptor activity below baseline levels", "It activates the receptor but produces a submaximal effect with a ceiling", "It binds the receptor but produces no response, maintaining basal activity", "It activates the receptor to achieve maximum possible effect"], "ans": 1, "exp": "A full agonist achieves Emax. A partial agonist achieves a ceiling below Emax regardless of dose. In the presence of a full agonist, a partial agonist can act as a competitive antagonist.", "lecture": "Biologics · PD"}, {"q": "A biosimilar drug is approved for clinical use. Which statement is TRUE?", "opts": ["Biosimilars are designated by adding 4 random letters as a suffix to the reference drug name", "Biosimilars are generic drugs made through standard medicinal chemistry", "Biosimilars are chemically identical to the reference biologic", "Biosimilars have demonstrated superiority in efficacy to the reference biologic"], "ans": 0, "exp": "Biosimilars are 'highly similar' but not identical (biologics cannot be exactly replicated). They receive a 4-letter suffix (e.g., infliximab-dyyb). They are not generics — they require biologic manufacturing.", "lecture": "Biologics · Biosimilars"}, {"q": "A patient with IgG4-subclass monoclonal antibody therapy has minimal complement activation. What would be expected?", "opts": ["Weak ADCC but very strong complement activation", "Minimal ADCC and minimal complement activation", "Strong ADCC but weak complement activation", "Strong ADCC and strong complement activity"], "ans": 1, "exp": "IgG4 has the weakest effector functions of the IgG subclasses — poor Fc-gamma receptor binding (weak ADCC) and poor C1q binding (minimal complement activation). Used when you want antigen-binding without effector cytotoxicity.", "lecture": "Biologics · Immunology"}, {"q": "Which of the following explains why most biologic drugs cannot be administered orally?", "opts": ["Biologics undergo extensive first-pass metabolism in the liver", "Biologics are primarily absorbed through the skin and cannot cross GI epithelium", "Biologics are large proteins that would be degraded by gastric acid and GI proteases", "Biologics are too lipophilic and are sequestered in adipose tissue"], "ans": 2, "exp": "Large molecular weight proteins are denatured by gastric acid and cleaved by pepsin/trypsin before absorption. They must be administered parenterally (IV, SC, or IM).", "lecture": "Biologics · PK"}];
+
+const BANK_MICRO = [{"q": "Mycobacteria are most closely related to which type of bacteria based on their cell envelope structure?", "opts": ["Gram-positive bacteria, as they lack an outer membrane", "Spirochetes, due to their unique lipid layers", "Anaerobes, due to their waxy coat", "Gram-negative bacteria, due to their outer membrane"], "ans": 0, "exp": "Mycobacteria lack an outer membrane, making them most similar to Gram-positive organisms. However, their cell wall is unique due to its exceptionally high lipid content, including mycolic acids.", "lecture": "Micro · Mycobacteria"}, {"q": "Why does the Gram stain fail to adequately stain Mycobacteria?", "opts": ["Mycobacteria lack peptidoglycan in their cell wall", "The Gram stain reagents are decolorized by mycolic acid", "Mycobacteria are too small to be seen by standard light microscopy", "The waxy, lipid-rich cell wall prevents penetration of standard dyes"], "ans": 3, "exp": "The mycobacterial cell wall is rich in mycolic acids and other lipids, creating a hydrophobic, waxy barrier that standard water-based Gram stain dyes cannot penetrate.", "lecture": "Micro · Mycobacteria"}, {"q": "The acid-fast stain uses carbol fuchsin. What is the specific target of this dye in the mycobacterial cell wall?", "opts": ["Arabinogalactan", "Mycolic acids", "Porins", "Peptidoglycan"], "ans": 1, "exp": "Carbol fuchsin (a mixture of phenol and basic fuchsine) is lipid-soluble and binds specifically to mycolic acids in the mycobacterial cell wall, allowing visualization.", "lecture": "Micro · Mycobacteria"}, {"q": "Why are mycobacteria called 'acid-fast'?", "opts": ["They retain carbol fuchsin dye despite acid-alcohol decolorization", "Fatty acids in the wall react with acid indicators", "They produce acid as a metabolic byproduct", "They only grow in acidic culture media"], "ans": 0, "exp": "After carbol fuchsin staining, decolorization with acid alcohol or sulfuric acid is attempted. Mycobacteria retain the red dye due to their mycolic acid-rich wall — hence 'acid-fast.'", "lecture": "Micro · Mycobacteria"}, {"q": "Which key component of the mycobacterial lipid layer contributes to both acid-fastness and virulence?", "opts": ["Lipopolysaccharide (LPS)", "Mycolic acids", "Teichoic acids", "Capsular polysaccharide"], "ans": 1, "exp": "Mycolic acids are long-chain fatty acids unique to mycobacteria. They form the outer lipid layer, are responsible for acid-fastness, and contribute to resistance to host defenses.", "lecture": "Micro · Mycobacteria"}, {"q": "A sputum AFB smear is positive. What is the most important limitation of this result?", "opts": ["It only detects dead organisms", "It needs culture confirmation before reporting", "It cannot be used on sputum samples", "Poor specificity — all mycobacteria stain acid-fast, so species can't be identified"], "ans": 3, "exp": "The AFB smear detects any acid-fast organism but cannot distinguish M. tuberculosis from nontuberculous mycobacteria (NTM). Species identification requires culture or PCR.", "lecture": "Micro · TB Diagnosis"}, {"q": "Approximately what percentage of pulmonary TB cases in the U.S. are sputum smear positive?", "opts": ["10–20%", "95–100%", "70–80%", "40–50%"], "ans": 3, "exp": "Only about 40–50% of pulmonary TB cases in the U.S. are sputum smear positive, because a high bacterial load is required for detection. A negative smear does not rule out TB.", "lecture": "Micro · TB Diagnosis"}, {"q": "A patient previously smear-positive is now on TB treatment. Follow-up smear is positive but culture is negative. What explains this?", "opts": ["The patient is still contagious with active disease", "Dead bacilli can still stain positive on smear", "The culture is falsely negative from antibiotic suppression", "The smear detected a different mycobacterial species"], "ans": 1, "exp": "The AFB smear does not distinguish between viable and dead organisms. Patients on effective treatment may have smear-positive sputum for weeks even as cultures convert to negative.", "lecture": "Micro · TB Diagnosis"}, {"q": "What is the gold standard test for detecting M. tuberculosis, and what is its main drawback?", "opts": ["AFB culture — can take up to six weeks for M. tuberculosis to grow", "AFB smear — low specificity", "MTB PCR — expensive and requires specialized lab", "Tuberculin skin test — cannot distinguish latent from active disease"], "ans": 0, "exp": "AFB culture is the most sensitive tool for TB detection (can detect as few as 10 bacteria/mL) and is required for drug susceptibility testing, but M. tuberculosis grows very slowly — up to 6 weeks.", "lecture": "Micro · TB Diagnosis"}, {"q": "Which statement is TRUE about MTB PCR (NAAT)?", "opts": ["It can replace culture for drug susceptibility testing", "It cannot be used if the AFB smear is negative", "It is more sensitive than culture for all specimen types", "It provides results in 24–48 hours and can distinguish MTB from NTM"], "ans": 3, "exp": "MTB PCR provides rapid results (24–48 hours), approaches culture in sensitivity and specificity, and importantly can distinguish M. tuberculosis from NTM. However, it does not replace culture for drug susceptibility testing.", "lecture": "Micro · TB Diagnosis"}, {"q": "To maximize the sensitivity of sputum testing for TB, what is the recommended approach?", "opts": ["Five samples over two days, collected after meals", "Two samples collected simultaneously from induced sputum", "One sample from the first morning cough only", "At least three specimens 8-24 hours apart, including an early-morning one"], "ans": 3, "exp": "At least three sputum specimens should be collected at 8–24 hour intervals, with at least one early-morning sample, to maximize the sensitivity of AFB smear and culture.", "lecture": "Micro · TB Diagnosis"}, {"q": "A patient is suspected of having active TB but has a non-productive cough. How can a sputum sample be obtained?", "opts": ["Bronchial washing during flexible bronchoscopy only", "Thoracentesis to sample pleural fluid", "Gastric lavage to obtain swallowed sputum", "Sputum induction via aerosolized hypertonic saline via nebulizer"], "ans": 3, "exp": "If the patient cannot produce sputum spontaneously, sputum can be induced by having the patient inhale aerosolized hypertonic saline via a nebulizer to stimulate mucus production.", "lecture": "Micro · TB Diagnosis"}, {"q": "After initial infection with M. tuberculosis, what percentage of immunocompetent adults will develop primary TB disease?", "opts": ["~25%", "~1%", "~50%", "~5%"], "ans": 3, "exp": "Approximately 5% of initially infected immunocompetent adults will progress to primary TB disease. The remaining ~95% develop latent TB infection (LTBI). The risk is much higher in children under 5 and those with HIV/AIDS.", "lecture": "Micro · TB Natural History"}, {"q": "What is the lifetime risk of TB reactivation in a normal host vs. a person with HIV/AIDS?", "opts": ["Equal risk regardless of immune status", "2% lifetime vs. 20% per year in HIV/AIDS", "10% lifetime vs. 10% per year in HIV/AIDS", "5% lifetime vs. 5% per year in HIV/AIDS"], "ans": 2, "exp": "In a normal host, the lifetime risk of reactivation from LTBI is approximately 10%. In a person with HIV/AIDS, this increases dramatically to about 10% per year, due to impaired T-cell immunity.", "lecture": "Micro · TB Natural History"}, {"q": "In latent TB infection, what structural feature keeps the bacilli dormant and prevents replication?", "opts": ["Bacilli are trapped within granulomas in anoxic conditions, causing poor replication", "Host NK cells continuously lyse replicating mycobacteria", "The bacilli are coated in antibody that inhibits replication", "The bacilli enter a spore-forming state that is metabolically inactive"], "ans": 0, "exp": "In the latent granuloma, bacilli are trapped in anoxic (low oxygen) conditions that suppress their replication. T-cells maintain activated macrophages that patrol the granuloma to kill any escaping bacteria.", "lecture": "Micro · TB Natural History"}, {"q": "Which cell type is the primary host cell initially infected by M. tuberculosis after inhalation?", "opts": ["Alveolar macrophages", "Type II pneumocytes", "Dendritic cells", "Neutrophils"], "ans": 0, "exp": "M. tuberculosis is phagocytosed by alveolar macrophages after inhalation. Rather than being killed, the bacilli survive intracellularly by preventing phagolysosome fusion, allowing them to replicate within the macrophage.", "lecture": "Micro · TB Natural History"}, {"q": "A granuloma is found on biopsy. A student concludes the patient must have tuberculosis. Why is this reasoning incorrect?", "opts": ["A granuloma is a pathologic finding that can result from many conditions other than TB", "Only caseous granulomas indicate TB; non-caseous granulomas are from other causes", "Granulomas are only found in active TB, not latent disease", "Granulomas cannot be identified on biopsy alone without AFB staining"], "ans": 0, "exp": "A granuloma is a nonspecific pathologic finding. Many conditions can cause granuloma formation, including sarcoidosis, fungal infections (histoplasmosis, coccidioidomycosis), Crohn's disease, and foreign body reactions.", "lecture": "Micro · TB Natural History"}, {"q": "Which of the following cell types make up the TB granuloma?", "opts": ["Macrophages, epithelioid cells, foamy macrophages, dendritic cells, lymphocytes", "Eosinophils and mast cells in a fibrous matrix", "CD8+ T-cells exclusively around infected macrophages", "Neutrophils and plasma cells only"], "ans": 0, "exp": "The TB granuloma consists of a core of infected macrophages and caseum, surrounded by foamy macrophages, epithelioid histiocytes, neutrophils, and dendritic cells, with peripheral lymphocytes encircling the structure.", "lecture": "Micro · TB Natural History"}, {"q": "Reactivation TB most commonly affects the apical and posterior segments of the upper lobes. What is the primary reason?", "opts": ["Better lymphatic drainage concentrates bacteria", "Primary TB initially seeds the upper lobes", "Higher oxygen tension and poorer drainage favor this aerobe", "The upper lobes are cooler, favoring growth"], "ans": 2, "exp": "M. tuberculosis is an obligate aerobe that thrives in high-oxygen environments. The upper lobes have higher oxygen tension (high V/Q ratio) and less efficient lymphatic drainage — ideal for reactivation.", "lecture": "Micro · TB Natural History"}, {"q": "Which host factor significantly increases the risk of progression from LTBI to active TB disease?", "opts": ["Daily aspirin use", "High BMI", "TNF-alpha inhibitor therapy", "Statin therapy"], "ans": 2, "exp": "TNF-alpha inhibitors (used for autoimmune diseases like rheumatoid arthritis) impair macrophage activation and granuloma integrity, dramatically increasing the risk of TB reactivation. Screening for LTBI before starting these agents is mandatory.", "lecture": "Micro · TB Natural History"}, {"q": "Which factor is MOST associated with infectiousness in a patient with known TB disease?", "opts": ["Extrapulmonary TB disease", "Normal chest radiograph with fever", "Receiving adequate TB treatment for 2 weeks", "Acid-fast bacilli present on sputum smear"], "ans": 3, "exp": "The presence of acid-fast bacilli on sputum smear is a major determinant of infectiousness, as it indicates high bacterial burden in expectorated secretions. Cavitary lung disease and active cough are also important factors.", "lecture": "Micro · TB Infectiousness"}, {"q": "A patient with biopsy-proven extrapulmonary TB (lymph node) asks if they are contagious. What is the correct response?", "opts": ["Only if they have a cough, regardless of location", "No, extrapulmonary TB is never contagious", "Probably not, but concurrent pulmonary TB should be ruled out", "Yes, equally as infectious as pulmonary TB"], "ans": 2, "exp": "Extrapulmonary TB is generally not contagious. However, patients may have concurrent undetected pulmonary disease, which must be evaluated. Laryngeal TB is an important exception — it is highly infectious.", "lecture": "Micro · TB Infectiousness"}, {"q": "What are the four drugs used in the standard intensive phase of TB treatment (RIPE therapy)?", "opts": ["Rifampin, isoniazid, pyrazinamide, ethambutol", "Rifabutin, isoniazid, pyrazinamide, erythromycin", "Rifampin, itraconazole, pyrazinamide, ethambutol", "Rifampin, isoniazid, penicillin, ethambutol"], "ans": 0, "exp": "RIPE therapy = Rifampin + Isoniazid + Pyrazinamide + Ethambutol. This four-drug intensive phase is used for the first 2 months of treatment.", "lecture": "Micro · TB Treatment"}, {"q": "After 2 months of RIPE therapy, which drug is discontinued for most patients and why?", "opts": ["Rifampin — due to severe hepatotoxicity risk with prolonged use", "Isoniazid — it is replaced by rifampin alone in the continuation phase", "Ethambutol — due to increasing risk of optic neuritis after 2 months", "Pyrazinamide — the dormant/slower-replicating bacilli have been killed, so it is no longer needed"], "ans": 3, "exp": "Pyrazinamide is most effective against metabolically active bacteria in the early phase. After 2 months, slower-replicating and dormant bacilli have been addressed, and PZA is discontinued. The continuation phase is isoniazid + rifampin for 4 more months (total 6 months).", "lecture": "Micro · TB Treatment"}, {"q": "For which patients is the continuation phase extended to 7 months?", "opts": ["Cavitary TB with a positive culture at 2 months, or HIV patients off ART", "All patients over age 65", "Patients who missed 3+ doses in the intensive phase", "All patients with extrapulmonary TB regardless of site"], "ans": 0, "exp": "The 7-month continuation phase is indicated for: cavitary TB with positive sputum culture at month 2, patients whose intensive phase did not include PZA, HIV patients not on ART, and some extrapulmonary TB cases.", "lecture": "Micro · TB Treatment"}, {"q": "All patients with TB should be screened for what co-infection, and why?", "opts": ["Hepatitis C, since ribavirin interacts with TB drugs", "HIV, since it raises progression risk and guides treatment", "Malaria, since it impairs macrophage function like TB", "Syphilis, since it causes false-positive IGRA"], "ans": 1, "exp": "ALL patients with TB should be screened for HIV. HIV dramatically increases the risk of TB reactivation (10% per year vs. 10% per lifetime), alters the clinical presentation, and affects treatment duration and complexity.", "lecture": "Micro · TB Treatment"}, {"q": "What is Directly Observed Therapy (DOT) and why is it used for ALL TB patients?", "opts": ["A strategy where health workers observe and record each dose being swallowed to ensure adherence", "A protocol where TB drugs are administered only in the hospital setting", "A monitoring system where patients self-report daily pill taking via a smartphone app", "An approach where only high-risk patients are monitored for medication side effects"], "ans": 0, "exp": "DOT is endorsed by the WHO and recommended for ALL TB patients because there is no reliable way to predict who will adhere, and non-adherence leads to treatment failure and drug resistance.", "lecture": "Micro · TB Treatment"}, {"q": "A patient is diagnosed with TB meningitis (CNS TB). How does the treatment differ from standard pulmonary TB?", "opts": ["The same drugs for the same duration", "Only 2 drugs to reduce CNS toxicity", "Intrathecal amphotericin added to RIPE", "Extended to 9-12 months with added corticosteroids"], "ans": 3, "exp": "CNS TB is treated for a longer duration (9–12 months) due to blood-brain barrier penetration challenges. Corticosteroids are added for both CNS and pericardial TB to reduce the robust inflammatory response.", "lecture": "Micro · TB Treatment"}, {"q": "What defines Multidrug-Resistant TB (MDR-TB)?", "opts": ["Resistance to at least isoniazid AND rifampin", "Resistance to any single first-line TB drug", "Resistance to all fluoroquinolones and second-line agents", "Resistance to all four RIPE drugs"], "ans": 0, "exp": "MDR-TB is defined as resistance to at least isoniazid (INH) AND rifampin (RIF) — the two most effective first-line TB drugs. XDR-TB additionally includes resistance to fluoroquinolones and at least one second-line injectable agent.", "lecture": "Micro · TB Treatment"}, {"q": "A patient with LTBI has a positive TST/IGRA, no symptoms, and a normal CXR. What is the next step before initiating latent TB treatment?", "opts": ["Repeat the TST in 3 months to confirm", "Perform bronchoscopy for BAL samples", "Rule out active disease clinically and radiographically first", "Start RIPE therapy immediately"], "ans": 2, "exp": "Before treating LTBI, active TB disease must be ruled out. Treating active TB with a single agent (as is done for LTBI) would be inadequate and could lead to drug resistance.", "lecture": "Micro · LTBI"}, {"q": "Which is a preferred regimen for treating latent TB infection (LTBI)?", "opts": ["6 months of rifampin alone", "12 months of pyrazinamide daily", "2 months of RIPE therapy", "4 months of daily rifampin (if HIV-negative)"], "ans": 3, "exp": "Preferred LTBI regimens: 4 months of daily rifampin (HIV-negative), 3 months of weekly isoniazid + rifapentine, or 3 months of daily isoniazid + rifampin. The alternative is 6–9 months of daily isoniazid.", "lecture": "Micro · LTBI"}, {"q": "Which test for LTBI is unaffected by prior BCG vaccination and requires only one patient visit?", "opts": ["Interferon Gamma Release Assay (IGRA)", "Tuberculin Skin Test (TST/PPD)", "Sputum AFB culture", "MTB PCR"], "ans": 0, "exp": "IGRAs are blood-based tests that are not affected by prior BCG vaccination (unlike TST, which can give false positives in BCG-vaccinated individuals). IGRAs also require only one visit (blood draw), whereas the TST requires a return visit at 48–72 hours.", "lecture": "Micro · LTBI"}, {"q": "A patient with rheumatoid arthritis is about to start infliximab. Which screening step is mandatory before initiating therapy?", "opts": ["Chest CT to look for granulomas", "Hepatitis B surface antigen only", "LTBI screening with treatment before starting the biologic", "AFB sputum culture to rule out active TB"], "ans": 2, "exp": "LTBI screening is mandatory before starting TNF-alpha inhibitors. These drugs impair granuloma integrity, and undetected LTBI can reactivate rapidly. Any positive result should be treated with an LTBI regimen before starting immunotherapy.", "lecture": "Micro · LTBI"}, {"q": "What is the most important epidemiological difference between M. tuberculosis and nontuberculous mycobacteria (NTM)?", "opts": ["NTM only infects animals, never humans", "MTB spreads person-to-person; NTM is environmental, not transmitted between people", "NTM spreads person-to-person like MTB", "MTB is in soil/water; NTM only in humans"], "ans": 1, "exp": "M. tuberculosis is a human pathogen transmitted person-to-person. NTM are free-living environmental saprophytes found in water, soil, and aerosols. NTM infections are NOT transmitted person-to-person — NTM patients do NOT require respiratory isolation.", "lecture": "Micro · NTM"}, {"q": "A patient with advanced HIV/AIDS has fever, night sweats, and weight loss. AFB blood culture grows MAC. What is the expected clinical presentation?", "opts": ["Laryngeal MAC causing hoarseness", "Disseminated disease across bloodstream and organs", "Skin lesions in a lymphangitic pattern", "Localized upper-lobe cavitary pneumonia"], "ans": 1, "exp": "MAC causes disseminated disease in patients with advanced HIV/AIDS (typically CD4 < 50 cells/µL), involving the blood, bone marrow, liver, and spleen. MAC also causes pulmonary disease in non-HIV patients with structural lung disease.", "lecture": "Micro · NTM"}, {"q": "A patient who cleans fish tanks develops multiple nodular skin lesions in a lymphangitic pattern on their hand. Which NTM should be suspected?", "opts": ["M. kansasii", "M. avium-intracellulare", "M. marinum", "M. abscessus"], "ans": 2, "exp": "M. marinum is called the 'fishtank bacillus.' It inhabits water and infects fish and amphibians, and causes cutaneous infections in humans with water exposure, classically presenting as nodular/papular skin lesions in a lymphangitic pattern along the hand and arm.", "lecture": "Micro · NTM"}, {"q": "Which NTM is the ONLY nontuberculous mycobacterium with susceptibility to isoniazid?", "opts": ["M. kansasii", "M. abscessus", "M. avium-intracellulare", "M. marinum"], "ans": 0, "exp": "M. kansasii is unique among NTM in that it has susceptibility to isoniazid, distinguishing it from other NTM. It can also present similarly to TB radiographically.", "lecture": "Micro · NTM"}, {"q": "How does the treatment of NTM pulmonary disease differ from M. tuberculosis?", "opts": ["Requires public-health directly observed therapy", "Treated with the same RIPE regimen for 6 months", "A macrolide plus ethambutol ± rifampin for at least a year", "Untreatable and managed supportively"], "ans": 2, "exp": "NTM treatment differs significantly from MTB. MAC is treated with a macrolide (clarithromycin or azithromycin) + ethambutol ± rifampin/rifabutin for at least one year. TST/IGRA and public health reporting do not apply to NTM.", "lecture": "Micro · NTM"}, {"q": "A patient presents with painless skin lesions and peripheral nerve thickening in the ears and hands. What is the causative organism and what cell type does it preferentially infect?", "opts": ["M. marinum, infecting dermal fibroblasts", "M. leprae, infecting Schwann cells of peripheral nerves", "M. avium, infecting intestinal enterocytes", "M. tuberculosis, infecting alveolar macrophages"], "ans": 1, "exp": "Mycobacterium leprae (leprosy) preferentially infects Schwann cells of peripheral nerves, causing chronic inflammation and nerve damage. This leads to the hallmarks of leprosy: anesthetic skin lesions and progressive deformity of peripheral extremities.", "lecture": "Micro · Leprosy"}, {"q": "Which feature of M. leprae explains why its skin lesions appear predominantly in cooler areas of the body?", "opts": ["M. leprae grows optimally at cooler temperatures (30–33°C), below core body temperature", "Schwann cells in cooler regions express different surface receptors that M. leprae targets", "The organism is transmitted by insect bites, which prefer extremities", "Blood flow to cooler extremities is lower, allowing bacterial accumulation"], "ans": 0, "exp": "M. leprae grows optimally at temperatures below core body temperature (~30–33°C), which is why lesions appear in cooler body regions — the skin of extremities, earlobes, nose, and face. The bacteria divide slowly (every ~12 days), with an incubation period of 2–5 years.", "lecture": "Micro · Leprosy"}, {"q": "What is the most likely causative organism in non-purulent cellulitis?", "opts": ["Staphylococcus epidermidis", "Pseudomonas aeruginosa", "Staphylococcus aureus", "Streptococcus pyogenes (Group A Strep)"], "ans": 3, "exp": "Non-purulent cellulitis is typically caused by Group A Strep (Streptococcus pyogenes). Purulent cellulitis/abscess is more commonly caused by Staph aureus.", "lecture": "Micro · Skin & Sepsis"}, {"q": "What is the most likely causative organism in purulent cellulitis/abscess?", "opts": ["Klebsiella pneumoniae", "Staphylococcus aureus", "Enterococcus faecalis", "Streptococcus pyogenes"], "ans": 1, "exp": "Purulent cellulitis involves pus, fluctuance, or draining abscesses and is most commonly caused by Staphylococcus aureus (including MRSA in community-acquired infections).", "lecture": "Micro · Skin & Sepsis"}, {"q": "Which skin layer does cellulitis involve compared to erysipelas?", "opts": ["Cellulitis involves the fascia; erysipelas only the epidermis", "Cellulitis involves only the epidermis; erysipelas the dermis/subcutis", "Erysipelas involves superficial dermis/lymphatics; cellulitis is deeper", "Both involve the same layers, differing by organism"], "ans": 2, "exp": "Erysipelas is a superficial infection with a raised, well-demarcated border — it involves the superficial dermis and lymphatics. Cellulitis is deeper (dermis + subcutaneous tissue) with ill-defined borders.", "lecture": "Micro · Skin & Sepsis"}, {"q": "What toxin is responsible for bullous impetigo, and what does it do?", "opts": ["Pyrogenic exotoxin A — dermal hyperemia and blistering", "Leukocidin — kills neutrophils, forms pus bullae", "TSST-1 — causes systemic inflammation", "Exfoliative toxin — cleaves desmosomes, causing large flaccid blisters"], "ans": 3, "exp": "The exfoliative toxin (staphylococcal scalded skin syndrome toxin) cleaves desmoglein-1 in the superficial epidermis, forming large flaccid blisters. Classic impetigo forms honey-colored crusts from ruptured vesicles.", "lecture": "Micro · Skin & Sepsis"}, {"q": "What are the qSOFA criteria for identifying sepsis outside the ICU?", "opts": ["Temp >39, MAP <65, urine output <0.5 mL/kg/hr", "Lactate >2, creatinine >2.0, platelets <100K", "Temp >38, WBC >12,000, HR >100, RR >20", "Altered mental status, RR ≥22, systolic BP ≤100"], "ans": 3, "exp": "qSOFA (quick SOFA) = Altered mentation, RR ≥22, SBP ≤100. A score ≥2 suggests possible sepsis outside the ICU. SIRS criteria include temperature, HR, RR, and WBC (2 or more required).", "lecture": "Micro · Skin & Sepsis"}, {"q": "How is septic shock defined?", "opts": ["Sepsis with vasopressor-dependent hypotension and/or lactate >2", "Sepsis with a positive culture and WBC >20,000", "Sepsis with any organ failure and escalating antibiotics", "Sepsis with temp >40°C requiring cooling"], "ans": 0, "exp": "Septic shock = sepsis + persistent hypotension requiring vasopressors to maintain MAP ≥65 mmHg despite adequate fluid resuscitation (30 mL/kg crystalloid), with lactate >2 mmol/L indicating tissue hypoperfusion.", "lecture": "Micro · Skin & Sepsis"}, {"q": "What does catalase do in Staph aureus and how does it help the bacteria?", "opts": ["It degrades antibody Fc regions, blocking opsonization", "It breaks down phagocyte hydrogen peroxide, evading immune killing", "It converts fibrinogen to fibrin, walling off the abscess", "It destroys penicillin by hydrolyzing the beta-lactam ring"], "ans": 1, "exp": "Catalase converts H2O2 (a neutrophil antimicrobial product) to water and oxygen, protecting Staph from oxidative killing. Coagulase-negative staph also have catalase.", "lecture": "Micro · Skin & Sepsis"}, {"q": "What does Protein A do in Staph aureus?", "opts": ["It cleaves complement C3 to prevent opsonization", "It activates plasminogen to dissolve fibrin clots", "It blocks antibody-mediated phagocytosis by binding the Fc region of IgG", "It promotes biofilm formation on prosthetic devices"], "ans": 2, "exp": "Protein A binds the Fc region of IgG antibodies, preventing Fc receptor recognition and opsonophagocytosis by neutrophils and macrophages — a major virulence factor.", "lecture": "Micro · Skin & Sepsis"}, {"q": "What gene confers methicillin resistance in MRSA, and what does it encode?", "opts": ["ermA gene — a methylase altering the ribosomal site", "blaZ gene — a beta-lactamase that destroys the penicillin ring", "vanA gene — an altered D-Ala-D-Lac ligase", "mecA gene — an altered PBP2a with low beta-lactam affinity"], "ans": 3, "exp": "PBP2a (encoded by mecA) has very low affinity for all beta-lactam antibiotics, making MRSA resistant to the entire class. Detection: oxacillin disk diffusion or mecA PCR.", "lecture": "Micro · Skin & Sepsis"}, {"q": "What oral antibiotics are preferred for MSSA skin infections?", "opts": ["Vancomycin and linezolid", "Doxycycline and TMP/SMX", "Ciprofloxacin and clindamycin", "Dicloxacillin or cephalexin"], "ans": 3, "exp": "Dicloxacillin and cephalexin are first-line oral options for MSSA. Penicillin G and amoxicillin are NOT used for Staph because it produces penicillinase (beta-lactamase) that inactivates these drugs.", "lecture": "Micro · Skin & Sepsis"}, {"q": "What oral antibiotics are used for MRSA skin infections?", "opts": ["Azithromycin or erythromycin", "Dicloxacillin, cephalexin, or amoxicillin", "Doxycycline, Bactrim, linezolid, or clindamycin", "Vancomycin IV or daptomycin IV"], "ans": 2, "exp": "Oral options for community-acquired MRSA skin infections include doxycycline, TMP/SMX, linezolid, or clindamycin (though resistance is increasing). Serious MRSA infections require IV vancomycin, daptomycin, or linezolid.", "lecture": "Micro · Skin & Sepsis"}, {"q": "What are the classic warning signs that distinguish necrotizing fasciitis from cellulitis?", "opts": ["Pain out of proportion, hypotension, necrosis, hemorrhagic bullae, crepitus", "Skin warmth, induration, localized lymphadenopathy", "Lymphangitic streaking, purulent discharge, high WBC", "High fever, positive blood culture, bilateral spread"], "ans": 0, "exp": "Key red flags for necrotizing fasciitis: pain out of proportion, rapid spread, skin color changes (violaceous/dusky), hemorrhagic bullae, crepitus (gas in tissues), hypotension, and elevated lactate.", "lecture": "Micro · Skin & Sepsis"}, {"q": "What does crepitus indicate in the context of a soft tissue infection?", "opts": ["Severe edema compressing gas pockets", "The presence of gas in subcutaneous tissue, a red flag for nec fasc", "Subcutaneous emphysema from adjacent pneumothorax", "DVT with gas bubbles from skin microbiome"], "ans": 1, "exp": "Gas in the subcutaneous tissues (crepitus on palpation, or subcutaneous air on imaging) is a red flag for necrotizing fasciitis caused by gas-producing organisms. Requires immediate surgical consultation.", "lecture": "Micro · Skin & Sepsis"}, {"q": "What is the difference between Type I and Type II necrotizing fasciitis?", "opts": ["Type I is monomicrobial GAS; Type II is polymicrobial", "Type I is hospital-acquired; Type II is community-acquired", "Type I affects limbs; Type II affects trunk/perineum", "Type I is polymicrobial; Type II is monomicrobial (usually GAS or Staph)"], "ans": 3, "exp": "Type I is polymicrobial synergistic infection (mixed aerobic/anaerobic). Examples include Ludwig's angina (deep neck) and Fournier's gangrene (perineal). Type II is monomicrobial, usually Group A Strep.", "lecture": "Micro · Skin & Sepsis"}, {"q": "What organisms cause necrotizing fasciitis after fresh water vs. salt water exposure?", "opts": ["Fresh water: Vibrio vulnificus; salt water: Aeromonas hydrophila", "Fresh water: Aeromonas hydrophila; salt water: Vibrio vulnificus", "Fresh water: Pseudomonas; salt water: Vibrio vulnificus", "Fresh water: Aeromonas; salt water: Mycobacterium marinum"], "ans": 1, "exp": "Aeromonas hydrophila causes rapid, aggressive wound infections after freshwater exposure. Vibrio vulnificus causes necrotizing fasciitis after saltwater exposure or raw shellfish consumption — especially dangerous in liver disease.", "lecture": "Micro · Skin & Sepsis"}, {"q": "What are bacterial superantigens, and how do they cause harm?", "opts": ["Enzymes destroying antibodies for immune evasion", "Exotoxins that bypass antigen processing and mass-activate CD4+ T cells, causing cytokine storm", "Proteases destroying host matrix, aiding bacterial spread", "Capsular polysaccharides blocking complement/phagocytosis"], "ans": 1, "exp": "Superantigens (e.g., TSST-1, SPE-A) cross-link TCR Vβ regions with MHC class II outside the normal peptide-binding groove, activating up to 20% of all T cells simultaneously → massive cytokine storm.", "lecture": "Micro · Skin & Sepsis"}, {"q": "What superantigen toxins are associated with Staph aureus vs. Strep pyogenes toxic shock syndrome?", "opts": ["Staph: SpeA; Strep: TSST-1", "Staph: TSST-1; Strep: streptococcal pyrogenic exotoxins", "Both organisms produce the same TSST-1 toxin", "Staph: streptolysin O; Strep: TSST-1"], "ans": 1, "exp": "Strep TSS: rapid onset, higher mortality (~30–70%), more commonly bacteremic, often follows skin infections. Staph TSS: more gradual, lower mortality, diffuse rash (sunburn-like), less often bacteremic.", "lecture": "Micro · Skin & Sepsis"}, {"q": "What are the initial steps in managing sepsis?", "opts": ["CT imaging, then antibiotics within 6 hours, then fluids", "Vasopressors first, then antibiotics", "IV fluids (30 mL/kg in 1h), antibiotics within 1h, cultures, support", "Blood cultures only, wait for sensitivities before treating"], "ans": 2, "exp": "The Surviving Sepsis Campaign recommends: blood cultures × 2, IV crystalloid 30 mL/kg within 1 hour, broad-spectrum antibiotics within 1 hour (ideally before fluids), lactate measurement, and vasopressors if hypotension persists.", "lecture": "Micro · Skin & Sepsis"}, {"q": "What is a furuncle?", "opts": ["A cluster of infected hair follicles with multiple draining pus heads", "A superficial epidermal infection caused by exfoliative toxin", "A deep subcutaneous abscess without follicular involvement", "A painful infection forming around a hair follicle that contains pus (a boil)"], "ans": 3, "exp": "A furuncle (boil) is a localized, painful, pus-filled infection that develops around a single hair follicle — most commonly caused by Staph aureus. It is deeper and more intense than folliculitis.", "lecture": "Micro · Skin & Sepsis"}, {"q": "What is a carbuncle?", "opts": ["A superficial skin infection caused by Strep pyogenes", "A single large abscess involving multiple tissue planes", "A cluster of furuncles with multiple pus heads; painful and can leave a scar", "A deep necrotizing infection of the fascial planes"], "ans": 2, "exp": "A carbuncle is a coalescence of multiple furuncles with several interconnected pus heads/draining tracts. It is larger, deeper, more painful, and more likely to leave a scar than a furuncle. Also caused by Staph aureus.", "lecture": "Micro · Skin & Sepsis"}, {"q": "What is the defining feature of impetigo's classic (non-bullous) presentation?", "opts": ["Large flaccid blisters from exfoliative toxin", "Deep follicular pustules with central necrosis", "Raised, well-demarcated dermal erythema", "Small vesicles that rupture into a honey-colored crust"], "ans": 3, "exp": "Non-bullous impetigo: vesicles or pustules rupture → honey-colored (golden) crusts — the pathognomonic finding. Most common on the face around the nose and mouth. Caused by S. pyogenes and/or S. aureus. Bullous impetigo (S. aureus exfoliative toxin) forms larger, flaccid blisters.", "lecture": "Micro · Skin & Sepsis"}, {"q": "What is the role of coagulase in Staph aureus?", "opts": ["Degrades Fc regions of IgG, blocking opsonization", "Cleaves the ECM, aiding tissue invasion", "Facilitates clotting, walling the bacteria off from defenses", "Breaks down phagocyte hydrogen peroxide"], "ans": 2, "exp": "Coagulase converts fibrinogen to fibrin, creating a fibrin clot around the bacteria. This 'wall' shields S. aureus from neutrophils and antibodies — allowing the formation of protected abscesses. Coagulase is what distinguishes S. aureus (coagulase-positive) from CoNS (coagulase-negative staph).", "lecture": "Micro · Skin & Sepsis"}, {"q": "How is MRSA distinguished from MSSA on a susceptibility report?", "opts": ["MRSA only grows on chromogenic agar", "MRSA shows vancomycin resistance", "MRSA is identified by nitrocefin beta-lactamase testing", "MRSA shows oxacillin resistance and mecA detection"], "ans": 3, "exp": "Oxacillin (a methicillin surrogate) disk diffusion and mecA PCR are the standard tests. MRSA: oxacillin resistant + mecA positive. MSSA: oxacillin susceptible + mecA negative. Cefazolin susceptibility on the report actually reflects beta-lactamase production, not MRSA status.", "lecture": "Micro · Skin & Sepsis"}, {"q": "Why are penicillin G and amoxicillin NOT used for MSSA infections?", "opts": ["Because penicillin G cannot penetrate the Staph aureus capsule", "Because Staph aureus is intrinsically resistant to all penicillins via porin loss", "Because Staph aureus lacks penicillin-binding proteins that bind natural penicillins", "Because Staph aureus produces penicillinase (beta-lactamase), which inactivates penicillin G and amoxicillin"], "ans": 3, "exp": "Over 90% of S. aureus strains produce beta-lactamase (blaZ gene), which hydrolyzes the beta-lactam ring of narrow-spectrum penicillins (penicillin G, amoxicillin). Beta-lactamase-resistant penicillins (nafcillin, dicloxacillin, oxacillin) or cephalosporins are used for MSSA instead.", "lecture": "Micro · Skin & Sepsis"}, {"q": "What IV antibiotics are used for serious MRSA infections (bacteremia, endocarditis, deep tissue)?", "opts": ["Nafcillin, cefazolin, or amoxicillin-clavulanate", "Piperacillin/tazobactam or meropenem", "Vancomycin, daptomycin, or linezolid (IV)", "Azithromycin, doxycycline, or TMP/SMX"], "ans": 2, "exp": "Vancomycin remains the gold standard for serious MRSA infections. Daptomycin is an alternative (NOT for pneumonia — inactivated by surfactant). Linezolid IV is used for MRSA pneumonia or when vancomycin cannot be used. Ceftaroline (5th-gen cephalosporin) is also active against MRSA.", "lecture": "Micro · Skin & Sepsis"}, {"q": "What is 'source control' in the context of an abscess, and why is it essential?", "opts": ["Applying topical antibiotics to the overlying skin surface to prevent further bacterial growth", "Administering systemic antibiotics to control bacterial spread before any drainage", "Imaging the abscess to confirm extent before starting antibiotic therapy", "Physically evacuating purulent material via incision and drainage or warm compresses to allow self-drainage"], "ans": 3, "exp": "Source control = physically removing infected/devitalized material. For abscesses, incision and drainage (I&D) is often sufficient alone — antibiotics cannot penetrate the avascular, low-pH abscess cavity effectively. Source control is also critical in sepsis (draining infected collections, removing infected hardware).", "lecture": "Micro · Skin & Sepsis"}, {"q": "What role does SpeB play in necrotizing fasciitis caused by Strep pyogenes?", "opts": ["SpeB binds C3, preventing opsonization", "SpeB activates plasminogen, dissolving fibrin barriers", "SpeB is a superantigen activating T cells, causing cytokine storm", "SpeB is a protease destroying host ECM, aiding invasion"], "ans": 3, "exp": "SpeB (streptococcal pyrogenic exotoxin B) is a cysteine protease secreted by invasive GAS strains. It degrades ECM proteins (fibronectin, collagen, vitronectin), allowing GAS to rapidly spread through fascial planes — the hallmark of necrotizing fasciitis.", "lecture": "Micro · Skin & Sepsis"}, {"q": "What virulence factors allow Strep pyogenes to evade phagocytosis?", "opts": ["Leukocidin (kills neutrophils) and streptokinase (dissolves clots)", "Catalase (destroys H2O2) and beta-lactamase (destroys antibiotics)", "M-protein (prevents opsonization by IgG) and hyaluronic acid capsule", "Protein A (binds Fc of IgG) and coagulase (forms protective fibrin clot)"], "ans": 2, "exp": "M-protein on the GAS surface prevents C3b/IgG opsonization, blocking Fc-receptor and complement-receptor-mediated phagocytosis. The hyaluronic acid capsule (structurally identical to human hyaluronan) is non-immunogenic and provides additional anti-phagocytic 'cloaking.'", "lecture": "Micro · Skin & Sepsis"}, {"q": "What are the three types of lice that infest humans?", "opts": ["Sarcoptes capitis, Pediculus humanus, and Phthirus pubis", "Pediculus capitis, Pediculus humanus, and Phthirus pubis", "Pediculus capitis, Pediculus humanus, and Sarcoptes scabiei", "Pediculus capitis, Demodex folliculorum, and Phthirus pubis"], "ans": 1, "exp": "Pediculus capitis = head louse. Pediculus humanus = body louse (vector for typhus, trench fever, relapsing fever). Phthirus pubis = pubic/crab louse.", "lecture": "Micro · Ectoparasites"}, {"q": "Why is a second treatment of lice recommended around day 9?", "opts": ["To ensure full absorption through the scalp", "To cover lice acquired after treatment", "Lice develop resistance after one application", "Treatments aren't ovicidal, so retreating at day 9 kills newly hatched lice"], "ans": 3, "exp": "Most pediculocidal treatments (permethrin, pyrethrin) are not ovicidal (don't kill eggs/nits). Eggs hatch in ~7 days, so retreating at day 9 kills newly hatched lice before they can reproduce and re-establish infestation.", "lecture": "Micro · Ectoparasites"}, {"q": "What organism causes scabies, where does it colonize, and why can itching persist after treatment?", "opts": ["Pediculus humanus burrowing into the dermis", "Sarcoptes scabiei burrowing into the stratum corneum, with feces triggering a lasting allergic reaction", "Demodex folliculorum causing lingering follicular inflammation", "Phthirus pubis burrowing into the epidermis"], "ans": 1, "exp": "Sarcoptes scabiei burrows into the stratum corneum. The allergic response to mite proteins and feces can persist for weeks even after all mites are killed — patients should be counseled not to re-treat unnecessarily.", "lecture": "Micro · Ectoparasites"}, {"q": "Why must scabies be retreated at day 3 or 4, and why is delaying retreatment harmful?", "opts": ["Eggs laid before treatment hatch within 3 days, so retreating kills the new larvae", "A second treatment reaches deeper burrowed mites", "The medication is inactivated after 24 hours", "The first treatment only kills half the mites"], "ans": 0, "exp": "Delaying retreatment allows the mite burden to re-establish and increases the risk of spreading to others. Ivermectin is also used as an oral alternative (1–2 doses).", "lecture": "Micro · Ectoparasites"}, {"q": "What is the vector for Leishmaniasis and what is the intracellular form inside macrophages called?", "opts": ["Triatomine bug; promastigotes", "Mosquito; trophozoites", "Tsetse fly; trypomastigotes", "Sandfly; amastigotes"], "ans": 3, "exp": "The sandfly transmits Leishmania. Inside macrophages, the parasite exists as amastigotes (non-flagellated intracellular form). Outside (in the sandfly), it exists as promastigotes.", "lecture": "Micro · Parasitology"}, {"q": "What are the chronic manifestations of Chagas disease?", "opts": ["Cardiomyopathy, arrhythmias, and GI involvement (megaesophagus, megacolon)", "Chronic meningitis and hydrocephalus", "Hepatic cirrhosis and portal hypertension", "Pulmonary fibrosis and pleural effusions"], "ans": 0, "exp": "Trypanosoma cruzi causes chronic inflammation of autonomic ganglia in the heart and GI tract. The Romaña sign (eyelid swelling) indicates periocular infection with T. cruzi during acute infection.", "lecture": "Micro · Parasitology"}, {"q": "What causes the symptoms in schistosomiasis, and what is the treatment?", "opts": ["Cercariae produce proteases that cause direct tissue destruction; treated with ivermectin", "The host immune response to parasite eggs burrowing through tissue; treated with praziquantel", "Miracidia generate reactive oxygen species in the liver; treated with chloroquine", "Adult worm toxins directly damage blood vessel walls; treated with albendazole"], "ans": 1, "exp": "Schistosomal symptoms are primarily immunological — granuloma formation around trapped eggs causes fibrosis. S. mansoni/japonicum → hepatic fibrosis, portal hypertension. S. haematobium → bladder lesions, SCC.", "lecture": "Micro · Parasitology"}, {"q": "Why does neurocysticercosis cause seizures?", "opts": ["The tapeworm secretes neurotoxins that damage neurons", "Cyst degeneration triggers immune inflammation, causing seizures", "Cysts block CSF flow, causing hydrocephalus", "Live cysts release GABA-like substances lowering seizure threshold"], "ans": 1, "exp": "During the viable phase, cysts are often asymptomatic. When cysts begin to degenerate (within 4–5 years), the host immune response is triggered — perilesional edema and calcification occur, leading to seizures. Treated with albendazole + steroids.", "lecture": "Micro · Parasitology"}, {"q": "What is the 'classic paroxysm' of uncomplicated malaria, and why does P. falciparum cause more severe disease?", "opts": ["Chills-fever-sweats; P. falciparum infects all RBC stages and sequesters in small vessels", "Headache-fever-rash; P. falciparum makes stronger toxins", "Nausea-fever-diarrhea; P. falciparum resists all antimalarials", "Rash-arthralgia-fever; P. falciparum infects only mature RBCs"], "ans": 0, "exp": "The classic paroxysm (chills → fever → sweats) coincides with RBC lysis. P. falciparum sequestration via PfEMP1 protein causes cerebral malaria, ARDS, and multi-organ failure — making it the deadliest Plasmodium species.", "lecture": "Micro · Parasitology"}, {"q": "What are the two methods used to diagnose malaria?", "opts": ["Skin biopsy and antimalarial serology", "Urine culture and CBC with differential", "AFB smear and IGRA blood test", "Blood smear and rapid antigen test or PCR"], "ans": 3, "exp": "Thin smear: species identification and parasite morphology. Thick smear: higher sensitivity for detecting parasites at low density. Rapid antigen tests (RDTs) detect parasite antigens (e.g., PfHRP2) within minutes — useful in field settings. Malaria PCR is most sensitive but requires laboratory infrastructure.", "lecture": "Micro · Parasitology"}, {"q": "What is the intracellular form of Leishmania inside macrophages called, and what is the extracellular form in the sandfly called?", "opts": ["Trophozoites inside macrophages; cysts in the sandfly", "Amastigotes inside macrophages; promastigotes in the sandfly", "Merozoites inside macrophages; sporozoites in the sandfly", "Trypomastigotes inside macrophages; epimastigotes in the sandfly"], "ans": 1, "exp": "Amastigotes = non-flagellated intracellular form inside mammalian macrophages. Promastigotes = flagellated extracellular form in the sandfly gut, injected during a blood meal. This transformation between forms is called 'stage conversion.'", "lecture": "Micro · Parasitology"}, {"q": "What is the Romaña sign and what does it indicate?", "opts": ["Periorbital edema from Loiasis (African eye worm) migrating across the conjunctiva", "Eyelid swelling (chagoma) indicating periocular infection with Trypanosoma cruzi during acute Chagas disease", "Unilateral facial swelling indicating lymphatic filariasis of the parotid gland", "Painless ulcer at the site of a sandfly bite indicating cutaneous leishmaniasis"], "ans": 1, "exp": "Romaña sign = unilateral painless periorbital edema from conjunctival entry of T. cruzi trypomastigotes (via rubbing feces-contaminated conjunctiva). It is a classic sign of acute Chagas disease, seen in a minority of patients.", "lecture": "Micro · Parasitology"}, {"q": "What is African sleeping sickness caused by, what is its vector, and what are its two clinical stages?", "opts": ["Leishmania donovani; sandfly; cutaneous then visceral stage", "Plasmodium falciparum; Anopheles mosquito; liver stage then blood stage", "Trypanosoma brucei; tsetse fly; hemolymphatic stage then CNS/encephalitic stage", "Trypanosoma cruzi; triatomine bug; cardiac then gastrointestinal stage"], "ans": 2, "exp": "T. brucei gambiense (West Africa, chronic) and T. brucei rhodesiense (East Africa, acute) are transmitted by the tsetse fly. Stage 1 (hemolymphatic): fever, lymphadenopathy, rash. Stage 2 (CNS): sleep disturbances, behavioral changes, coma. Untreated Stage 2 is fatal.", "lecture": "Micro · Parasitology"}];
+
+// ─── BANK MAP ────────────────────────────────────────────────────────────────
+const BANKS = {
+  pharm: BANK_PHARM,
+  antifungal: BANK_ANTIFUNGAL,
+  antitb_antiparasitic: BANK_ANTITB_ANTIPARASITIC,
+  biologics: BANK_BIOLOGICS,
+  micro: BANK_MICRO,
+};
+
+const ALL_BANKS = Object.values(BANKS).flat();
+
+const EXAM_NAME = 'Microbiology & Pharmacology'; // <-- set this per exam before shipping
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let quizMode = 'tutored';        // mode currently selected on the start screen ('tutored' | 'nontutored')
+let activeQuizMode = 'tutored';  // mode locked in for the quiz currently in progress
+let activeBank = [];
+let activeBankKey = null;
+let current = 0;
+let answers = [];
+let strikeouts = [];   // array of Sets, one per question
+let flags = [];        // array of booleans, one per question
+let hlColor = null;    // current highlighter color ('yellow','green','pink','blue') or null
+let highlights = [];   // array of {start,end,color} per question stored as: highlights[qIdx] = [{start,end,color}]
+
+// ─── SESSION PERSISTENCE ─────────────────────────────────────────────────────
+const SESSION_KEY = 'inde221_cardio_session';
+
+function saveSession() {
+  if (!activeBank.length) return;
+  const data = {
+    bankKey: activeBankKey,
+    quizMode: activeQuizMode,
+    activeBank,
+    current,
+    answers,
+    flags,
+    highlights,
+    strikeouts: strikeouts.map(s => [...s]),
+    savedAt: Date.now()
+  };
+  try { localStorage.setItem(SESSION_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+function clearSession() {
+  try { localStorage.removeItem(SESSION_KEY); } catch(e) {}
+}
+
+function bankLabel(key) {
+  const labels = {
+    pharm: 'Antibiotic & Antiviral Pharmacology',
+    antifungal: 'Antifungal Pharmacology',
+    antitb_antiparasitic: 'Anti-TB & Antiparasitic Therapy',
+    biologics: 'Biologics',
+    micro: 'Microbiology'
+  };
+  return labels[key] || key;
+}
+
+// ─── QUIZ MODE (tutored / non-tutored) ───────────────────────────────────────
+function setQuizMode(mode) {
+  quizMode = mode;
+  document.getElementById('mode-btn-tutored').classList.toggle('mode-active', mode === 'tutored');
+  document.getElementById('mode-btn-nontutored').classList.toggle('mode-active', mode === 'nontutored');
+}
+
+function modeBadgeText(mode) {
+  return mode === 'nontutored' ? '📝 Exam Mode' : '🎓 Tutored';
+}
+
+function checkForSavedSession() {
+  let data;
+  try { data = JSON.parse(localStorage.getItem(SESSION_KEY)); } catch(e) {}
+  if (!data || !data.activeBank || !data.activeBank.length) return;
+  const answered = data.answers.filter(a => a !== null).length;
+  const total = data.activeBank.length;
+  const date = new Date(data.savedAt).toLocaleString();
+  const label = data.bankKey === 'all' ? 'Everything' : bankLabel(data.bankKey);
+  const modeLabel = data.quizMode === 'nontutored' ? 'Non-Tutored' : 'Tutored';
+  document.getElementById('resume-meta').textContent =
+    `${label}  ·  ${modeLabel}  ·  Q${data.current + 1} of ${total}  ·  ${answered} answered  ·  Saved ${date}`;
+  document.getElementById('resume-modal').classList.add('visible');
+}
+
+function resumeSession() {
+  let data;
+  try { data = JSON.parse(localStorage.getItem(SESSION_KEY)); } catch(e) { return; }
+  if (!data) return;
+  activeBankKey = data.bankKey;
+  activeQuizMode = data.quizMode || 'tutored';
+  quizMode      = activeQuizMode;
+  activeBank    = data.activeBank;
+  current       = data.current;
+  answers       = data.answers;
+  flags         = data.flags;
+  highlights    = data.highlights;
+  strikeouts    = data.strikeouts.map(s => new Set(s));
+  hlColor       = null;
+  document.getElementById('resume-modal').classList.remove('visible');
+  document.getElementById('screen-start').style.display = 'none';
+  document.getElementById('screen-quiz').style.display = 'block';
+  updateLiveScore();
+  renderQuestion();
+}
+
+function discardSession() {
+  clearSession();
+  document.getElementById('resume-modal').classList.remove('visible');
+}
+
+// ─── QUIZ LOGIC ──────────────────────────────────────────────────────────────
+function startQuiz(key) {
+  const raw = key === 'all' ? [...ALL_BANKS] : [...(BANKS[key] || [])];
+  activeBankKey = key;
+  activeQuizMode = quizMode;
+  activeBank = shuffle(raw).map(q => randomizeOpts(q));
+  current = 0;
+  answers = new Array(activeBank.length).fill(null);
+  strikeouts = activeBank.map(() => new Set());
+  flags = new Array(activeBank.length).fill(false);
+  highlights = activeBank.map(() => []);
+  hlColor = null;
+  clearSession();
+
+  document.getElementById('screen-start').style.display = 'none';
+  document.getElementById('screen-quiz').style.display = 'block';
+  updateLiveScore();
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = activeBank[current];
+  document.body.classList.add('tracker-active');
+  document.getElementById('q-tracker').classList.add('show');
+  const letters = ['A','B','C','D','E','F'];
+  const total = activeBank.length;
+
+  document.getElementById('q-counter').textContent = `Question ${current + 1} of ${total}`;
+  document.getElementById('progress-fill').style.width = `${((current + 1) / total) * 100}%`;
+  document.getElementById('q-lecture').textContent = q.lecture;
+
+  const isTutored = activeQuizMode !== 'nontutored';
+  const modeBadge = document.getElementById('mode-badge');
+  modeBadge.textContent = modeBadgeText(activeQuizMode);
+  modeBadge.className = 'mode-badge ' + (isTutored ? 'tutored' : 'nontutored');
+
+  // Render question text with highlights
+  const qTextEl = document.getElementById('q-text');
+  qTextEl.innerHTML = applyHighlights(q.q, highlights[current]);
+
+  // Show the original figure for image-dependent items (kept separate from
+  // the highlightable text so highlight <mark> logic never touches it)
+  const qImageEl = document.getElementById('q-image');
+  const qImageNoteEl = document.getElementById('q-image-note');
+  if (q.img) {
+    qImageEl.src = q.img;
+    qImageEl.style.display = 'block';
+    qImageNoteEl.style.display = 'block';
+  } else {
+    qImageEl.style.display = 'none';
+    qImageNoteEl.style.display = 'none';
+  }
+
+  // Sync flag button
+  const flagBtn = document.getElementById('flag-btn');
+  if (flags[current]) {
+    flagBtn.classList.add('is-flagged');
+    flagBtn.textContent = '🚩 Flagged';
+  } else {
+    flagBtn.classList.remove('is-flagged');
+    flagBtn.textContent = '🚩 Flag Question';
+  }
+
+  // Sync highlighter toolbar active state
+  document.querySelectorAll('.hl-btn').forEach(b => {
+    b.classList.toggle('hl-active', b.dataset.color === (hlColor || ''));
+  });
+
+  const list = document.getElementById('options-list');
+  list.innerHTML = '';
+  const answered = answers[current] !== null;
+
+  if (q.placeholder) {
+    // This item doesn't exist in the source PDF at all — nothing to answer,
+    // just show the notice and let the person move on.
+    list.innerHTML = '<li style="color:var(--muted); font-family:\'DM Mono\',monospace; font-size:0.85rem; padding:10px 2px;">— No answer choices for this item —</li>';
+  } else {
+  q.opts.forEach((opt, i) => {
+    const li = document.createElement('li');
+    const isStruck = !answered && strikeouts[current].has(i);
+
+    const btn = document.createElement('button');
+    btn.className = 'option-btn' + (isStruck ? ' struck' : '');
+    if (answered) {
+      // NBME quiz: answers stay changeable, so options are never disabled —
+      // clicking a different option re-answers the question.
+      if (isTutored) {
+        if (i === q.ans) btn.classList.add('correct');
+        else if (i === answers[current]) btn.classList.add('wrong');
+      } else if (i === answers[current]) {
+        // Non-tutored: acknowledge the choice without revealing correctness
+        btn.classList.add('selected-neutral');
+      }
+    }
+    btn.innerHTML = `<span class="option-letter">${letters[i]}</span><span>${opt}</span>`;
+    btn.onclick = () => selectAnswer(i);
+
+    if (!answered) {
+      const xBtn = document.createElement('button');
+      xBtn.className = 'strike-btn' + (isStruck ? ' active' : '');
+      xBtn.title = isStruck ? 'Restore choice' : 'Eliminate choice';
+      xBtn.innerHTML = isStruck ? '↩' : '✕';
+      xBtn.onclick = (e) => {
+        e.stopPropagation();
+        if (strikeouts[current].has(i)) {
+          strikeouts[current].delete(i);
+        } else {
+          strikeouts[current].add(i);
+        }
+        saveSession();
+        renderQuestion();
+      };
+      btn.appendChild(xBtn);
+    }
+
+    li.appendChild(btn);
+    list.appendChild(li);
+  });
+  }
+
+  const exp = document.getElementById('explanation');
+  if (q.placeholder) {
+    exp.innerHTML = `<em style="color:var(--muted)">${q.exp}</em>`;
+    exp.classList.add('show');
+  } else if (answered && isTutored) {
+    exp.innerHTML = `<strong>Explanation:</strong> ${q.exp}`;
+    exp.classList.add('show');
+  } else if (answered && !isTutored) {
+    exp.innerHTML = `<em style="color:var(--muted)">Answer recorded. Explanations and results are revealed after you finish the quiz.</em>`;
+    exp.classList.add('show');
+  } else {
+    exp.classList.remove('show');
+    exp.innerHTML = '';
+  }
+
+  document.getElementById('btn-prev').style.display = current > 0 ? 'inline-flex' : 'none';
+  const nextBtn = document.getElementById('btn-next');
+  if (current === activeBank.length - 1) {
+    nextBtn.textContent = 'Finish Quiz';
+    nextBtn.onclick = showResults;
+  } else {
+    nextBtn.textContent = 'Next →';
+    nextBtn.onclick = nextQ;
+  }
+  renderTracker();
+}
+
+// ─── FLAG ────────────────────────────────────────────────────────────────────
+
+function toggleFlag() {
+  flags[current] = !flags[current];
+  saveSession();
+  renderQuestion();
+}
+
+// ─── HIGHLIGHTER ─────────────────────────────────────────────────────────────
+function setHighlightColor(color) {
+  // 'none' = erase mode; toggling same color off clears the tool
+  if (color === 'none') {
+    hlColor = (hlColor === 'none') ? null : 'none';
+  } else {
+    hlColor = (hlColor === color) ? null : color;
+  }
+  document.querySelectorAll('.hl-btn').forEach(b => {
+    b.classList.toggle('hl-active', b.dataset.color === (hlColor || ''));
+  });
+  // Update cursor on question text
+  const qTextEl = document.getElementById('q-text');
+  qTextEl.style.cursor = hlColor ? 'text' : '';
+}
+
+function applyHighlights(text, hlList) {
+  if (!hlList || hlList.length === 0) return escapeHtml(text);
+  // Sort and merge overlapping ranges by color precedence
+  const sorted = [...hlList].sort((a, b) => a.start - b.start);
+  let result = '';
+  let pos = 0;
+  for (const hl of sorted) {
+    if (hl.start > pos) result += escapeHtml(text.slice(pos, hl.start));
+    if (hl.end > hl.start) result += `<mark class="hl-${hl.color}">${escapeHtml(text.slice(hl.start, hl.end))}</mark>`;
+    pos = Math.max(pos, hl.end);
+  }
+  if (pos < text.length) result += escapeHtml(text.slice(pos));
+  return result;
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function setupHighlighter() {
+  // Attach to the stable .question-card parent — q-text's innerHTML is replaced on
+  // every renderQuestion() call, which silently drops listeners bound directly to it.
+  const card = document.querySelector('.question-card');
+  card.addEventListener('mouseup', handleTextSelection);
+  card.addEventListener('touchend', handleTextSelection);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setupHighlighter();
+  checkForSavedSession();
+});
+
+function getTextOffset(container, node, nodeOffset) {
+  // Walk the text nodes inside container, summing characters until we reach (node, nodeOffset)
+  let offset = 0;
+  const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
+  while (walker.nextNode()) {
+    const current = walker.currentNode;
+    if (current === node) {
+      offset += nodeOffset;
+      return offset;
+    }
+    offset += current.nodeValue.length;
+  }
+  return offset;
+}
+
+function handleTextSelection() {
+  if (!hlColor) return;
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const qTextEl = document.getElementById('q-text');
+  if (!qTextEl) return;
+  const range = sel.getRangeAt(0);
+  // Only act on selections within the question text element
+  if (!qTextEl.contains(range.commonAncestorContainer)) return;
+
+  // Compute offsets relative to the plain text using tree walker (robust to <mark> child nodes)
+  const startOffset = getTextOffset(qTextEl, range.startContainer, range.startOffset);
+  const selectedText = range.toString();
+  const endOffset = startOffset + selectedText.length;
+
+  if (endOffset <= startOffset) return;
+
+  const qHighlights = highlights[current];
+
+  if (hlColor === 'none') {
+    // Remove any highlights that overlap this range
+    highlights[current] = qHighlights.filter(h => h.end <= startOffset || h.start >= endOffset);
+  } else {
+    // Remove overlapping ranges, then add new one
+    highlights[current] = qHighlights.filter(h => h.end <= startOffset || h.start >= endOffset);
+    highlights[current].push({ start: startOffset, end: endOffset, color: hlColor });
+    // Re-sort
+    highlights[current].sort((a, b) => a.start - b.start);
+  }
+
+  sel.removeAllRanges();
+  saveSession();
+  renderQuestion();
+}
+
+function selectAnswer(i) {
+  answers[current] = i;
+  updateLiveScore();
+  saveSession();
+  renderQuestion();
+}
+
+function nextQ() {
+  if (current < activeBank.length - 1) { current++; saveSession(); renderQuestion(); }
+}
+
+function prevQ() {
+  if (current > 0) { current--; saveSession(); renderQuestion(); }
+}
+
+function goToQuestion(i) {
+  current = i;
+  saveSession();
+  renderQuestion();
+}
+
+function renderTracker() {
+  const trackerEl = document.getElementById('q-tracker');
+  if (!trackerEl) return;
+  trackerEl.innerHTML = '';
+  activeBank.forEach((q, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'tracker-dot';
+    if (i === current) dot.classList.add('current');
+    if (answers[i] !== null) {
+      if (activeQuizMode === 'nontutored') {
+        dot.classList.add('answered');
+      } else {
+        dot.classList.add(answers[i] === q.ans ? 'correct' : 'wrong');
+      }
+    }
+    dot.textContent = i + 1;
+    if (flags[i]) {
+      const flagMark = document.createElement('span');
+      flagMark.className = 'flag-mark';
+      flagMark.textContent = '🚩';
+      dot.appendChild(flagMark);
+    }
+    dot.title = `Question ${i + 1}` + (flags[i] ? ' (flagged)' : '');
+    dot.onclick = () => goToQuestion(i);
+    trackerEl.appendChild(dot);
+  });
+}
+
+function updateLiveScore() {
+  const answered = answers.filter(a => a !== null).length;
+  if (activeQuizMode === 'nontutored') {
+    // Non-tutored: never reveal correctness before the quiz is submitted
+    document.getElementById('live-score').textContent = activeBank.length
+      ? `Answered: ${answered} / ${activeBank.length}`
+      : 'Score: — / —';
+    return;
+  }
+  const correct = answers.filter((a, i) => a !== null && a === activeBank[i].ans).length;
+  document.getElementById('live-score').textContent = answered > 0 ? `Score: ${correct} / ${answered}` : 'Score: — / —';
+}
+
+function showResults() {
+  const correct = answers.filter((a, i) => a !== null && a === activeBank[i].ans).length;
+  const wrong = answers.filter((a, i) => a !== null && a !== activeBank[i].ans).length;
+  const total = activeBank.length;
+  const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
+  const flaggedCount = flags.filter(Boolean).length;
+
+  // Save this attempt to the signed-in user's history (no-op if not signed in)
+  if (window.saveExamAttempt) {
+    window.saveExamAttempt(EXAM_NAME, activeBankKey, correct, total, activeQuizMode);
+  }
+
+  document.getElementById('final-score-num').textContent = correct;
+  document.getElementById('score-denom').textContent = `/ ${total}`;
+  document.getElementById('r-correct').textContent = correct;
+  document.getElementById('r-wrong').textContent = wrong;
+  document.getElementById('r-pct').textContent = pct + '%';
+  document.getElementById('r-flagged').textContent = flaggedCount;
+  document.getElementById('btn-review-flagged').style.display = flaggedCount > 0 ? 'inline-flex' : 'none';
+
+  let heading, msg;
+  if (pct >= 90) { heading = 'Exceptional Work! 🎉'; msg = 'Outstanding performance. You have mastered this material.'; }
+  else if (pct >= 80) { heading = 'Well Done! 💪'; msg = 'Strong performance. Review the questions you missed for perfection.'; }
+  else if (pct >= 70) { heading = 'Good Effort! 📚'; msg = 'Solid foundation. Review the explanations for missed questions.'; }
+  else if (pct >= 60) { heading = 'Keep Studying! 🔍'; msg = "You're making progress. Focus on weak areas and retry."; }
+  else { heading = 'More Review Needed 📖'; msg = "Don't be discouraged. Review the explanations and try again."; }
+
+  document.getElementById('result-heading').textContent = heading;
+  document.getElementById('result-msg').textContent = msg;
+
+  document.getElementById('screen-quiz').style.display = 'none';
+  document.getElementById('screen-results').style.display = 'block';
+  document.body.classList.remove('tracker-active');
+  document.getElementById('q-tracker').classList.remove('show');
+  clearSession();
+}
+
+function retake() {
+  current = 0;
+  activeBank = activeBank.map(q => {
+    // Re-randomize answer order on retake
+    const origOpts = [...q.opts];
+    const correctText = origOpts[q.ans];
+    shuffle(origOpts);
+    return { ...q, opts: origOpts, ans: origOpts.indexOf(correctText) };
+  });
+  shuffle(activeBank);
+  answers = new Array(activeBank.length).fill(null);
+  document.getElementById('screen-results').style.display = 'none';
+  document.getElementById('screen-quiz').style.display = 'block';
+  updateLiveScore();
+  renderQuestion();
+}
+
+function backToMenu() {
+  clearSession();
+  document.body.classList.remove('tracker-active');
+  document.getElementById('q-tracker').classList.remove('show');
+  document.getElementById('screen-results').style.display = 'none';
+  document.getElementById('screen-review').style.display = 'none';
+  document.getElementById('screen-quiz').style.display = 'none';
+  document.getElementById('screen-start').style.display = 'block';
+  document.getElementById('live-score').textContent = 'Score: — / —';
+  document.getElementById('progress-fill').style.width = '0%';
+}
+
+function showReview(mode) {
+  mode = mode || 'all';
+  document.getElementById('screen-results').style.display = 'none';
+  document.getElementById('screen-review').style.display = 'block';
+  document.getElementById('review-subtitle').textContent = `${activeBank.length} questions reviewed`;
+  // Show flagged filter button only if there are flagged questions
+  const hasFlagged = flags.some(Boolean);
+  document.getElementById('rf-flagged').style.display = hasFlagged ? 'inline-flex' : 'none';
+  setFilterActive(mode);
+  renderReview(mode);
+}
+
+function backToResults() {
+  document.getElementById('screen-review').style.display = 'none';
+  document.getElementById('screen-results').style.display = 'block';
+}
+
+function setFilterActive(mode) {
+  ['all','wrong','correct','flagged'].forEach(m => {
+    const el = document.getElementById('rf-' + m);
+    if (el) el.classList.toggle('btn-filter-active', m === mode);
+  });
+}
+
+function filterReview(mode) {
+  setFilterActive(mode);
+  renderReview(mode);
+}
+
+function renderReview(mode) {
+  const letters = ['A','B','C','D','E','F'];
+  const list = document.getElementById('review-list');
+  list.innerHTML = '';
+  activeBank.forEach((q, i) => {
+    const userAns = answers[i];
+    const isCorrect = userAns !== null && userAns === q.ans;
+    const isSkipped = userAns === null;
+    const isFlagged = flags[i];
+    if (mode === 'wrong' && (isCorrect || isSkipped)) return;
+    if (mode === 'correct' && !isCorrect) return;
+    if (mode === 'flagged' && !isFlagged) return;
+    const div = document.createElement('div');
+    div.className = `review-item ${isSkipped ? 'review-skipped' : isCorrect ? 'review-correct' : 'review-wrong'}`;
+    const statusText = isSkipped ? 'SKIPPED' : isCorrect ? 'CORRECT' : 'WRONG';
+    const statusClass = isSkipped ? 'skipped' : isCorrect ? 'correct' : 'wrong';
+    let optsHtml = q.opts.map((opt, j) => {
+      let cls = '';
+      if (j === q.ans) cls = 'opt-correct';
+      else if (j === userAns) cls = 'opt-wrong';
+      return `<li class="review-opt ${cls}"><span class="review-opt-letter">${letters[j]}</span><span>${opt}</span></li>`;
+    }).join('');
+    div.innerHTML = `
+      <div class="review-header">
+        <div class="review-tag">
+          <span class="review-num">Q${i + 1}</span>
+          <span class="lecture-tag" style="margin-bottom:0">${q.lecture}</span>
+        </div>
+        <span class="review-status ${statusClass}">${statusText}</span>
+      </div>
+      <p class="review-q">${q.q}</p>
+      <ul class="review-opts">${optsHtml}</ul>
+      <div class="review-exp"><strong>Explanation:</strong> ${q.exp}</div>`;
+    list.appendChild(div);
+  });
+  if (list.innerHTML === '') list.innerHTML = '<p style="color:var(--muted);text-align:center;padding:40px 0">No questions in this filter.</p>';
+}
+</script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="auth.js"></script>
+</body>
+</html>
