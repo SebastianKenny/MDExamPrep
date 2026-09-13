@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cancer Biology — Final Exam Review</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0e1117;
+    --surface: #161b27;
+    --card: #1c2333;
+    --border: #2a3347;
+    --accent: #3ecf8e;
+    --accent2: #5b8dee;
+    --accent3: #e07b3e;
+    --warn: #f6a623;
+    --danger: #e05252;
+    --text: #e8edf5;
+    --muted: #6b7a99;
+    --radius: 12px;
+  }
+  body.light {
+    --bg: #f0f4fb;
+    --surface: #ffffff;
+    --card: #ffffff;
+    --border: #d0d9ed;
+    --accent: #1a9e67;
+    --accent2: #3060cc;
+    --accent3: #c05a1a;
+    --warn: #c47a00;
+    --danger: #c43030;
+    --text: #0f1a2e;
+    --muted: #5a6a8a;
+  }
+  body.light .header { background: linear-gradient(135deg, #1a3a7a 0%, #2d1a5e 100%); }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; min-height: 100vh; transition: background 0.2s, color 0.2s; }
+
+  .header {
+    background: linear-gradient(135deg, #0d1f3c 0%, #1a0e2e 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .header-left h1 { font-family: 'DM Serif Display', serif; font-size: 1.6rem; color: var(--accent); letter-spacing: -0.5px; }
+  .header-left p { font-size: 0.78rem; color: var(--muted); font-family: 'DM Mono', monospace; margin-top: 2px; }
+  .score-badge { background: var(--card); border: 1px solid var(--border); border-radius: 50px; padding: 10px 20px; font-family: 'DM Mono', monospace; font-size: 0.85rem; color: var(--accent); }
+
+  .progress-bar-wrap { height: 3px; background: var(--border); width: 100%; }
+  .progress-bar-fill { height: 100%; background: linear-gradient(90deg, var(--accent2), var(--accent)); transition: width 0.4s ease; }
+
+  .main { max-width: 820px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  #screen-start { text-align: center; padding: 60px 24px; }
+  #screen-start h2 { font-family: 'DM Serif Display', serif; font-size: 2.4rem; line-height: 1.2; margin-bottom: 12px; }
+  #screen-start h2 em { color: var(--accent); font-style: italic; }
+  #screen-start > p { color: var(--muted); max-width: 560px; margin: 0 auto 40px; line-height: 1.7; font-size: 0.95rem; }
+
+  .section-label { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 1.5px; color: var(--muted); text-transform: uppercase; margin-bottom: 12px; text-align: left; }
+  .section-divider { border: none; border-top: 1px solid var(--border); margin: 28px 0 20px; }
+
+  /* ── MODE SELECTOR (tutored / non-tutored) ── */
+  .mode-select-wrap { max-width: 560px; margin: 0 auto 36px; text-align: left; }
+  .mode-select-label { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 1.5px; color: var(--muted); text-transform: uppercase; margin-bottom: 10px; text-align: center; }
+  .mode-toggle { display: flex; gap: 12px; }
+  .mode-btn { flex: 1; background: var(--card); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 16px 18px; cursor: pointer; text-align: left; transition: all 0.15s; }
+  .mode-btn:hover { border-color: var(--accent2); }
+  .mode-btn h4 { font-family: 'DM Sans', sans-serif; font-size: 0.92rem; font-weight: 600; color: var(--text); margin-bottom: 4px; display: flex; align-items: center; gap: 7px; }
+  .mode-btn p { font-size: 0.76rem; color: var(--muted); line-height: 1.45; }
+  .mode-btn.mode-active { border-color: var(--accent2); background: rgba(91,141,238,0.08); }
+  .mode-btn.mode-active h4 { color: var(--accent2); }
+  .mode-radio-dot { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid var(--muted); display: inline-block; flex-shrink: 0; }
+  .mode-btn.mode-active .mode-radio-dot { border-color: var(--accent2); background: var(--accent2); }
+
+  .mode-badge { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.5px; padding: 4px 11px; border-radius: 50px; border: 1px solid; white-space: nowrap; }
+  .mode-badge.tutored { color: var(--accent); border-color: rgba(62,207,142,0.35); background: rgba(62,207,142,0.08); }
+  .mode-badge.nontutored { color: var(--accent2); border-color: rgba(91,141,238,0.35); background: rgba(91,141,238,0.08); }
+
+  .option-btn.selected-neutral { border-color: var(--accent2); background: rgba(91,141,238,0.08); }
+  .option-btn.selected-neutral .option-letter { color: var(--accent2); }
+
+  .set-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 16px; text-align: left; }
+  .set-card { background: var(--card); border: 1.5px solid var(--border); border-radius: var(--radius); padding: 20px 22px; cursor: pointer; transition: all 0.15s; }
+  .set-card:hover { border-color: var(--accent2); background: rgba(91,141,238,0.07); }
+  .set-card h3 { font-family: 'DM Serif Display', serif; font-size: 1.05rem; margin-bottom: 5px; color: var(--accent2); }
+  .set-card p { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+  .set-card .q-count { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--accent); margin-top: 10px; }
+  .set-card.all-card h3 { color: var(--accent); }
+  .set-card.all-card { border-color: rgba(62,207,142,0.3); }
+  .set-card.cardio-card h3 { color: #e07b3e; }
+  .set-card.cardio-card { border-color: rgba(224,123,62,0.25); }
+  .set-card.cardio-card:hover { border-color: var(--accent3); background: rgba(224,123,62,0.06); }
+  .set-card.all-cardio-card { border-color: rgba(224,123,62,0.4); }
+  .set-card.all-cardio-card h3 { color: var(--accent3); }
+  .set-card.all-cardio-card:hover { border-color: var(--accent3); background: rgba(224,123,62,0.08); }
+
+  #screen-quiz { display: none; }
+  #q-tracker {
+    position: fixed; left: 0; top: 0; bottom: 0; width: 60px;
+    background: var(--surface); border-right: 1px solid var(--border);
+    overflow-y: auto; padding: 14px 8px; z-index: 500; display: none;
+  }
+  #q-tracker.show { display: block; }
+  #q-tracker .tracker-dot {
+    position: relative; width: 40px; height: 34px; margin: 0 auto 6px;
+    border-radius: 8px; border: 1.5px solid var(--border); background: var(--card);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted);
+    cursor: pointer; transition: border-color 0.15s, background 0.15s;
+  }
+  #q-tracker .tracker-dot:hover { border-color: var(--accent2); }
+  #q-tracker .tracker-dot.answered { background: rgba(91,141,238,0.15); border-color: var(--accent2); color: var(--accent2); }
+  #q-tracker .tracker-dot.correct { background: rgba(62,207,142,0.18); border-color: var(--accent); color: var(--accent); }
+  #q-tracker .tracker-dot.wrong { background: rgba(224,82,82,0.18); border-color: var(--danger); color: var(--danger); }
+  #q-tracker .tracker-dot.current { outline: 2px solid var(--text); outline-offset: 1px; }
+  #q-tracker .tracker-dot .flag-mark { position: absolute; top: -6px; right: -6px; font-size: 0.65rem; line-height: 1; }
+  body.tracker-active .header, body.tracker-active .main { margin-left: 60px; }
+  @media (max-width: 900px) {
+    /* On narrow screens, the sidebar becomes a horizontal scrollable bar
+       pinned to the bottom of the viewport instead of disappearing. */
+    #q-tracker.show {
+      display: flex; flex-direction: row; align-items: center;
+      left: 0; right: 0; top: auto; bottom: 0; width: auto; height: 58px;
+      padding: 8px 10px; overflow-x: auto; overflow-y: hidden;
+      border-right: none; border-top: 1px solid var(--border);
+    }
+    #q-tracker .tracker-dot { margin: 0 6px 0 0; flex: 0 0 auto; }
+    body.tracker-active .header, body.tracker-active .main { margin-left: 0; }
+    body.tracker-active .main { padding-bottom: 90px; }
+  }
+  .question-counter { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--muted); margin-bottom: 10px; }
+  .question-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; margin-bottom: 24px; }
+  .lecture-tag { display: inline-block; background: rgba(94,141,238,0.12); color: var(--accent2); font-family: 'DM Mono', monospace; font-size: 0.7rem; padding: 3px 10px; border-radius: 4px; margin-bottom: 16px; letter-spacing: 0.5px; }
+  .question-text { font-size: 1.08rem; line-height: 1.65; font-weight: 400; color: var(--text); }
+
+  .options-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .option-btn { width: 100%; text-align: left; background: var(--surface); border: 1.5px solid var(--border); border-radius: 10px; padding: 14px 18px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; color: var(--text); transition: all 0.15s ease; display: flex; align-items: flex-start; gap: 12px; }
+  .option-btn:hover:not(:disabled) { border-color: var(--accent2); background: rgba(91,141,238,0.06); }
+  .option-letter { font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--muted); min-width: 18px; margin-top: 1px; }
+  .option-btn.correct { border-color: var(--accent); background: rgba(62,207,142,0.1); }
+  .option-btn.correct .option-letter { color: var(--accent); }
+  .option-btn.wrong { border-color: var(--danger); background: rgba(224,82,82,0.1); }
+  .option-btn.wrong .option-letter { color: var(--danger); }
+  .option-btn:disabled { cursor: default; }
+  .option-btn.struck { opacity: 0.38; text-decoration: line-through; text-decoration-color: var(--danger); border-color: rgba(224,82,82,0.25); }
+  .option-btn.struck .option-letter { color: var(--danger); }
+  .strike-btn { background: none; border: none; cursor: pointer; padding: 2px 6px; color: var(--muted); font-size: 1rem; line-height: 1; border-radius: 4px; transition: color 0.15s, background 0.15s; flex-shrink: 0; margin-left: auto; }
+  .strike-btn:hover { color: var(--danger); background: rgba(224,82,82,0.1); }
+  .strike-btn.active { color: var(--danger); }
+  .option-row { display: flex; align-items: center; gap: 0; }
+
+  .explanation { display: none; margin-top: 16px; background: rgba(62,207,142,0.05); border: 1px solid rgba(62,207,142,0.2); border-radius: 8px; padding: 14px 18px; font-size: 0.88rem; color: var(--muted); line-height: 1.65; }
+  .explanation.show { display: block; }
+  .explanation strong { color: var(--accent); }
+
+  .nav-row { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 20px; }
+  .btn { padding: 12px 28px; border-radius: 8px; border: none; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500; cursor: pointer; transition: all 0.15s; }
+  .btn-primary { background: var(--accent); color: #0a1f15; }
+  .btn-primary:hover { background: #2fb87a; }
+  .btn-outline { background: transparent; color: var(--muted); border: 1.5px solid var(--border); }
+  .btn-outline:hover { border-color: var(--muted); color: var(--text); }
+
+  #screen-results { display: none; text-align: center; padding: 60px 0; }
+  .score-circle { width: 160px; height: 160px; border-radius: 50%; border: 3px solid var(--accent); display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0 auto 32px; }
+  .score-circle .big-num { font-family: 'DM Serif Display', serif; font-size: 3.2rem; color: var(--accent); line-height: 1; }
+  .score-circle .denom { font-size: 0.85rem; color: var(--muted); margin-top: 4px; }
+  .result-stats { display: flex; justify-content: center; gap: 40px; margin: 28px 0; }
+  .stat-item { text-align: center; }
+  .stat-item .val { font-family: 'DM Mono', monospace; font-size: 1.5rem; }
+  .stat-item .val.green { color: var(--accent); }
+  .stat-item .val.red { color: var(--danger); }
+  .stat-item .lbl { font-size: 0.75rem; color: var(--muted); margin-top: 4px; }
+  #result-heading { font-family: 'DM Serif Display', serif; font-size: 2rem; margin-bottom: 10px; }
+  #result-msg { color: var(--muted); font-size: 0.95rem; margin-bottom: 36px; }
+  .result-btns { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+
+  /* ── HEADER CONTROLS ── */
+  .back-link { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.78rem; color: rgba(255,255,255,0.65); text-decoration: none; margin-bottom: 10px; }
+  .back-link:hover { color: #fff; }
+  .header-right { display: flex; align-items: center; gap: 10px; }
+  .theme-btn { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.18); border-radius: 50px; padding: 8px 16px; cursor: pointer; font-size: 0.8rem; color: rgba(255,255,255,0.75); font-family: 'DM Sans', sans-serif; font-weight: 500; transition: all 0.15s; white-space: nowrap; }
+  .theme-btn:hover { background: rgba(255,255,255,0.15); color: #fff; }
+
+  /* ── FLAG BUTTON ── */
+  .quiz-toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .flag-btn { background: none; border: 1.5px solid var(--border); border-radius: 8px; padding: 7px 16px; cursor: pointer; font-size: 0.82rem; color: var(--muted); font-family: 'DM Sans', sans-serif; font-weight: 500; transition: all 0.15s; display: flex; align-items: center; gap: 6px; }
+  .flag-btn:hover { border-color: var(--warn); color: var(--warn); }
+  .flag-btn.is-flagged { border-color: var(--warn); color: var(--warn); background: rgba(246,166,35,0.1); }
+  .stat-item .val.orange { color: var(--warn); }
+  .btn-flag-filter { border-color: rgba(246,166,35,0.4); color: var(--warn); }
+  .btn-flag-filter.btn-filter-active { background: rgba(246,166,35,0.1); border-color: var(--warn); }
+
+  /* ── HIGHLIGHTER ── */
+  .highlight-toolbar { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+  .hl-label { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; margin-right: 2px; }
+  .hl-btn { border: 1.5px solid transparent; border-radius: 6px; padding: 5px 13px; cursor: pointer; font-size: 0.78rem; font-family: 'DM Sans', sans-serif; font-weight: 500; transition: all 0.15s; opacity: 0.7; }
+  .hl-btn:hover { opacity: 1; transform: scale(1.05); }
+  .hl-btn.hl-active { opacity: 1; border-color: currentColor; box-shadow: 0 0 0 2px currentColor; }
+  .hl-btn[data-color="yellow"] { background: rgba(255,236,0,0.25); color: #c8a800; }
+  .hl-btn[data-color="green"]  { background: rgba(62,207,142,0.25); color: var(--accent); }
+  .hl-btn[data-color="pink"]   { background: rgba(255,100,180,0.22); color: #e0409a; }
+  .hl-btn[data-color="blue"]   { background: rgba(91,141,238,0.25); color: var(--accent2); }
+  .hl-btn[data-color="none"]   { background: var(--surface); color: var(--muted); border-color: var(--border); opacity: 1; }
+  mark.hl-yellow { background: rgba(255,236,0,0.35); color: inherit; border-radius: 2px; padding: 0 1px; }
+  mark.hl-green  { background: rgba(62,207,142,0.30); color: inherit; border-radius: 2px; padding: 0 1px; }
+  mark.hl-pink   { background: rgba(255,100,180,0.28); color: inherit; border-radius: 2px; padding: 0 1px; }
+  mark.hl-blue   { background: rgba(91,141,238,0.30); color: inherit; border-radius: 2px; padding: 0 1px; }
+
+  #screen-review { display: none; }
+  .review-item { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px 28px; margin-bottom: 16px; }
+  .review-item.review-correct { border-left: 3px solid var(--accent); }
+  .review-item.review-wrong { border-left: 3px solid var(--danger); }
+  .review-item.review-skipped { border-left: 3px solid var(--muted); }
+  .review-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; gap: 12px; flex-wrap: wrap; }
+  .review-tag { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .review-num { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted); }
+  .review-status { font-family: 'DM Mono', monospace; font-size: 0.7rem; padding: 2px 8px; border-radius: 4px; font-weight: 500; }
+  .review-status.correct { background: rgba(62,207,142,0.15); color: var(--accent); }
+  .review-status.wrong { background: rgba(224,82,82,0.15); color: var(--danger); }
+  .review-status.skipped { background: rgba(107,122,153,0.15); color: var(--muted); }
+  .review-q { font-size: 1rem; line-height: 1.6; color: var(--text); margin-bottom: 14px; font-weight: 400; }
+  .review-opts { list-style: none; display: flex; flex-direction: column; gap: 7px; margin-bottom: 14px; }
+  .review-opt { padding: 10px 14px; border-radius: 8px; border: 1.5px solid var(--border); font-size: 0.88rem; color: var(--muted); display: flex; gap: 10px; align-items: flex-start; }
+  .review-opt.opt-correct { border-color: var(--accent); background: rgba(62,207,142,0.08); color: var(--text); }
+  .review-opt.opt-correct .review-opt-letter { color: var(--accent); }
+  .review-opt.opt-wrong { border-color: var(--danger); background: rgba(224,82,82,0.08); color: var(--text); }
+  .review-opt.opt-wrong .review-opt-letter { color: var(--danger); }
+  .review-opt-letter { font-family: 'DM Mono', monospace; font-size: 0.75rem; min-width: 16px; margin-top: 1px; color: var(--muted); }
+  .review-exp { background: rgba(62,207,142,0.05); border: 1px solid rgba(62,207,142,0.2); border-radius: 8px; padding: 12px 16px; font-size: 0.85rem; color: var(--muted); line-height: 1.65; }
+  .review-exp strong { color: var(--accent); }
+  .btn-filter-active { border-color: var(--accent2); color: var(--accent2); background: rgba(91,141,238,0.08); }
+  .review-filters { display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
+  .review-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; flex-wrap: wrap; gap: 12px; }
+  .review-top h2 { font-family: 'DM Serif Display', serif; font-size: 1.6rem; }
+  #review-subtitle { font-family: 'DM Mono', monospace; font-size: 0.8rem; color: var(--muted); margin-top: 4px; }
+
+  /* ─── RESUME MODAL ─── */
+  #resume-modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.55); z-index:999; align-items:center; justify-content:center; }
+  #resume-modal.visible { display:flex; }
+  .resume-box { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:36px 32px; max-width:420px; width:90%; box-shadow:0 8px 40px rgba(0,0,0,0.35); }
+  .resume-box h3 { font-family:'DM Serif Display',serif; font-size:1.45rem; margin-bottom:8px; }
+  .resume-box p { font-size:0.9rem; color:var(--muted); line-height:1.6; margin-bottom:6px; }
+  .resume-meta { font-family:'DM Mono',monospace; font-size:0.78rem; color:var(--accent2); margin-bottom:24px; }
+  .resume-actions { display:flex; gap:12px; flex-wrap:wrap; }
+  .resume-actions button { flex:1; min-width:120px; padding:12px 16px; border-radius:10px; border:1.5px solid var(--border); font-size:0.9rem; font-weight:600; cursor:pointer; transition:all .15s; }
+  #btn-resume { background:var(--accent); color:#000; border-color:var(--accent); }
+  #btn-resume:hover { filter:brightness(1.1); }
+  #btn-fresh { background:transparent; color:var(--text); }
+  #btn-fresh:hover { border-color:var(--danger); color:var(--danger); }
+</style>
+</head>
+<body>
+<div id="q-tracker"></div>
+
+<!-- RESUME MODAL -->
+<div id="resume-modal">
+  <div class="resume-box">
+    <h3>Resume session?</h3>
+    <p>You have an unfinished quiz session saved in this browser.</p>
+    <div class="resume-meta" id="resume-meta"></div>
+    <div class="resume-actions">
+      <button id="btn-resume" onclick="resumeSession()">▶ Resume</button>
+      <button id="btn-fresh" onclick="discardSession()">Start Fresh</button>
+    </div>
+  </div>
+</div>
+
+<div class="header">
+  <div class="header-left">
+    <a href="index.html" class="back-link">← All Exams</a>
+    <h1>CANCER BIOLOGY</h1>
+    <p id="header-subtitle">FINAL EXAM REVIEW · 116 QUESTIONS</p>
+  </div>
+  <div class="header-right">
+    <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">☀️ Light Mode</button>
+    <div class="score-badge" id="live-score">Score: — / —</div>
+  </div>
+</div>
+<div class="progress-bar-wrap"><div class="progress-bar-fill" id="progress-fill" style="width:0%"></div></div>
+
+<div class="main">
+
+  <!-- START SCREEN -->
+  <div id="screen-start">
+    <h2>The failing heart,<br><em>is afterload sensitive.</em></h2>
+    <p>Comprehensive cardiology question bank for INDE 221 — covering all 127 learning objectives across blood flow, autonomic pharmacology, heart failure, ischemic heart disease, valvular disease, congenital heart disease, and more. Select a section or tackle everything.</p>
+
+    <div class="mode-select-wrap">
+      <div class="mode-select-label">Before you begin — choose a mode</div>
+      <div class="mode-toggle">
+        <div class="mode-btn mode-active" id="mode-btn-tutored" onclick="setQuizMode('tutored')">
+          <h4><span class="mode-radio-dot"></span> 🎓 Tutored</h4>
+          <p>See whether each answer is correct and read the explanation immediately after you answer.</p>
+        </div>
+        <div class="mode-btn" id="mode-btn-nontutored" onclick="setQuizMode('nontutored')">
+          <h4><span class="mode-radio-dot"></span> 📝 Non-Tutored</h4>
+          <p>Answer every question with no feedback. Your score and full review are revealed only at the end.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="set-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-bottom:8px;">
+      <div class="set-card all-cardio-card" onclick="startQuiz('all')">
+        <h3>Everything</h3>
+        <p>Full randomized mix of all 447 comprehensive cardiology questions</p>
+        <div class="q-count">447 QUESTIONS</div>
+      </div>
+    </div>
+
+    <hr class="section-divider">
+    <div class="section-label">❤️ Cardiology — by topic</div>
+    <div class="set-grid">
+      <div class="set-card cardio-card" onclick="startQuiz('blood_flow')">
+        <h3>Blood Flow, Pressure & Resistance</h3>
+        <p>Poiseuille's law, viscosity, velocity, parallel vs. series circuits</p>
+        <div class="q-count">23 QUESTIONS</div>
+      </div>
+      <div class="set-card cardio-card" onclick="startQuiz('autonomic')">
+        <h3>Autonomic Nervous System</h3>
+        <p>Baroreceptors, muscarinic/nicotinic, clonidine, organophosphates</p>
+        <div class="q-count">4 QUESTIONS</div>
+      </div>
+      <div class="set-card cardio-card" onclick="startQuiz('cardiac_exam')">
+        <h3>Cardiac Exam & Heart Sounds</h3>
+        <p>Murmurs, S1–S4, gallops, innocent murmurs, S2 splitting</p>
+        <div class="q-count">14 QUESTIONS</div>
+      </div>
+      <div class="set-card cardio-card" onclick="startQuiz('auto_drugs')">
+        <h3>Autonomic Pharmacology</h3>
+        <p>Cholinomimetics, anticholinergics, MAO inhibitors, drug interactions</p>
+        <div class="q-count">3 QUESTIONS</div>
+      </div>
+      <div class="set-card cardio-card" onclick="startQuiz('cardiomyopathy')">
+        <h3>Cardiomyopathy</h3>
+        <p>DCM, HCM, restrictive, amyloid, biopsy findings</p>
+        <div class="q-count">3 QUESTIONS</div>
+      </div>
+      <div class="set-card cardio-card" onclick="startQuiz('heart_failure')">
+        <h3>Heart Failure</h3>
+        <p>Carvedilol, milrinone, spironolactone, sacubitril/valsartan</p>
+        <div class="q-count">4 QUESTIONS</div>
+      </div>
+      <div class="set-card cardio-card" onclick="startQuiz('arterial')">
+        <h3>Arterial Pressure & Compliance</h3>
+        <p>Pulse pressure, stiffness, narrow PP, cardiogenic shock</p>
+        <div class="q-count">12 QUESTIONS</div>
+      </div>
+      <div class="set-card cardio-card" onclick="startQuiz('coronary')">
+        <h3>Coronary Circulation & IHD</h3>
+        <p>Collaterals, stunning, papillary rupture, STEMI territory</p>
+        <div class="q-count">24 QUESTIONS</div>
+      </div>
+      <div class="set-card cardio-card" onclick="startQuiz('acs')">
+        <h3>Angina & ACS Management</h3>
+        <p>Nitrate tolerance, NSTEMI vs UA, clopidogrel-PPI interaction</p>
+        <div class="q-count">3 QUESTIONS</div>
+      </div>
+      <div class="set-card cardio-card" onclick="startQuiz('athero_htn')">
+        <h3>Atherosclerosis, Lipids & HTN</h3>
+        <p>Foam cells, statins, PCSK9i, JNC guidelines, end-organ damage</p>
+        <div class="q-count">89 QUESTIONS</div>
+      </div>
+      <div class="set-card cardio-card" onclick="startQuiz('endocarditis')">
+        <h3>Endocarditis, Myocarditis & ARF</h3>
+        <p>Duke criteria, Kawasaki, rheumatic fever, giant cell myocarditis</p>
+        <div class="q-count">50 QUESTIONS</div>
+      </div>
+      <div class="set-card cardio-card" onclick="startQuiz('valvular')">
+        <h3>Valvular Heart Disease</h3>
+        <p>AS, AR, MS, MR, TAVR, prosthetic valves, Doppler gradients</p>
+        <div class="q-count">40 QUESTIONS</div>
+      </div>
+      <div class="set-card cardio-card" onclick="startQuiz('pvd_lymph')">
+        <h3>PVD & Lymphatics</h3>
+        <p>PAD, ABI, AAA, Starling forces, edema, lymphangitis</p>
+        <div class="q-count">48 QUESTIONS</div>
+      </div>
+      <div class="set-card cardio-card" onclick="startQuiz('chd')">
+        <h3>Congenital Heart Disease</h3>
+        <p>VSD, ASD, TGA, TOF, Eisenmenger, HLHS, coarctation</p>
+        <div class="q-count">77 QUESTIONS</div>
+      </div>
+      <div class="set-card cardio-card" onclick="startQuiz('exercise')">
+        <h3>Exercise & Hemorrhagic Shock</h3>
+        <p>VO₂max, anaerobic threshold, DIC, compensatory mechanisms</p>
+        <div class="q-count">53 QUESTIONS</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUIZ SCREEN -->
+  <div id="screen-quiz">
+    <div class="quiz-toolbar">
+      <div class="question-counter" id="q-counter"></div>
+      <div style="display:flex; align-items:center; gap:10px;">
+        <span class="mode-badge" id="mode-badge"></span>
+        <button class="flag-btn" id="flag-btn" onclick="toggleFlag()">🚩 Flag Question</button>
+      </div>
+    </div>
+    <div class="highlight-toolbar" id="highlight-toolbar">
+      <span class="hl-label">Highlight</span>
+      <button class="hl-btn" data-color="yellow" onclick="setHighlightColor('yellow')">Yellow</button>
+      <button class="hl-btn" data-color="green"  onclick="setHighlightColor('green')">Green</button>
+      <button class="hl-btn" data-color="pink"   onclick="setHighlightColor('pink')">Pink</button>
+      <button class="hl-btn" data-color="blue"   onclick="setHighlightColor('blue')">Blue</button>
+      <button class="hl-btn" data-color="none"   onclick="setHighlightColor('none')">Erase</button>
+    </div>
+    <div class="question-card">
+      <span class="lecture-tag" id="q-lecture"></span>
+      <p class="question-text" id="q-text"></p>
+    </div>
+    <ul class="options-list" id="options-list"></ul>
+    <div class="explanation" id="explanation"></div>
+    <div class="nav-row">
+      <button class="btn btn-outline" id="btn-prev" onclick="prevQ()" style="display:none">← Prev</button>
+      <button class="btn btn-outline" onclick="backToMenu()">⬅ Menu</button>
+      <button class="btn btn-primary" id="btn-next" onclick="nextQ()">Next →</button>
+    </div>
+  </div>
+
+  <!-- RESULTS SCREEN -->
+  <div id="screen-results">
+    <div class="score-circle">
+      <span class="big-num" id="final-score-num">0</span>
+      <span class="denom" id="score-denom">/ 0</span>
+    </div>
+    <h2 id="result-heading"></h2>
+    <p id="result-msg"></p>
+    <div class="result-stats">
+      <div class="stat-item"><div class="val green" id="r-correct">0</div><div class="lbl">Correct</div></div>
+      <div class="stat-item"><div class="val red" id="r-wrong">0</div><div class="lbl">Wrong</div></div>
+      <div class="stat-item"><div class="val" id="r-pct">0%</div><div class="lbl">Score</div></div>
+      <div class="stat-item"><div class="val orange" id="r-flagged">0</div><div class="lbl">Flagged</div></div>
+    </div>
+    <div class="result-btns">
+      <button class="btn btn-outline" onclick="backToMenu()">⬅ Menu</button>
+      <button class="btn btn-outline" onclick="showReview('all')">Review All</button>
+      <button class="btn btn-outline btn-flag-filter" id="btn-review-flagged" onclick="showReview('flagged')" style="display:none">🚩 Flagged Only</button>
+      <button class="btn btn-primary" onclick="retake()">Retake</button>
+    </div>
+  </div>
+
+  <!-- REVIEW SCREEN -->
+  <div id="screen-review">
+    <div class="review-top">
+      <div>
+        <h2>Answer Review</h2>
+        <p id="review-subtitle"></p>
+      </div>
+      <button class="btn btn-outline" onclick="backToResults()">← Results</button>
+    </div>
+    <div class="review-filters">
+      <button class="btn btn-outline btn-filter-active" id="rf-all" onclick="filterReview('all')">All</button>
+      <button class="btn btn-outline" id="rf-wrong" onclick="filterReview('wrong')">Wrong Only</button>
+      <button class="btn btn-outline" id="rf-correct" onclick="filterReview('correct')">Correct Only</button>
+      <button class="btn btn-outline btn-flag-filter" id="rf-flagged" onclick="filterReview('flagged')">🚩 Flagged</button>
+    </div>
+    <div id="review-list"></div>
+  </div>
+
+</div>
+
+<script>
+// ─── THEME ───────────────────────────────────────────────────────────────────
+function toggleTheme() {
+  const isLight = document.body.classList.toggle('light');
+  document.getElementById('theme-btn').textContent = isLight ? '🌙 Dark Mode' : '☀️ Light Mode';
+}
+
+// ─── UTILITY ────────────────────────────────────────────────────────────────
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+// Randomize answer choices while tracking correct answer index
+function randomizeOpts(q) {
+  const indices = q.opts.map((_, i) => i);
+  shuffle(indices);
+  const newOpts = indices.map(i => q.opts[i]);
+  const newAns = indices.indexOf(q.ans);
+  return { ...q, opts: newOpts, ans: newAns };
+}
+
+// ─── QUESTION BANKS ─────────────────────────────────────────────────────────
+const BANK_PATH_INJURY = [{"lecture": "L1 · Pathology & Tissue Biology", "q": "Which term refers to the initiating cause of a disease?", "opts": ["Pathogenesis", "Etiology", "Topography", "Idiopathy"], "ans": 1, "exp": "Etiology is the initiating cause. Pathogenesis is the sequence of events that follows."}, {"lecture": "L1 · Pathology & Tissue Biology", "q": "Understanding the pathogenesis of a disease is most useful for which purpose?", "opts": ["Disease prevention", "Genetic counseling", "Screening and treatment", "Epidemiological mapping"], "ans": 2, "exp": "Pathogenesis informs screening and treatment; etiology informs prevention."}, {"lecture": "L1 · Pathology & Tissue Biology", "q": "A disease caused by medical treatment is best described as:", "opts": ["Idiopathic", "Sporadic", "Iatrogenic", "Congenital"], "ans": 2, "exp": "Iatrogenic means caused by a physician or medical treatment."}, {"lecture": "L1 · Pathology & Tissue Biology", "q": "Which of the following is a defining property of a stem cell?", "opts": ["High mitotic rate", "Capacity for self-renewal", "Lack of differentiation", "Frequent apoptosis"], "ans": 1, "exp": "Stem cells have two key properties: self-renewal and the ability to differentiate into other cell types."}, {"lecture": "L1 · Pathology & Tissue Biology", "q": "A disease present at birth but not caused by a gene mutation is best called:", "opts": ["Hereditary", "Genetic", "Congenital", "Epigenetic"], "ans": 2, "exp": "Congenital means present at birth; hereditary/genetic implies gene-based inheritance."}, {"lecture": "L1 · Pathology & Tissue Biology", "q": "Epstein-Barr virus (EBV) is the etiology for which of the following cancers?", "opts": ["Lung cancer", "Mononucleosis and Burkitt lymphoma", "Cervical carcinoma", "Hepatocellular carcinoma"], "ans": 1, "exp": "EBV is associated with mononucleosis, Burkitt lymphoma, and nasopharyngeal carcinoma, demonstrating one etiology → multiple outcomes."}, {"lecture": "L1 · Pathology & Tissue Biology", "q": "Disease confined to one area is best described as:", "opts": ["Disseminated", "Systemic", "Focal", "Epigenetic"], "ans": 2, "exp": "Focal = confined to one area; disseminated = spread to multiple areas."}, {"lecture": "L2 · Cell Injury & Death", "q": "Which of the following is characteristic of NECROSIS but NOT apoptosis?", "opts": ["Cell shrinkage", "Membrane remains intact", "Adjacent inflammation is frequent", "Nuclei fragment into nucleosome-sized pieces"], "ans": 2, "exp": "Necrosis is accompanied by adjacent inflammation because cellular contents leak. Apoptosis does not trigger adjacent inflammation."}, {"lecture": "L2 · Cell Injury & Death", "q": "In apoptosis, what happens to cell size?", "opts": ["Enlarges (swells)", "Remains unchanged", "Reduces (shrinks)", "Fragments into large blebs"], "ans": 2, "exp": "Apoptosis is characterized by cell shrinkage; necrosis shows cell swelling."}, {"lecture": "L2 · Cell Injury & Death", "q": "Coagulative necrosis is most classically associated with:", "opts": ["Brain infarcts", "Bacterial abscesses", "Myocardial infarction", "Tuberculosis"], "ans": 2, "exp": "Coagulative necrosis is the hallmark of ischemic infarcts in solid organs like the heart."}, {"lecture": "L2 · Cell Injury & Death", "q": "Caseous necrosis, with its cheese-like appearance, is most closely associated with:", "opts": ["Lung cancer", "Tuberculosis", "Stroke", "Liver failure"], "ans": 1, "exp": "Caseous necrosis is the hallmark of tuberculosis and some fungal infections."}, {"lecture": "L2 · Cell Injury & Death", "q": "The Latin term 'Rubor' in the clinical signs of inflammation translates to:", "opts": ["Swelling", "Pain", "Redness", "Heat"], "ans": 2, "exp": "Rubor = redness, caused by dilated blood vessels."}, {"lecture": "L2 · Cell Injury & Death", "q": "Which clinical sign of inflammation is caused by increased vascular permeability leading to edema?", "opts": ["Rubor", "Tumor (swelling)", "Calor", "Dolor"], "ans": 1, "exp": "Tumor (swelling) results from increased vascular permeability → edema."}, {"lecture": "L2 · Cell Injury & Death", "q": "Chronic inflammation is characterized primarily by infiltration of which cell types?", "opts": ["Neutrophils", "Eosinophils", "Monocytes/macrophages and lymphocytes", "Basophils"], "ans": 2, "exp": "Chronic inflammation involves the adaptive immune system — monocytes/macrophages and lymphocytes."}, {"lecture": "L2 · Cell Injury & Death", "q": "Compared to acute inflammation, chronic inflammation typically has:", "opts": ["Faster onset and shorter duration", "Predominantly neutrophil infiltrate", "Slower onset, longer duration, and more severe fibrosis", "More prominent local and systemic signs"], "ans": 2, "exp": "Chronic inflammation is slow in onset (days), lasts weeks to years, and often results in severe, progressive fibrosis."}];
+
+const BANK_CANCER_BIO_GENETICS = [{"lecture": "L3 · Cancer Biology", "q": "Incidence of cancer is defined as:", "opts": ["Number of deaths per year", "Percentage of population with disease", "Number of new diagnoses per year", "Survival rate after diagnosis"], "ans": 2, "exp": "Incidence = new diagnoses per year; mortality = deaths per year."}, {"lecture": "L3 · Cancer Biology", "q": "Which suffix correctly denotes a BENIGN tumor?", "opts": ["-carcinoma", "-sarcoma", "-oma", "-blastoma"], "ans": 2, "exp": "Benign tumors use the suffix -oma (e.g., adenoma, lipoma). Malignant tumors use -carcinoma or -sarcoma."}, {"lecture": "L3 · Cancer Biology", "q": "Carcinomas originate from:", "opts": ["Bone and soft tissue", "Epithelial cells", "Hematopoietic cells", "Nerve tissue"], "ans": 1, "exp": "Carcinomas arise from epithelial cells. Sarcomas arise from non-epithelial (mesenchymal) tissues."}, {"lecture": "L3 · Cancer Biology", "q": "'Anaplasia' in cancer vocabulary means:", "opts": ["Increased number of cells", "Increased size of cells", "Lack of differentiation", "Abnormal new growth"], "ans": 2, "exp": "Anaplasia = lack of differentiation. Hyperplasia = increased number; hypertrophy = increased size; neoplasia = abnormal new growth."}, {"lecture": "L3 · Cancer Biology", "q": "Cancer, by strict definition, is neoplasia that:", "opts": ["Has genetic mutations", "Exceeds 2 cm in size", "Invades adjacent tissue", "Has spread to lymph nodes"], "ans": 2, "exp": "Cancer is defined as neoplasia that invades adjacent tissue. Metastasis is growth at a distant site."}, {"lecture": "L3 · Cancer Biology", "q": "Compared to benign tumors, malignant tumors tend to have:", "opts": ["Well-defined borders and rare mitoses", "Irregular borders and more frequent/abnormal mitoses", "Small, regular nuclei", "Non-invasive growth"], "ans": 1, "exp": "Malignant tumors: irregular borders, irregular/larger nuclei, frequent/abnormal mitoses, poorly differentiated."}, {"lecture": "L3 · Cancer Biology", "q": "A Grade 4 tumor is described as:", "opts": ["Well differentiated", "Moderately differentiated", "Poorly differentiated", "Anaplastic"], "ans": 3, "exp": "Grade 4 = anaplastic (completely undifferentiated). Grade 1 = well differentiated."}, {"lecture": "L4 · Cancer Genetics", "q": "Driver mutations in cancer:", "opts": ["Are found in only a subset of tumor cells", "Tend to be present in all tumor cells", "Are less common than passenger mutations", "Do not affect cell proliferation"], "ans": 1, "exp": "Driver mutations are found in all tumor cells and are responsible for the selective advantage. Passenger mutations are 'along for the ride.'"}, {"lecture": "L4 · Cancer Genetics", "q": "Tumor heterogeneity is clinically important primarily because it:", "opts": ["Makes diagnosis easier", "Drives resistance to therapy", "Increases tumor grade", "Decreases metastatic potential"], "ans": 1, "exp": "Tumor heterogeneity means different clones have different mutations; those resistant to therapy survive and repopulate."}, {"lecture": "L4 · Cancer Genetics", "q": "Which of the following is a class of driver mutation that PROMOTES cell growth?", "opts": ["Tumor suppressor gene", "Passenger gene", "Oncogene", "Mismatch repair gene"], "ans": 2, "exp": "Oncogenes promote increased cell growth when overexpressed or mutated. Tumor suppressor genes prevent uncontrolled proliferation."}, {"lecture": "L4 · Cancer Genetics", "q": "The concept of 'passenger mutations' refers to mutations that:", "opts": ["Drive tumor initiation", "Are present in all tumor cells", "Accumulate but do not confer selective advantage", "Are found only in metastatic disease"], "ans": 2, "exp": "Passenger mutations accumulate over time but do not drive cancer progression — they are along for the ride."}];
+
+const BANK_GENES_TUMOR_HOST = [{"lecture": "L5 · Cancer Genes & Pathways", "q": "Oncogenes are considered dominant at the cellular level because:", "opts": ["Both alleles must be mutated", "A single mutant allele is sufficient to drive oncogenesis", "They require epigenetic silencing", "They only function in combination with tumor suppressors"], "ans": 1, "exp": "A single mutated oncogene allele produces a gain-of-function effect — dominant at the cellular level."}, {"lecture": "L5 · Cancer Genes & Pathways", "q": "Tumor suppressor genes are recessive at the cellular level because:", "opts": ["One functional copy is sufficient to suppress tumor growth", "They require chromosomal translocation", "Only gain-of-function mutations matter", "They are located on the Y chromosome"], "ans": 0, "exp": "Both copies of a tumor suppressor must be inactivated for loss of function — consistent with Knudson's two-hit hypothesis."}, {"lecture": "L5 · Cancer Genes & Pathways", "q": "Which of the following is an example of an oncogene?", "opts": ["RB1", "TP53", "KRAS", "BRCA1"], "ans": 2, "exp": "KRAS, BRAF, PI3KCA, and MYC are oncogenes. RB1, TP53, PTEN, APC, and BRCA1 are tumor suppressors."}, {"lecture": "L5 · Cancer Genes & Pathways", "q": "Knudson's two-hit hypothesis states that for tumor suppressor genes:", "opts": ["One mutation is sufficient for cancer", "Both alleles must lose function for cancer to develop", "Germline mutations never cause cancer", "Somatic mutations always precede germline mutations"], "ans": 1, "exp": "Both alleles must be inactivated (two hits). In hereditary cases, the first hit is germline; in sporadic, both are somatic."}, {"lecture": "L5 · Cancer Genes & Pathways", "q": "In hereditary retinoblastoma, the first 'hit' is:", "opts": ["A somatic mutation in all retinal cells", "A germline mutation in one RB allele", "Loss of heterozygosity", "A chromosomal translocation"], "ans": 1, "exp": "Hereditary retinoblastoma starts with a germline mutation in one RB allele; the second hit is somatic."}, {"lecture": "L5 · Cancer Genes & Pathways", "q": "Loss of heterozygosity (LOH) is associated with which type of cancer gene?", "opts": ["Oncogenes", "Proto-oncogenes", "Tumor suppressor genes", "Mismatch repair genes"], "ans": 2, "exp": "LOH refers to loss of the remaining wild-type allele, inactivating a tumor suppressor gene."}, {"lecture": "L5 · Cancer Genes & Pathways", "q": "Which mechanism can activate an oncogene?", "opts": ["Deletion", "Epigenetic silencing", "Chromosome loss", "Gene amplification"], "ans": 3, "exp": "Oncogenes are activated by gain-of-function mechanisms: point mutation, chromosomal translocation, gene duplication, gene amplification."}, {"lecture": "L6 · Tumor-Host Interactions", "q": "Tumor angiogenesis is primarily triggered by:", "opts": ["Increased oxygen supply", "Tumor hypoxia", "Lymphatic obstruction", "Systemic inflammation"], "ans": 1, "exp": "Tumor growth outpaces blood supply → hypoxia → VEGF secretion → angiogenesis."}, {"lecture": "L6 · Tumor-Host Interactions", "q": "VEGF (Vascular Endothelial Growth Factor) is important in cancer because:", "opts": ["It suppresses tumor growth", "It is the primary target for checkpoint inhibitors", "It promotes tumor angiogenesis and is a druggable target", "It prevents metastasis"], "ans": 2, "exp": "VEGF drives angiogenesis; anti-VEGF drugs (e.g., bevacizumab) are used in certain late-stage cancers."}, {"lecture": "L6 · Tumor-Host Interactions", "q": "Colon cancer most commonly metastasizes to which organ?", "opts": ["Lung", "Brain", "Liver", "Bone"], "ans": 2, "exp": "Colon → liver (via portal circulation). Breast → bone, lung. Lung → bone, brain."}, {"lecture": "L6 · Tumor-Host Interactions", "q": "Which route of metastasis involves cancer cells traveling through lymphatic vessels?", "opts": ["Hematogenous spread", "Seeding in a body cavity", "Lymphatic spread", "Perineural spread"], "ans": 2, "exp": "Lymphatic spread is one of three main routes: lymphatic, hematogenous, and seeding in body cavities."}, {"lecture": "L6 · Tumor-Host Interactions", "q": "Higher tumor mutational burden (TMB) correlates with:", "opts": ["Worse response to immunotherapy", "Better response to checkpoint inhibitors due to increased neoantigen production", "Resistance to all therapies", "Lower grade tumors"], "ans": 1, "exp": "↑TMB → more neoantigens → more immunogenic → better response to immune checkpoint inhibitors."}, {"lecture": "L6 · Tumor-Host Interactions", "q": "Paraneoplastic syndromes are best described as:", "opts": ["Direct effects of tumor invasion", "Side effects of chemotherapy", "Symptoms caused by tumor-produced substances acting at distant sites", "Complications of radiation therapy"], "ans": 2, "exp": "Paraneoplastic syndromes are remote effects of tumors mediated by hormones, cytokines, or immune responses."}, {"lecture": "L6 · Tumor-Host Interactions", "q": "Breast cancer most commonly spreads first to:", "opts": ["Liver", "Local lymph nodes, then bone and lung", "Brain", "Kidney"], "ans": 1, "exp": "Breast cancer: local lymph nodes → bone, lung. Contrast with colon → liver, lung → bone, brain."}, {"lecture": "L6 · Tumor-Host Interactions", "q": "Inflammation can PROMOTE cancer and metastasis. This is an example of:", "opts": ["Cancer cells creating entirely new processes", "Cancer co-opting normal physiological processes", "Anti-tumor immunity", "Angiogenesis inhibition"], "ans": 1, "exp": "Cancers co-opt normal processes — including inflammation — to promote growth, invasion, and metastasis."}];
+
+const BANK_DIAGNOSIS_PREVENTION = [{"lecture": "L7 · Cancer Diagnosis", "q": "In TNM staging, the 'N' stage refers to:", "opts": ["Tumor size and invasion", "Number and location of lymph nodes involved", "Presence or absence of metastasis", "Nuclear grade"], "ans": 1, "exp": "TNM: T = tumor size/invasion, N = lymph nodes, M = metastasis."}, {"lecture": "L7 · Cancer Diagnosis", "q": "The difference between tumor GRADE and tumor STAGE is:", "opts": ["Grade uses imaging; stage uses biopsy", "Grade reflects histological differentiation; stage incorporates lymph node spread and metastasis", "They are interchangeable terms", "Grade is more important for prognosis"], "ans": 1, "exp": "Grade = histological appearance (differentiation level). Stage = clinical spread (incorporates grade, nodes, metastasis)."}, {"lecture": "L7 · Cancer Diagnosis", "q": "A well-differentiated carcinoma looks microscopically:", "opts": ["Very similar to its cell of origin", "Completely unrecognizable as its origin tissue", "Anaplastic", "Like normal connective tissue"], "ans": 0, "exp": "Well-differentiated tumors (low grade) still resemble the cell of origin; poorly differentiated (high grade) do not."}, {"lecture": "L7 · Cancer Diagnosis", "q": "Which feature distinguishes a malignant neoplasm from a benign one?", "opts": ["Larger size only", "Ability to metastasize and invade", "Higher vascularity", "Presence of necrosis"], "ans": 1, "exp": "The defining feature of malignancy is the ability to invade and metastasize. Benign tumors do not go to other sites."}, {"lecture": "L8 · Cancer Prevention", "q": "Approximately what percentage of years of life lost to premature cancer deaths globally could be averted by effective risk reduction?", "opts": ["~10%", "~30%", "~50%", "~70%"], "ans": 3, "exp": "The slides state ~70% of years of lives lost could be averted by applying effective risk reduction and improving treatment access."}, {"lecture": "L8 · Cancer Prevention", "q": "The HPV vaccine is FDA-approved for which age range?", "opts": ["9–26", "9–45", "12–65", "18–45"], "ans": 1, "exp": "The HPV vaccine is FDA-approved for ages 9–45 for preventing anal, cervical, head and neck, vaginal, and vulvar cancers."}, {"lecture": "L8 · Cancer Prevention", "q": "Which modifiable cancer risk factor accounts for the HIGHEST percentage of US cancer cases?", "opts": ["Excess body weight", "Alcohol consumption", "Cigarette smoking", "Ultraviolet radiation exposure"], "ans": 2, "exp": "Cigarette smoking is the largest modifiable cancer risk factor, responsible for approximately 20% of US cancer cases."}, {"lecture": "L8 · Cancer Prevention", "q": "Social determinants of health influence cancer disparities. This reflects which level of prevention?", "opts": ["Primary prevention only", "Secondary prevention only", "Tertiary prevention only", "All three levels: primary, secondary, and tertiary"], "ans": 3, "exp": "Social determinants of health affect cancer risk (primary), screening access (secondary), and treatment outcomes (tertiary)."}, {"lecture": "L8 · Cancer Prevention", "q": "'Secondary prevention' in cancer refers to:", "opts": ["Reducing risk factors to prevent cancer", "Screening to detect cancer early", "Treating cancer to prevent complications", "Palliative care"], "ans": 1, "exp": "Primary = prevent cancer; Secondary = screen/detect early; Tertiary = treat to prevent complications."}];
+
+const BANK_SURGERY_CHEMO = [{"lecture": "L9 · Surgical Oncology", "q": "Breast cancer is the ___ leading cause of cancer death in US women.", "opts": ["1st", "2nd", "3rd", "4th"], "ans": 1, "exp": "Breast cancer is the most common cancer in US women but the 2nd leading cause of cancer death after lung cancer."}, {"lecture": "L9 · Surgical Oncology", "q": "Long-term data comparing mastectomy vs. lumpectomy + radiation shows:", "opts": ["Mastectomy has significantly better survival", "Lumpectomy alone is sufficient", "Similar survival between the two approaches", "Radiation alone is equivalent"], "ans": 2, "exp": "20-year follow-up from large NSABP randomized controlled trials demonstrated similar survival between mastectomy and lumpectomy + radiation."}, {"lecture": "L9 · Surgical Oncology", "q": "A lumpectomy requires:", "opts": ["Removal of the entire breast", "Negative surgical margins and post-operative radiation", "Only radiation without surgery", "Complete axillary lymph node dissection"], "ans": 1, "exp": "Lumpectomy (breast conservation) requires: negative margins + post-lumpectomy radiation."}, {"lecture": "L9 · Surgical Oncology", "q": "Sentinel lymph node biopsy was developed to:", "opts": ["Replace lumpectomy", "Reduce lymphedema by avoiding full axillary dissection", "Identify the primary tumor", "Stage distant metastases"], "ans": 1, "exp": "Sentinel lymph node biopsy decreased lymphedema rates by avoiding unnecessary full axillary lymph node dissection."}, {"lecture": "L9 · Surgical Oncology", "q": "Neoadjuvant therapy in breast cancer refers to:", "opts": ["Chemotherapy given after surgery", "Radiation given simultaneously with surgery", "Chemotherapy or endocrine therapy given BEFORE surgery to shrink the tumor", "Targeted therapy given after metastasis"], "ans": 2, "exp": "Neoadjuvant = before surgery, to downstage/shrink the tumor and potentially convert to lumpectomy eligibility."}, {"lecture": "L9 · Surgical Oncology", "q": "Triple-negative breast cancer (TNBC) with neoadjuvant chemotherapy can achieve a pathologic complete response (PCR) rate of approximately:", "opts": ["10%", "35%", "65%", "90%"], "ans": 2, "exp": "New neoadjuvant chemotherapy regimens can achieve ~65% PCR in TNBC; HER2+ achieves ~50% PCR."}, {"lecture": "L9 · Surgical Oncology", "q": "The principle 'bigger surgery is not always better' in oncology is supported by:", "opts": ["VEGF inhibitor trials", "NSABP randomized controlled trials with long-term follow-up", "Phase I chemotherapy trials", "USPSTF screening guidelines"], "ans": 1, "exp": "NSABP RCTs with long-term follow-up demonstrated safety for breast conservation — less surgery with equivalent survival."}, {"lecture": "L10 · Cancer Chemotherapy", "q": "In the log-kill model, each dose of chemotherapy:", "opts": ["Kills a fixed absolute number of cells", "Kills a constant fraction of cells", "Eliminates all remaining cancer cells", "Doubles the number of cells killed"], "ans": 1, "exp": "The log-kill model: cell destruction is first-order — each dose kills a constant FRACTION (not fixed number) of cells."}, {"lecture": "L10 · Cancer Chemotherapy", "q": "Chemotherapy given to 'mop up' microscopic residual disease AFTER surgery is called:", "opts": ["Neoadjuvant", "Palliative", "Adjuvant", "Concurrent"], "ans": 2, "exp": "Adjuvant = after surgery to eliminate microscopic residual disease. Neoadjuvant = before surgery."}, {"lecture": "L10 · Cancer Chemotherapy", "q": "Palliative chemotherapy is given primarily to:", "opts": ["Cure the cancer", "Shrink tumors before surgery", "Prolong survival and/or reduce symptoms in metastatic disease", "Sensitize cells to radiation"], "ans": 2, "exp": "Palliative intent = prolong survival and/or reduce symptoms; it is not intended to cure."}, {"lecture": "L10 · Cancer Chemotherapy", "q": "Alkylating agents like cyclophosphamide treat cancer by:", "opts": ["Interfering with DNA synthesis via folate inhibition", "Cross-linking DNA to induce errors, breaks, and cell cycle arrest", "Inhibiting topoisomerase", "Blocking microtubule assembly"], "ans": 1, "exp": "Alkylating agents cross-link DNA strands, inducing errors and breaks → cell cycle arrest and death."}, {"lecture": "L10 · Cancer Chemotherapy", "q": "Methotrexate is classified as which type of chemotherapy?", "opts": ["Alkylating agent", "Antimetabolite (antifolate)", "Tubulin inhibitor", "Topoisomerase inhibitor"], "ans": 1, "exp": "Methotrexate is an antifolate antimetabolite — it inhibits DHFR, blocking folate metabolism needed for DNA synthesis."}, {"lecture": "L10 · Cancer Chemotherapy", "q": "Paclitaxel (Taxol) belongs to which drug class?", "opts": ["Alkylating agents", "Antimetabolites", "Tubulin inhibitors (taxanes)", "Anthracyclines"], "ans": 2, "exp": "Paclitaxel is a taxane — it stabilizes microtubules, preventing cell division."}, {"lecture": "L10 · Cancer Chemotherapy", "q": "Which chemotherapy side effect is associated with Doxorubicin (Adriamycin)?", "opts": ["Pulmonary fibrosis", "Hemorrhagic cystitis", "Cardiotoxicity", "Peripheral neuropathy"], "ans": 2, "exp": "Doxorubicin (D = cardiotoxic). Bleomycin = pulmonary fibrosis; Cyclophosphamide = hemorrhagic cystitis; Vincristine = peripheral neuropathy."}, {"lecture": "L10 · Cancer Chemotherapy", "q": "The primary strategy to overcome chemotherapy resistance is:", "opts": ["Increasing single-agent dose", "Combination therapy with drugs of different mechanisms", "Switching to radiation", "Prolonging treatment duration"], "ans": 1, "exp": "Combination therapy targets multiple pathways simultaneously, reducing the chance of resistance."}, {"lecture": "L10 · Cancer Chemotherapy", "q": "Cisplatin's major toxic side effects include:", "opts": ["Cardiotoxicity and alopecia", "Nephrotoxicity and acoustic nerve damage", "Pulmonary fibrosis", "Hemorrhagic cystitis"], "ans": 1, "exp": "Cisplatin/Carboplatin = nephrotoxic + acoustic nerve damage (hearing loss)."}, {"lecture": "L10 · Cancer Chemotherapy", "q": "Concurrent chemotherapy refers to:", "opts": ["Chemo given before surgery", "Chemo given after surgery", "Chemo given simultaneously with other therapies such as radiation", "Chemo used as sole treatment"], "ans": 2, "exp": "Concurrent = given simultaneously with radiation or immunotherapy to increase cancer cell sensitivity."}];
+
+const BANK_IMMUNO_RADIATION = [{"lecture": "L11 · Immunotherapy", "q": "How do cancer cells evade the immune system via 'exploitation of negative checkpoints'?", "opts": ["By increasing MHC expression", "By expressing PD-L1 to inhibit T cell activity", "By increasing neoantigen production", "By releasing pro-inflammatory cytokines"], "ans": 1, "exp": "Cancer cells express PD-L1 which binds PD-1 on T cells, inhibiting T cell attack — exploiting a normal inhibitory checkpoint."}, {"lecture": "L11 · Immunotherapy", "q": "Ipilimumab targets which immune checkpoint?", "opts": ["PD-1", "PD-L1", "CTLA-4", "LAG-3"], "ans": 2, "exp": "Ipilimumab blocks CTLA-4, which normally prevents dendritic cells from priming T cells to recognize tumors."}, {"lecture": "L11 · Immunotherapy", "q": "Nivolumab and pembrolizumab are examples of inhibitors targeting:", "opts": ["CTLA-4", "PD-1", "TIM-3", "LAG-3"], "ans": 1, "exp": "Nivolumab and pembrolizumab block PD-1, allowing T cells to attack cancer cells."}, {"lecture": "L11 · Immunotherapy", "q": "The major class of immune-related adverse events from checkpoint inhibitors is:", "opts": ["Infections from immunosuppression", "Autoimmune inflammation affecting multiple organ systems", "Chemotherapy-like bone marrow suppression", "Tumor lysis syndrome"], "ans": 1, "exp": "Removing immune 'brakes' → autoimmunity: thyroiditis, colitis, pneumonitis, hepatitis, myocarditis, etc."}, {"lecture": "L11 · Immunotherapy", "q": "Loss of MHC expression on tumor cells allows them to:", "opts": ["Activate natural killer cells more efficiently", "Avoid T cell recognition", "Produce more neoantigens", "Increase PD-L1 expression"], "ans": 1, "exp": "T cells recognize antigens presented by MHC. Loss of MHC on tumor cells prevents T cell recognition."}, {"lecture": "L11 · Immunotherapy", "q": "A 'basket trial' in oncology design involves:", "opts": ["One disease treated with multiple targeted interventions", "Multiple diseases treated with one common targeted intervention", "Placebo-controlled randomized trials", "Sequential single-agent therapy"], "ans": 1, "exp": "Basket trial = multiple diseases with a common biomarker → one targeted intervention. Umbrella trial = one disease → multiple targeted interventions."}, {"lecture": "L11 · Immunotherapy", "q": "Tumor-agnostic drug approval is possible because:", "opts": ["All tumors respond to the same chemotherapy", "Targeted therapy can treat any tumor sharing a specific biomarker regardless of origin", "Immunotherapy works on all solid tumors equally", "Radiation is effective for all cancer types"], "ans": 1, "exp": "Targeted therapy allows tumor-agnostic approvals — e.g., a NTRK inhibitor for any NTRK-fusion-positive tumor regardless of organ of origin."}, {"lecture": "L12 · Radiation Oncology", "q": "The BRAGG Peak is a property unique to which radiation type?", "opts": ["Photon (X-ray)", "Electrons", "Proton/particle radiation", "Gamma rays"], "ans": 2, "exp": "Proton and other particle radiation have a Bragg Peak — depositing maximum dose at a specific depth and minimal exit dose."}, {"lecture": "L12 · Radiation Oncology", "q": "Radiation causes DNA damage primarily through which mechanism (67%)?", "opts": ["Direct ionization of DNA", "Indirect action via free radical generation from water ionization", "Mitotic catastrophe", "Activation of apoptotic caspases"], "ans": 1, "exp": "67% indirect: ionization of water → hydroxyl radicals (OH·) → DNA damage. 33% direct ionization of DNA."}, {"lecture": "L12 · Radiation Oncology", "q": "Which phase of the cell cycle is MOST sensitive to radiation?", "opts": ["S phase", "G1 phase", "M phase", "G0 phase"], "ans": 2, "exp": "M phase (mitosis) is most radiosensitive. S phase is most resistant because DNA repair is most active."}, {"lecture": "L12 · Radiation Oncology", "q": "Which of the 4 R's of radiation therapy refers to cells in the S-phase moving into more sensitive phases between fractions?", "opts": ["Repair", "Reoxygenation", "Repopulation", "Redistribution"], "ans": 3, "exp": "Redistribution: resistant S-phase cells redistribute to radiosensitive G2/M between fractions → more effective killing."}, {"lecture": "L12 · Radiation Oncology", "q": "Reoxygenation in fractionated radiotherapy refers to:", "opts": ["Increasing oxygen delivery systemically", "Hypoxic tumor regions becoming oxygenated between fractions, increasing radiosensitivity", "Oxygen substituting for free radicals in DNA damage", "Reduction of reactive oxygen species"], "ans": 1, "exp": "Hypoxic tumor areas are resistant to radiation. Between fractions, reoxygenation occurs → previously resistant areas become sensitive."}, {"lecture": "L12 · Radiation Oncology", "q": "Fractionation in radiation therapy is used because:", "opts": ["It increases the total dose delivered", "It allows normal cells time to repair while continuing to kill tumor cells", "It reduces treatment time", "It increases the linear energy transfer"], "ans": 1, "exp": "Fractionation spares normal tissue by allowing repair between doses while cumulatively reducing tumor cell viability."}, {"lecture": "L12 · Radiation Oncology", "q": "Post-operative radiation for breast cancer is an example of:", "opts": ["Definitive radiation", "Palliative radiation", "Preoperative radiation", "Stereotactic radiosurgery"], "ans": 0, "exp": "Post-lumpectomy radiation is a form of definitive (curative-intent) radiation following surgery for breast cancer."}, {"lecture": "L12 · Radiation Oncology", "q": "Radiation for benign diseases such as trigeminal neuralgia is considered:", "opts": ["Adjuvant treatment", "Palliative treatment", "An off-label and experimental use only", "A standard treatment option for benign disease"], "ans": 3, "exp": "Radiation is used for benign conditions including Dupuytren's contracture, heterotopic ossification, macular degeneration, cardiac arrhythmias, and trigeminal neuralgia."}];
+
+const BANK_TARGETED_PHARM = [{"lecture": "L13 · Targeted Therapies", "q": "Imatinib (Gleevec) is a targeted therapy used for chronic myeloid leukemia (CML). It is classified as a:", "opts": ["Monoclonal antibody", "Small molecule tyrosine kinase inhibitor", "PARP inhibitor", "CDK inhibitor"], "ans": 1, "exp": "Imatinib is a small molecule that inhibits the BCR-ABL tyrosine kinase driving CML."}, {"lecture": "L13 · Targeted Therapies", "q": "Herceptin (trastuzumab) is a monoclonal antibody targeting:", "opts": ["EGFR", "HER2", "VEGF", "PD-L1"], "ans": 1, "exp": "Trastuzumab (Herceptin) targets HER2, used in HER2-positive breast cancer."}, {"lecture": "L13 · Targeted Therapies", "q": "PARP inhibitors are most effective in cancers with:", "opts": ["KRAS mutations", "BRCA mutations", "TP53 loss", "EGFR amplification"], "ans": 1, "exp": "PARP inhibitors exploit synthetic lethality in BRCA-mutant cancers — cells already lacking homologous recombination cannot repair DNA when PARP is also inhibited."}, {"lecture": "L13 · Targeted Therapies", "q": "Compared to cytotoxic chemotherapy, targeted therapies generally have:", "opts": ["Lower specificity for cancer cells", "Higher cost and higher specificity for cancer cells", "Lower cost and broader activity", "More bone marrow toxicity"], "ans": 1, "exp": "Targeted therapies are more specific to cancer cells, generally more expensive, and often oral (small molecules)."}, {"lecture": "L13 · Targeted Therapies", "q": "Resistance to targeted therapy can develop through which mechanism?", "opts": ["Tumor suppressor gene re-activation", "Bypass signaling via oncogene rearrangement", "Decreased tumor heterogeneity", "Increased immune surveillance"], "ans": 1, "exp": "Resistance mechanisms include: mutations in drug target, bypass signaling, mutations in downstream effectors, and state transformation."}, {"lecture": "L13 · Targeted Therapies", "q": "CAR T cell therapy involves:", "opts": ["Blocking immune checkpoints with antibodies", "Genetically engineering patient T cells to express a chimeric antigen receptor targeting cancer", "Infusing donor NK cells", "Vaccination with tumor antigens"], "ans": 1, "exp": "CAR T cells are patient T cells engineered with a chimeric antigen receptor (CAR) that directly recognizes tumor surface antigens without MHC."}, {"lecture": "L13 · Targeted Therapies", "q": "Small molecule targeted therapies are most commonly administered:", "opts": ["Intravenously (IV)", "Intrathecally", "Orally (PO)", "Subcutaneously"], "ans": 2, "exp": "Most small molecule inhibitors are oral (PO); most monoclonal antibodies are IV."}, {"lecture": "L14 · Cancer Pharm", "q": "The Goldie-Coldman hypothesis suggests that cancer cells:", "opts": ["Only develop resistance after chemotherapy exposure", "Spontaneously mutate to develop drug resistance at a consistent rate, so larger tumors are more likely to have resistant clones", "Cannot develop resistance to targeted therapies", "Acquire resistance only through horizontal gene transfer"], "ans": 1, "exp": "Goldie-Coldman: resistance mutations arise spontaneously at a consistent rate → larger tumors have more mutations → more resistant clones → treat early with combination therapy."}, {"lecture": "L14 · Cancer Pharm", "q": "CDK inhibitors are classified as which type of anti-cancer agent?", "opts": ["Cytotoxic chemotherapy", "Targeted therapy", "Immunotherapy", "Hormonal therapy"], "ans": 1, "exp": "CDK inhibitors (e.g., palbociclib) are targeted therapies — they specifically inhibit cyclin-dependent kinases regulating the cell cycle."}, {"lecture": "L14 · Cancer Pharm", "q": "Proteasome inhibitors (e.g., bortezomib) are classified as:", "opts": ["Alkylating agents", "Antimetabolites", "Targeted therapies", "Immunotherapy"], "ans": 2, "exp": "Proteasome inhibitors are targeted therapies used in multiple myeloma."}, {"lecture": "L14 · Cancer Pharm", "q": "Vinca alkaloids such as vincristine work by:", "opts": ["Cross-linking DNA", "Inhibiting folate metabolism", "Blocking microtubule assembly", "Inhibiting topoisomerase"], "ans": 2, "exp": "Vinca alkaloids block microtubule assembly → prevent mitosis. Taxanes stabilize microtubules — different mechanism, same end result."}];
+
+const BANK_SCREENING_DISPARITIES = [{"lecture": "L15 · Cancer Screening", "q": "The USPSTF assigns a Grade 'A' recommendation when:", "opts": ["Certainty of benefit is low", "The net benefit is moderate and certainty is moderate", "Certainty is high and the magnitude of net benefit is substantial", "There is insufficient evidence"], "ans": 2, "exp": "Grade A = high certainty + substantial net benefit. Grade B = high certainty + moderate benefit, or moderate certainty + substantial/moderate benefit."}, {"lecture": "L15 · Cancer Screening", "q": "A USPSTF Grade 'D' recommendation means:", "opts": ["Strongly recommended", "Recommended with conditions", "No net benefit or net harms (recommend against)", "Insufficient evidence"], "ans": 2, "exp": "Grade D = recommends against the service — evidence shows no benefit or net harm."}, {"lecture": "L15 · Cancer Screening", "q": "The 'efficiency frontier' in cancer screening refers to:", "opts": ["The minimum effective screening interval", "The part of the curve offering the highest expected benefit for a given level of burden/risk", "The most expensive screening option", "The least invasive screening test"], "ans": 1, "exp": "The efficient frontier = highest expected return (life-years gained) for a specific level of risk/resource investment."}, {"lecture": "L15 · Cancer Screening", "q": "Screening guidelines are created through which process by the USPSTF?", "opts": ["Expert opinion alone", "Create research plan → compile evidence → develop recommendation → disseminate recommendation", "Industry-funded randomized trials only", "Annual legislative review"], "ans": 1, "exp": "USPSTF process: Create Research Plan → Compile Evidence Report → Develop Recommendation → Disseminate Recommendation."}, {"lecture": "L15 · Cancer Screening", "q": "More intensive cancer screening may:", "opts": ["Only increase benefits without additional harms", "Lead to both increased benefits AND increased harms", "Eliminate all screening bias", "Always be preferred over less intensive screening"], "ans": 1, "exp": "More intensive screening can detect more cancers but also increases harms (false positives, overdiagnosis, invasive procedures) — the tradeoff must be weighed."}, {"lecture": "L15b · Cancer Disparities", "q": "In the US, Non-Hispanic Black males have cancer incidence rates that are:", "opts": ["Lower than Non-Hispanic White males", "Similar to Non-Hispanic White males", "Higher than Non-Hispanic White males", "Only higher for certain cancers but not overall"], "ans": 2, "exp": "Non-Hispanic Black males have higher incidence (529.0 vs 501.3) AND higher mortality (221.4 vs 186.2) than Non-Hispanic White males."}, {"lecture": "L15b · Cancer Disparities", "q": "Which of the following is listed as a BEHAVIORAL factor contributing to cancer disparities?", "opts": ["Air and water quality", "Transportation access", "Tobacco use and diet", "Cultural beliefs"], "ans": 2, "exp": "Behavioral factors: tobacco use, diet, excess body weight, physical inactivity, adherence to screening/vaccination."}, {"lecture": "L15b · Cancer Disparities", "q": "Health equity in cancer care requires action at which levels?", "opts": ["Patient level only", "Health care team level only", "Multiple levels: patient, family, health care team, system, payer, community, and policy", "Federal policy level only"], "ans": 2, "exp": "The concentric model shows equity requires action at ALL levels: patient → family/social → health care team → system → payer → community → societal/policy."}, {"lecture": "L15b · Cancer Disparities", "q": "Structural racism is listed as influencing which categories of cancer health disparity causes?", "opts": ["Biological factors only", "Behavioral factors only", "Many if not all categories including environmental, social, clinical, and biological factors", "Cultural factors only"], "ans": 2, "exp": "The AACR report states that structural and systemic racism directly influences many or all categories of cancer health disparity factors."}, {"lecture": "L15b · Cancer Disparities", "q": "Access to health care and quality of health care are classified as which type of disparity factor?", "opts": ["Environmental", "Behavioral", "Social", "Clinical"], "ans": 3, "exp": "Clinical factors include access to health care and quality of health care."}];
+
+const BANK_INTEGRATIVE = [{"lecture": "Integrative", "q": "A patient with BRCA1 germline mutation develops ovarian cancer. The MOST appropriate targeted therapy would be:", "opts": ["VEGF inhibitor (bevacizumab)", "PARP inhibitor (olaparib)", "Anti-PD1 (nivolumab)", "EGFR inhibitor (erlotinib)"], "ans": 1, "exp": "BRCA1/2 mutations impair homologous recombination; PARP inhibitors exploit synthetic lethality in these cells."}, {"lecture": "Integrative", "q": "A tumor that appears well-differentiated histologically but has spread to 3 regional lymph nodes would be described as:", "opts": ["High grade, low stage", "Low grade, higher stage", "Anaplastic, metastatic", "Benign with lymph node involvement"], "ans": 1, "exp": "Histological appearance = grade (well-differentiated = low grade). Lymph node spread = stage (elevated N stage)."}, {"lecture": "Integrative", "q": "A patient receives chemotherapy 3 weeks before surgery to shrink a locally advanced colon cancer. This is an example of:", "opts": ["Adjuvant chemotherapy", "Palliative chemotherapy", "Neoadjuvant chemotherapy", "Primary/definitive chemotherapy"], "ans": 2, "exp": "Neoadjuvant = before surgery. Goal: shrink tumor, increase chance of curative resection, prevent micro-metastases."}, {"lecture": "Integrative", "q": "Why are combination chemotherapy regimens preferred over single-agent treatment?", "opts": ["They are always better tolerated", "They increase toxicity which correlates with efficacy", "They attack multiple pathways reducing the chance of resistant clones surviving", "They are less expensive"], "ans": 2, "exp": "Combination therapy: different mechanisms → more cells killed → less chance any resistant clone survives all agents."}, {"lecture": "Integrative", "q": "Redistribution, Reoxygenation, Repair, and Repopulation are the 4 R's of:", "opts": ["Chemotherapy resistance", "Radiation therapy", "Immunotherapy response", "Surgical oncology"], "ans": 1, "exp": "The 4 R's explain how fractionated radiation affects both tumor and normal tissue over a course of treatment."}, {"lecture": "Integrative", "q": "A 58-year-old with no family history develops retinoblastoma. This is most consistent with:", "opts": ["Hereditary retinoblastoma with one germline hit", "Sporadic retinoblastoma requiring two somatic hits", "Hereditary retinoblastoma with loss of heterozygosity", "A passenger mutation causing retinoblastoma"], "ans": 1, "exp": "Sporadic retinoblastoma (no family history) requires two independent somatic mutations in both RB alleles — rare, typically unilateral and late onset."}, {"lecture": "Integrative", "q": "Which of the following BEST explains why anti-VEGF therapy can develop resistance?", "opts": ["VEGF is upregulated further", "Tumor vasculature normalizes permanently", "Alternative pro-angiogenic pathways are activated, and tumor heterogeneity increases with time", "Checkpoint inhibitors are upregulated"], "ans": 2, "exp": "Resistance to anti-VEGF: alternative angiogenic factors activate, tumor heterogeneity allows resistant clones to emerge."}, {"lecture": "Integrative", "q": "Cancer can cause cachexia, defined as:", "opts": ["Excessive weight gain due to steroid use", "Progressive loss of muscle and fat mass despite adequate nutrition", "Paraneoplastic hormone overproduction", "Local tumor invasion of adipose tissue"], "ans": 1, "exp": "Cachexia is a complex metabolic syndrome causing progressive muscle/fat loss, associated with advanced cancer."}, {"lecture": "Integrative", "q": "Which feature of tumor vasculature differs from normal vasculature?", "opts": ["Tumor vasculature is more organized and efficient", "Tumor vasculature is leakier, more chaotic, and less efficient at oxygen delivery", "Tumor vasculature has higher pericyte coverage", "Tumor vasculature has lower VEGF receptors"], "ans": 1, "exp": "Tumor vasculature is abnormal — leaky, irregular, chaotic — resulting in areas of hypoxia despite angiogenesis."}, {"lecture": "Integrative", "q": "Dysplasia is best defined as:", "opts": ["Increased number of cells", "Increased cell size", "Disorderly proliferation of cells", "Abnormal new growth invading adjacent tissue"], "ans": 2, "exp": "Dysplasia = disorderly proliferation. It differs from neoplasia (abnormal new growth) and is often a pre-malignant state."}, {"lecture": "Integrative", "q": "In the context of immunotherapy, the phrase 'easing off the brakes' refers to:", "opts": ["Activating agonistic antibodies on T cells", "Blocking inhibitory checkpoint receptors to restore T cell anti-tumor activity", "Increasing tumor mutational burden", "Enhancing MHC expression on tumor cells"], "ans": 1, "exp": "Checkpoint inhibitors (anti-CTLA-4, anti-PD-1) block the inhibitory 'brakes' on T cells — restoring their ability to attack cancer."}, {"lecture": "Integrative", "q": "The liquefactive necrosis seen in brain infarcts differs from coagulative necrosis because brain tissue:", "opts": ["Has more collagen to maintain structure", "Is rich in lipases that rapidly liquefy necrotic tissue", "Has higher oxygen content", "Has fewer mitochondria"], "ans": 1, "exp": "The brain has abundant lipases and little structural protein, so infarcted brain tissue liquefies rather than forming the protein 'coagulum' seen in other organs."}, {"lecture": "Integrative", "q": "A cancer genetic counselor is assessing a family with multiple members who have early-onset breast cancer. The MOST relevant hereditary cancer syndrome to consider is:", "opts": ["Lynch syndrome (MLH1/MSH2)", "Hereditary breast-ovarian cancer (BRCA1/BRCA2)", "Multiple endocrine neoplasia (MEN)", "Li-Fraumeni syndrome (TP53)"], "ans": 1, "exp": "BRCA1/BRCA2 mutations are the most common cause of hereditary breast-ovarian cancer syndrome."}];
+
+// ─── BANK MAP ────────────────────────────────────────────────────────────────
+const BANKS = {
+  path_injury: BANK_PATH_INJURY,
+  cancer_bio_genetics: BANK_CANCER_BIO_GENETICS,
+  genes_tumor_host: BANK_GENES_TUMOR_HOST,
+  diagnosis_prevention: BANK_DIAGNOSIS_PREVENTION,
+  surgery_chemo: BANK_SURGERY_CHEMO,
+  immuno_radiation: BANK_IMMUNO_RADIATION,
+  targeted_pharm: BANK_TARGETED_PHARM,
+  screening_disparities: BANK_SCREENING_DISPARITIES,
+  integrative: BANK_INTEGRATIVE,
+};
+
+const ALL_BANKS = Object.values(BANKS).flat();
+
+const EXAM_NAME = 'Cancer Biology — Final Exam';
+
+// ─── STATE ───────────────────────────────────────────────────────────────────
+let quizMode = 'tutored';        // mode currently selected on the start screen ('tutored' | 'nontutored')
+let activeQuizMode = 'tutored';  // mode locked in for the quiz currently in progress
+let activeBank = [];
+let activeBankKey = null;
+let current = 0;
+let answers = [];
+let strikeouts = [];   // array of Sets, one per question
+let flags = [];        // array of booleans, one per question
+let hlColor = null;    // current highlighter color ('yellow','green','pink','blue') or null
+let highlights = [];   // array of {start,end,color} per question stored as: highlights[qIdx] = [{start,end,color}]
+
+// ─── SESSION PERSISTENCE ─────────────────────────────────────────────────────
+const SESSION_KEY = 'inde221_cardio_session';
+
+function saveSession() {
+  if (!activeBank.length) return;
+  const data = {
+    bankKey: activeBankKey,
+    quizMode: activeQuizMode,
+    activeBank,
+    current,
+    answers,
+    flags,
+    highlights,
+    strikeouts: strikeouts.map(s => [...s]),
+    savedAt: Date.now()
+  };
+  try { localStorage.setItem(SESSION_KEY, JSON.stringify(data)); } catch(e) {}
+}
+
+function clearSession() {
+  try { localStorage.removeItem(SESSION_KEY); } catch(e) {}
+}
+
+function bankLabel(key) {
+  const labels = {
+    blood_flow:'Blood Flow, Pressure & Resistance', autonomic:'Autonomic Nervous System',
+    cardiac_exam:'Cardiac Exam & Heart Sounds', auto_drugs:'Autonomic Pharmacology',
+    cardiomyopathy:'Cardiomyopathy', heart_failure:'Heart Failure',
+    arterial:'Arterial Pressure & Compliance', coronary:'Coronary Circulation & IHD',
+    acs:'Angina & ACS Management', athero_htn:'Atherosclerosis, Lipids & HTN',
+    endocarditis:'Endocarditis, Myocarditis & ARF', valvular:'Valvular Heart Disease',
+    pvd_lymph:'PVD & Lymphatics', chd:'Congenital Heart Disease', exercise:'Exercise & Hemorrhagic Shock'
+  };
+  return labels[key] || key;
+}
+
+// ─── QUIZ MODE (tutored / non-tutored) ───────────────────────────────────────
+function setQuizMode(mode) {
+  quizMode = mode;
+  document.getElementById('mode-btn-tutored').classList.toggle('mode-active', mode === 'tutored');
+  document.getElementById('mode-btn-nontutored').classList.toggle('mode-active', mode === 'nontutored');
+}
+
+function modeBadgeText(mode) {
+  return mode === 'nontutored' ? '📝 Exam Mode' : '🎓 Tutored';
+}
+
+function checkForSavedSession() {
+  let data;
+  try { data = JSON.parse(localStorage.getItem(SESSION_KEY)); } catch(e) {}
+  if (!data || !data.activeBank || !data.activeBank.length) return;
+  const answered = data.answers.filter(a => a !== null).length;
+  const total = data.activeBank.length;
+  const date = new Date(data.savedAt).toLocaleString();
+  const label = data.bankKey === 'all' ? 'Everything' : bankLabel(data.bankKey);
+  const modeLabel = data.quizMode === 'nontutored' ? 'Non-Tutored' : 'Tutored';
+  document.getElementById('resume-meta').textContent =
+    `${label}  ·  ${modeLabel}  ·  Q${data.current + 1} of ${total}  ·  ${answered} answered  ·  Saved ${date}`;
+  document.getElementById('resume-modal').classList.add('visible');
+}
+
+function resumeSession() {
+  let data;
+  try { data = JSON.parse(localStorage.getItem(SESSION_KEY)); } catch(e) { return; }
+  if (!data) return;
+  activeBankKey = data.bankKey;
+  activeQuizMode = data.quizMode || 'tutored';
+  quizMode      = activeQuizMode;
+  activeBank    = data.activeBank;
+  current       = data.current;
+  answers       = data.answers;
+  flags         = data.flags;
+  highlights    = data.highlights;
+  strikeouts    = data.strikeouts.map(s => new Set(s));
+  hlColor       = null;
+  document.getElementById('resume-modal').classList.remove('visible');
+  document.getElementById('screen-start').style.display = 'none';
+  document.getElementById('screen-quiz').style.display = 'block';
+  updateLiveScore();
+  renderQuestion();
+}
+
+function discardSession() {
+  clearSession();
+  document.getElementById('resume-modal').classList.remove('visible');
+}
+
+// ─── QUIZ LOGIC ──────────────────────────────────────────────────────────────
+function startQuiz(key) {
+  const raw = key === 'all' ? [...ALL_BANKS] : [...(BANKS[key] || [])];
+  activeBankKey = key;
+  activeQuizMode = quizMode;
+  activeBank = shuffle(raw).map(q => randomizeOpts(q));
+  current = 0;
+  answers = new Array(activeBank.length).fill(null);
+  strikeouts = activeBank.map(() => new Set());
+  flags = new Array(activeBank.length).fill(false);
+  highlights = activeBank.map(() => []);
+  hlColor = null;
+  clearSession();
+
+  document.getElementById('screen-start').style.display = 'none';
+  document.getElementById('screen-quiz').style.display = 'block';
+  updateLiveScore();
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = activeBank[current];
+  document.body.classList.add('tracker-active');
+  document.getElementById('q-tracker').classList.add('show');
+  const letters = ['A','B','C','D','E','F'];
+  const total = activeBank.length;
+
+  document.getElementById('q-counter').textContent = `Question ${current + 1} of ${total}`;
+  document.getElementById('progress-fill').style.width = `${((current + 1) / total) * 100}%`;
+  document.getElementById('q-lecture').textContent = q.lecture;
+
+  const isTutored = activeQuizMode !== 'nontutored';
+  const modeBadge = document.getElementById('mode-badge');
+  modeBadge.textContent = modeBadgeText(activeQuizMode);
+  modeBadge.className = 'mode-badge ' + (isTutored ? 'tutored' : 'nontutored');
+
+  // Render question text with highlights
+  const qTextEl = document.getElementById('q-text');
+  qTextEl.innerHTML = applyHighlights(q.q, highlights[current]);
+
+  // Sync flag button
+  const flagBtn = document.getElementById('flag-btn');
+  if (flags[current]) {
+    flagBtn.classList.add('is-flagged');
+    flagBtn.textContent = '🚩 Flagged';
+  } else {
+    flagBtn.classList.remove('is-flagged');
+    flagBtn.textContent = '🚩 Flag Question';
+  }
+
+  // Sync highlighter toolbar active state
+  document.querySelectorAll('.hl-btn').forEach(b => {
+    b.classList.toggle('hl-active', b.dataset.color === (hlColor || ''));
+  });
+
+  const list = document.getElementById('options-list');
+  list.innerHTML = '';
+  const answered = answers[current] !== null;
+
+  q.opts.forEach((opt, i) => {
+    const li = document.createElement('li');
+    const isStruck = !answered && strikeouts[current].has(i);
+
+    const btn = document.createElement('button');
+    btn.className = 'option-btn' + (isStruck ? ' struck' : '');
+    if (answered) {
+      btn.disabled = true;
+      if (isTutored) {
+        if (i === q.ans) btn.classList.add('correct');
+        else if (i === answers[current]) btn.classList.add('wrong');
+      } else if (i === answers[current]) {
+        // Non-tutored: acknowledge the choice without revealing correctness
+        btn.classList.add('selected-neutral');
+      }
+    }
+    btn.innerHTML = `<span class="option-letter">${letters[i]}</span><span>${opt}</span>`;
+    if (!answered) btn.onclick = () => selectAnswer(i);
+
+    if (!answered) {
+      const xBtn = document.createElement('button');
+      xBtn.className = 'strike-btn' + (isStruck ? ' active' : '');
+      xBtn.title = isStruck ? 'Restore choice' : 'Eliminate choice';
+      xBtn.innerHTML = isStruck ? '↩' : '✕';
+      xBtn.onclick = (e) => {
+        e.stopPropagation();
+        if (strikeouts[current].has(i)) {
+          strikeouts[current].delete(i);
+        } else {
+          strikeouts[current].add(i);
+        }
+        saveSession();
+        renderQuestion();
+      };
+      btn.appendChild(xBtn);
+    }
+
+    li.appendChild(btn);
+    list.appendChild(li);
+  });
+
+  const exp = document.getElementById('explanation');
+  if (answered && isTutored) {
+    exp.innerHTML = `<strong>Explanation:</strong> ${q.exp}`;
+    exp.classList.add('show');
+  } else if (answered && !isTutored) {
+    exp.innerHTML = `<em style="color:var(--muted)">Answer recorded. Explanations and results are revealed after you finish the quiz.</em>`;
+    exp.classList.add('show');
+  } else {
+    exp.classList.remove('show');
+    exp.innerHTML = '';
+  }
+
+  document.getElementById('btn-prev').style.display = current > 0 ? 'inline-flex' : 'none';
+  const nextBtn = document.getElementById('btn-next');
+  if (current === activeBank.length - 1) {
+    nextBtn.textContent = 'Finish Quiz';
+    nextBtn.onclick = showResults;
+  } else {
+    nextBtn.textContent = 'Next →';
+    nextBtn.onclick = nextQ;
+  }
+  renderTracker();
+}
+
+// ─── FLAG ────────────────────────────────────────────────────────────────────
+
+function toggleFlag() {
+  flags[current] = !flags[current];
+  saveSession();
+  renderQuestion();
+}
+
+// ─── HIGHLIGHTER ─────────────────────────────────────────────────────────────
+function setHighlightColor(color) {
+  // 'none' = erase mode; toggling same color off clears the tool
+  if (color === 'none') {
+    hlColor = (hlColor === 'none') ? null : 'none';
+  } else {
+    hlColor = (hlColor === color) ? null : color;
+  }
+  document.querySelectorAll('.hl-btn').forEach(b => {
+    b.classList.toggle('hl-active', b.dataset.color === (hlColor || ''));
+  });
+  // Update cursor on question text
+  const qTextEl = document.getElementById('q-text');
+  qTextEl.style.cursor = hlColor ? 'text' : '';
+}
+
+function applyHighlights(text, hlList) {
+  if (!hlList || hlList.length === 0) return escapeHtml(text);
+  // Sort and merge overlapping ranges by color precedence
+  const sorted = [...hlList].sort((a, b) => a.start - b.start);
+  let result = '';
+  let pos = 0;
+  for (const hl of sorted) {
+    if (hl.start > pos) result += escapeHtml(text.slice(pos, hl.start));
+    if (hl.end > hl.start) result += `<mark class="hl-${hl.color}">${escapeHtml(text.slice(hl.start, hl.end))}</mark>`;
+    pos = Math.max(pos, hl.end);
+  }
+  if (pos < text.length) result += escapeHtml(text.slice(pos));
+  return result;
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+function setupHighlighter() {
+  // Attach to the stable .question-card parent — q-text's innerHTML is replaced on
+  // every renderQuestion() call, which silently drops listeners bound directly to it.
+  const card = document.querySelector('.question-card');
+  card.addEventListener('mouseup', handleTextSelection);
+  card.addEventListener('touchend', handleTextSelection);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setupHighlighter();
+  checkForSavedSession();
+});
+
+function getTextOffset(container, node, nodeOffset) {
+  // Walk the text nodes inside container, summing characters until we reach (node, nodeOffset)
+  let offset = 0;
+  const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT, null, false);
+  while (walker.nextNode()) {
+    const current = walker.currentNode;
+    if (current === node) {
+      offset += nodeOffset;
+      return offset;
+    }
+    offset += current.nodeValue.length;
+  }
+  return offset;
+}
+
+function handleTextSelection() {
+  if (!hlColor) return;
+  const sel = window.getSelection();
+  if (!sel || sel.isCollapsed) return;
+  const qTextEl = document.getElementById('q-text');
+  if (!qTextEl) return;
+  const range = sel.getRangeAt(0);
+  // Only act on selections within the question text element
+  if (!qTextEl.contains(range.commonAncestorContainer)) return;
+
+  // Compute offsets relative to the plain text using tree walker (robust to <mark> child nodes)
+  const startOffset = getTextOffset(qTextEl, range.startContainer, range.startOffset);
+  const selectedText = range.toString();
+  const endOffset = startOffset + selectedText.length;
+
+  if (endOffset <= startOffset) return;
+
+  const qHighlights = highlights[current];
+
+  if (hlColor === 'none') {
+    // Remove any highlights that overlap this range
+    highlights[current] = qHighlights.filter(h => h.end <= startOffset || h.start >= endOffset);
+  } else {
+    // Remove overlapping ranges, then add new one
+    highlights[current] = qHighlights.filter(h => h.end <= startOffset || h.start >= endOffset);
+    highlights[current].push({ start: startOffset, end: endOffset, color: hlColor });
+    // Re-sort
+    highlights[current].sort((a, b) => a.start - b.start);
+  }
+
+  sel.removeAllRanges();
+  saveSession();
+  renderQuestion();
+}
+
+function selectAnswer(i) {
+  answers[current] = i;
+  updateLiveScore();
+  saveSession();
+  renderQuestion();
+}
+
+function nextQ() {
+  if (current < activeBank.length - 1) { current++; saveSession(); renderQuestion(); }
+}
+
+function prevQ() {
+  if (current > 0) { current--; saveSession(); renderQuestion(); }
+}
+
+function goToQuestion(i) {
+  current = i;
+  saveSession();
+  renderQuestion();
+}
+
+function renderTracker() {
+  const trackerEl = document.getElementById('q-tracker');
+  if (!trackerEl) return;
+  trackerEl.innerHTML = '';
+  activeBank.forEach((q, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'tracker-dot';
+    if (i === current) dot.classList.add('current');
+    if (answers[i] !== null) {
+      if (activeQuizMode === 'nontutored') {
+        dot.classList.add('answered');
+      } else {
+        dot.classList.add(answers[i] === q.ans ? 'correct' : 'wrong');
+      }
+    }
+    dot.textContent = i + 1;
+    if (flags[i]) {
+      const flagMark = document.createElement('span');
+      flagMark.className = 'flag-mark';
+      flagMark.textContent = '🚩';
+      dot.appendChild(flagMark);
+    }
+    dot.title = `Question ${i + 1}` + (flags[i] ? ' (flagged)' : '');
+    dot.onclick = () => goToQuestion(i);
+    trackerEl.appendChild(dot);
+  });
+}
+
+function updateLiveScore() {
+  const answered = answers.filter(a => a !== null).length;
+  if (activeQuizMode === 'nontutored') {
+    // Non-tutored: never reveal correctness before the quiz is submitted
+    document.getElementById('live-score').textContent = activeBank.length
+      ? `Answered: ${answered} / ${activeBank.length}`
+      : 'Score: — / —';
+    return;
+  }
+  const correct = answers.filter((a, i) => a !== null && a === activeBank[i].ans).length;
+  document.getElementById('live-score').textContent = answered > 0 ? `Score: ${correct} / ${answered}` : 'Score: — / —';
+}
+
+function showResults() {
+  const correct = answers.filter((a, i) => a !== null && a === activeBank[i].ans).length;
+  const wrong = answers.filter((a, i) => a !== null && a !== activeBank[i].ans).length;
+  const total = activeBank.length;
+  const pct = total > 0 ? Math.round((correct / total) * 100) : 0;
+  const flaggedCount = flags.filter(Boolean).length;
+
+  // Save this attempt to the signed-in user's history (no-op if not signed in)
+  if (window.saveExamAttempt) {
+    const wrongDetails = activeBank
+      .map((q, i) => ({ q, i }))
+      .filter(({ q, i }) => answers[i] !== null && answers[i] !== q.ans)
+      .map(({ q, i }) => ({
+        q: q.q,
+        opts: q.opts,
+        yourAnswer: answers[i],
+        correctAnswer: q.ans,
+        exp: q.exp,
+        lecture: q.lecture || null,
+      }));
+    window.saveExamAttempt(EXAM_NAME, activeBankKey, correct, total, activeQuizMode, wrongDetails);
+  }
+
+  document.getElementById('final-score-num').textContent = correct;
+  document.getElementById('score-denom').textContent = `/ ${total}`;
+  document.getElementById('r-correct').textContent = correct;
+  document.getElementById('r-wrong').textContent = wrong;
+  document.getElementById('r-pct').textContent = pct + '%';
+  document.getElementById('r-flagged').textContent = flaggedCount;
+  document.getElementById('btn-review-flagged').style.display = flaggedCount > 0 ? 'inline-flex' : 'none';
+
+  let heading, msg;
+  if (pct >= 90) { heading = 'Exceptional Work! 🎉'; msg = 'Outstanding performance. You have mastered this material.'; }
+  else if (pct >= 80) { heading = 'Well Done! 💪'; msg = 'Strong performance. Review the questions you missed for perfection.'; }
+  else if (pct >= 70) { heading = 'Good Effort! 📚'; msg = 'Solid foundation. Review the explanations for missed questions.'; }
+  else if (pct >= 60) { heading = 'Keep Studying! 🔍'; msg = "You're making progress. Focus on weak areas and retry."; }
+  else { heading = 'More Review Needed 📖'; msg = "Don't be discouraged. Review the explanations and try again."; }
+
+  document.getElementById('result-heading').textContent = heading;
+  document.getElementById('result-msg').textContent = msg;
+
+  document.getElementById('screen-quiz').style.display = 'none';
+  document.getElementById('screen-results').style.display = 'block';
+  document.body.classList.remove('tracker-active');
+  document.getElementById('q-tracker').classList.remove('show');
+  clearSession();
+}
+
+function retake() {
+  current = 0;
+  activeBank = activeBank.map(q => {
+    // Re-randomize answer order on retake
+    const origOpts = [...q.opts];
+    const correctText = origOpts[q.ans];
+    shuffle(origOpts);
+    return { ...q, opts: origOpts, ans: origOpts.indexOf(correctText) };
+  });
+  shuffle(activeBank);
+  answers = new Array(activeBank.length).fill(null);
+  document.getElementById('screen-results').style.display = 'none';
+  document.getElementById('screen-quiz').style.display = 'block';
+  updateLiveScore();
+  renderQuestion();
+}
+
+function backToMenu() {
+  clearSession();
+  document.body.classList.remove('tracker-active');
+  document.getElementById('q-tracker').classList.remove('show');
+  document.getElementById('screen-results').style.display = 'none';
+  document.getElementById('screen-review').style.display = 'none';
+  document.getElementById('screen-quiz').style.display = 'none';
+  document.getElementById('screen-start').style.display = 'block';
+  document.getElementById('live-score').textContent = 'Score: — / —';
+  document.getElementById('progress-fill').style.width = '0%';
+}
+
+function showReview(mode) {
+  mode = mode || 'all';
+  document.getElementById('screen-results').style.display = 'none';
+  document.getElementById('screen-review').style.display = 'block';
+  document.getElementById('review-subtitle').textContent = `${activeBank.length} questions reviewed`;
+  // Show flagged filter button only if there are flagged questions
+  const hasFlagged = flags.some(Boolean);
+  document.getElementById('rf-flagged').style.display = hasFlagged ? 'inline-flex' : 'none';
+  setFilterActive(mode);
+  renderReview(mode);
+}
+
+function backToResults() {
+  document.getElementById('screen-review').style.display = 'none';
+  document.getElementById('screen-results').style.display = 'block';
+}
+
+function setFilterActive(mode) {
+  ['all','wrong','correct','flagged'].forEach(m => {
+    const el = document.getElementById('rf-' + m);
+    if (el) el.classList.toggle('btn-filter-active', m === mode);
+  });
+}
+
+function filterReview(mode) {
+  setFilterActive(mode);
+  renderReview(mode);
+}
+
+function renderReview(mode) {
+  const letters = ['A','B','C','D','E','F'];
+  const list = document.getElementById('review-list');
+  list.innerHTML = '';
+  activeBank.forEach((q, i) => {
+    const userAns = answers[i];
+    const isCorrect = userAns !== null && userAns === q.ans;
+    const isSkipped = userAns === null;
+    const isFlagged = flags[i];
+    if (mode === 'wrong' && (isCorrect || isSkipped)) return;
+    if (mode === 'correct' && !isCorrect) return;
+    if (mode === 'flagged' && !isFlagged) return;
+    const div = document.createElement('div');
+    div.className = `review-item ${isSkipped ? 'review-skipped' : isCorrect ? 'review-correct' : 'review-wrong'}`;
+    const statusText = isSkipped ? 'SKIPPED' : isCorrect ? 'CORRECT' : 'WRONG';
+    const statusClass = isSkipped ? 'skipped' : isCorrect ? 'correct' : 'wrong';
+    let optsHtml = q.opts.map((opt, j) => {
+      let cls = '';
+      if (j === q.ans) cls = 'opt-correct';
+      else if (j === userAns) cls = 'opt-wrong';
+      return `<li class="review-opt ${cls}"><span class="review-opt-letter">${letters[j]}</span><span>${opt}</span></li>`;
+    }).join('');
+    div.innerHTML = `
+      <div class="review-header">
+        <div class="review-tag">
+          <span class="review-num">Q${i + 1}</span>
+          <span class="lecture-tag" style="margin-bottom:0">${q.lecture}</span>
+        </div>
+        <span class="review-status ${statusClass}">${statusText}</span>
+      </div>
+      <p class="review-q">${q.q}</p>
+      <ul class="review-opts">${optsHtml}</ul>
+      <div class="review-exp"><strong>Explanation:</strong> ${q.exp}</div>`;
+    list.appendChild(div);
+  });
+  if (list.innerHTML === '') list.innerHTML = '<p style="color:var(--muted);text-align:center;padding:40px 0">No questions in this filter.</p>';
+}
+</script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="auth.js"></script>
+</body>
+</html>
