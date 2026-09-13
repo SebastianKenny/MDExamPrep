@@ -89,12 +89,9 @@
   .set-card .q-count { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--accent); margin-top: 10px; }
   .set-card.all-card h3 { color: var(--accent); }
   .set-card.all-card { border-color: rgba(62,207,142,0.3); }
-  .set-card.cardio-card h3 { color: #e07b3e; }
-  .set-card.cardio-card { border-color: rgba(224,123,62,0.25); }
-  .set-card.cardio-card:hover { border-color: var(--accent3); background: rgba(224,123,62,0.06); }
-  .set-card.all-cardio-card { border-color: rgba(224,123,62,0.4); }
-  .set-card.all-cardio-card h3 { color: var(--accent3); }
-  .set-card.all-cardio-card:hover { border-color: var(--accent3); background: rgba(224,123,62,0.08); }
+  .set-card.all-quiz-card { border-color: rgba(224,123,62,0.4); }
+  .set-card.all-quiz-card h3 { color: var(--accent3); }
+  .set-card.all-quiz-card:hover { border-color: var(--accent3); background: rgba(224,123,62,0.08); }
 
   #screen-quiz { display: none; }
   #q-tracker {
@@ -284,8 +281,8 @@
 
   <!-- START SCREEN -->
   <div id="screen-start">
-    <h2>The failing heart,<br><em>is afterload sensitive.</em></h2>
-    <p>Comprehensive cardiology question bank for INDE 221 — covering all 127 learning objectives across blood flow, autonomic pharmacology, heart failure, ischemic heart disease, valvular disease, congenital heart disease, and more. Select a section or tackle everything.</p>
+    <h2>Don't be a silent mutation —<br><em>express what you know.</em></h2>
+    <p>150 practice questions spanning genome structure, repeat expansion disorders, hemoglobinopathies, DNA replication &amp; repair, molecular techniques, CRISPR, translation, cell signaling, and adaptive immunity.</p>
 
     <div class="mode-select-wrap">
       <div class="mode-select-label">Before you begin — choose a mode</div>
@@ -302,94 +299,13 @@
     </div>
 
     <div class="set-grid" style="grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); margin-bottom:8px;">
-      <div class="set-card all-cardio-card" onclick="startQuiz('all')">
-        <h3>Everything</h3>
-        <p>Full randomized mix of all 447 comprehensive cardiology questions</p>
-        <div class="q-count">447 QUESTIONS</div>
-      </div>
-    </div>
-
-    <hr class="section-divider">
-    <div class="section-label">❤️ Cardiology — by topic</div>
-    <div class="set-grid">
-      <div class="set-card cardio-card" onclick="startQuiz('blood_flow')">
-        <h3>Blood Flow, Pressure & Resistance</h3>
-        <p>Poiseuille's law, viscosity, velocity, parallel vs. series circuits</p>
-        <div class="q-count">23 QUESTIONS</div>
-      </div>
-      <div class="set-card cardio-card" onclick="startQuiz('autonomic')">
-        <h3>Autonomic Nervous System</h3>
-        <p>Baroreceptors, muscarinic/nicotinic, clonidine, organophosphates</p>
-        <div class="q-count">4 QUESTIONS</div>
-      </div>
-      <div class="set-card cardio-card" onclick="startQuiz('cardiac_exam')">
-        <h3>Cardiac Exam & Heart Sounds</h3>
-        <p>Murmurs, S1–S4, gallops, innocent murmurs, S2 splitting</p>
-        <div class="q-count">14 QUESTIONS</div>
-      </div>
-      <div class="set-card cardio-card" onclick="startQuiz('auto_drugs')">
-        <h3>Autonomic Pharmacology</h3>
-        <p>Cholinomimetics, anticholinergics, MAO inhibitors, drug interactions</p>
-        <div class="q-count">3 QUESTIONS</div>
-      </div>
-      <div class="set-card cardio-card" onclick="startQuiz('cardiomyopathy')">
-        <h3>Cardiomyopathy</h3>
-        <p>DCM, HCM, restrictive, amyloid, biopsy findings</p>
-        <div class="q-count">3 QUESTIONS</div>
-      </div>
-      <div class="set-card cardio-card" onclick="startQuiz('heart_failure')">
-        <h3>Heart Failure</h3>
-        <p>Carvedilol, milrinone, spironolactone, sacubitril/valsartan</p>
-        <div class="q-count">4 QUESTIONS</div>
-      </div>
-      <div class="set-card cardio-card" onclick="startQuiz('arterial')">
-        <h3>Arterial Pressure & Compliance</h3>
-        <p>Pulse pressure, stiffness, narrow PP, cardiogenic shock</p>
-        <div class="q-count">12 QUESTIONS</div>
-      </div>
-      <div class="set-card cardio-card" onclick="startQuiz('coronary')">
-        <h3>Coronary Circulation & IHD</h3>
-        <p>Collaterals, stunning, papillary rupture, STEMI territory</p>
-        <div class="q-count">24 QUESTIONS</div>
-      </div>
-      <div class="set-card cardio-card" onclick="startQuiz('acs')">
-        <h3>Angina & ACS Management</h3>
-        <p>Nitrate tolerance, NSTEMI vs UA, clopidogrel-PPI interaction</p>
-        <div class="q-count">3 QUESTIONS</div>
-      </div>
-      <div class="set-card cardio-card" onclick="startQuiz('athero_htn')">
-        <h3>Atherosclerosis, Lipids & HTN</h3>
-        <p>Foam cells, statins, PCSK9i, JNC guidelines, end-organ damage</p>
-        <div class="q-count">89 QUESTIONS</div>
-      </div>
-      <div class="set-card cardio-card" onclick="startQuiz('endocarditis')">
-        <h3>Endocarditis, Myocarditis & ARF</h3>
-        <p>Duke criteria, Kawasaki, rheumatic fever, giant cell myocarditis</p>
-        <div class="q-count">50 QUESTIONS</div>
-      </div>
-      <div class="set-card cardio-card" onclick="startQuiz('valvular')">
-        <h3>Valvular Heart Disease</h3>
-        <p>AS, AR, MS, MR, TAVR, prosthetic valves, Doppler gradients</p>
-        <div class="q-count">40 QUESTIONS</div>
-      </div>
-      <div class="set-card cardio-card" onclick="startQuiz('pvd_lymph')">
-        <h3>PVD & Lymphatics</h3>
-        <p>PAD, ABI, AAA, Starling forces, edema, lymphangitis</p>
-        <div class="q-count">48 QUESTIONS</div>
-      </div>
-      <div class="set-card cardio-card" onclick="startQuiz('chd')">
-        <h3>Congenital Heart Disease</h3>
-        <p>VSD, ASD, TGA, TOF, Eisenmenger, HLHS, coarctation</p>
-        <div class="q-count">77 QUESTIONS</div>
-      </div>
-      <div class="set-card cardio-card" onclick="startQuiz('exercise')">
-        <h3>Exercise & Hemorrhagic Shock</h3>
-        <p>VO₂max, anaerobic threshold, DIC, compensatory mechanisms</p>
-        <div class="q-count">53 QUESTIONS</div>
+      <div class="set-card all-quiz-card" onclick="startQuiz('all')">
+        <h3>Start Now!</h3>
+        <p>Full randomized mix of all 150 GENE 202 midterm practice questions</p>
+        <div class="q-count">150 QUESTIONS</div>
       </div>
     </div>
   </div>
-
   <!-- QUIZ SCREEN -->
   <div id="screen-quiz">
     <div class="quiz-toolbar">
@@ -524,7 +440,7 @@ let hlColor = null;    // current highlighter color ('yellow','green','pink','bl
 let highlights = [];   // array of {start,end,color} per question stored as: highlights[qIdx] = [{start,end,color}]
 
 // ─── SESSION PERSISTENCE ─────────────────────────────────────────────────────
-const SESSION_KEY = 'inde221_cardio_session';
+const SESSION_KEY = 'gene202_session';
 
 function saveSession() {
   if (!activeBank.length) return;
@@ -547,16 +463,7 @@ function clearSession() {
 }
 
 function bankLabel(key) {
-  const labels = {
-    blood_flow:'Blood Flow, Pressure & Resistance', autonomic:'Autonomic Nervous System',
-    cardiac_exam:'Cardiac Exam & Heart Sounds', auto_drugs:'Autonomic Pharmacology',
-    cardiomyopathy:'Cardiomyopathy', heart_failure:'Heart Failure',
-    arterial:'Arterial Pressure & Compliance', coronary:'Coronary Circulation & IHD',
-    acs:'Angina & ACS Management', athero_htn:'Atherosclerosis, Lipids & HTN',
-    endocarditis:'Endocarditis, Myocarditis & ARF', valvular:'Valvular Heart Disease',
-    pvd_lymph:'PVD & Lymphatics', chd:'Congenital Heart Disease', exercise:'Exercise & Hemorrhagic Shock'
-  };
-  return labels[key] || key;
+  return key;
 }
 
 // ─── QUIZ MODE (tutored / non-tutored) ───────────────────────────────────────
