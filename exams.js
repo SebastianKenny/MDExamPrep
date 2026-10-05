@@ -29,6 +29,14 @@ const EXAMS = [
     questionCount: 284,
   },
   {
+    section: "Renal & Endocrine",
+    icon: "🫘",
+    title: "Exam 2 — Renal & Endocrine",
+    description: "Second-order thinking questions across 13 topics, from AKI, CKD to Bones, Thyroid, and Adrenals.",
+    file: "Renal_Endo_Quiz2.html",
+    questionCount: 270,
+  },
+  {
     section: "Cardiology",
     icon: "❤️",
     title: "Exam 1 — Cardiology",
