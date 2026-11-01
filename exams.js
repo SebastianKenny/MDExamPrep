@@ -21,6 +21,14 @@
 
 const EXAMS = [
   {
+    section: "Gastrointestinal/Liver & Reproductive Health",
+    icon: "🫃",
+    title: "Exam 3 - GI & Reproductive Health",
+    description: "400 multi-step clinical vignette questions spanning GI pathology/physiology/hormones plus labor, pregnancy complications, menstrual physiology, uterine/ovarian pathology, STIs, and hormone therapy/testicular physiology.",
+    file: "GI_Repro_Quiz.html",
+    questionCount: 400,
+  },
+  {
     section: "Renal & Endocrine",
     icon: "🫘",
     title: "Exam 1 — Renal & Endocrine",
