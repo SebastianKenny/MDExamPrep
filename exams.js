@@ -29,6 +29,14 @@ const EXAMS = [
     questionCount: 400,
   },
   {
+    section: "Gastrointestinal/Liver & Reproductive Health",
+    icon: "🫃",
+    title: "Exam 4 - GI & Reproductive Health",
+    description: "348 multi-step clinical vignette questions spanning liver/biliary/pancreatic pathology and physiology (cirrhosis, hepatitis, transplant, tumors) plus reproductive health (contraception, breast disease, pelvic pain, reproductive anatomy, prostate/testicular disease, abortion care).",
+    file: "GI_Repro_Quiz_2.html",
+    questionCount: 348,
+  },
+  {
     section: "Renal & Endocrine",
     icon: "🫘",
     title: "Exam 1 — Renal & Endocrine",
